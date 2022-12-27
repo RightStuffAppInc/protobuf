@@ -1,0 +1,93 @@
+syntax = "proto3";
+
+service Users {
+    rpc CreateUser(CreateUserRequest) returns (UserReply) {}
+    rpc GetUser(GetUserRequest) returns (UserReply) {}
+    rpc UpdateUser(UpdateUserRequest) returns (UserReply) {}
+    rpc DeleteUser(DeleteUserRequest) returns (UserReply) {}
+
+    rpc SearchUsers(SearchUsersRequest) returns (UsersReply) {}
+
+    rpc ExportUsers(ExportUsersRequest) returns (ExportUsersReply) {}
+}
+
+enum Gender {
+    UNKNOWN = 0;
+    MALE = 1;
+    FEMALE = 2;
+}
+
+message PhoneNumber {
+    string country = 1;
+    string number = 2;
+}
+
+message Location {
+    string country = 1;
+    string state = 2;
+    string city = 3;
+}
+
+message Birthday {
+    int32 year = 1;
+    int32 month = 2;
+    int32 day = 3;
+}
+
+message Metadata {
+    string user_id = 1;
+    bool is_exists = 2;
+    string timestamp = 3;
+    string created_at = 4;
+    string updated_at = 5;
+}
+
+message UserReply {
+    Metadata metadata = 1;
+    string first_name = 2;
+    string last_name = 3;
+    Gender gender = 4;
+    Birthday birthday = 5;
+    PhoneNumber phone = 6;
+    string email = 7;
+}
+
+message UsersReply {
+    repeated UserReply users = 1;
+    string next = 2;
+}
+
+message CreateUserRequest {
+    string user_id = 1;
+}
+
+message GetUserRequest {
+    string user_id = 1;
+}
+
+message UpdateUserRequest {
+    string user_id = 1;
+    optional string first_name = 2;
+    optional string last_name = 3;
+    optional Gender gender = 4;
+    optional Birthday birthday = 5;
+    optional PhoneNumber phone = 6;
+    optional string email = 7;
+}
+
+message DeleteUserRequest {
+    string user_id = 1;
+}
+
+message SearchUsersRequest {
+    string query = 1;
+}
+
+message ExportUsersRequest {}
+
+message ExportUsersReply {
+    int32 total = 1;
+    string start_time = 2;
+    string end_time = 3;
+    string duration = 4;
+}
