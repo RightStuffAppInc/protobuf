@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+service Reset {
+    rpc ResetMongoDB(ResetMongoDBRequest) returns (ResetMongoDBReply) {}
+}
+
+message ResetMongoDBRequest {
+    string name = 1;
+}
+message ResetMongoDBReply {}

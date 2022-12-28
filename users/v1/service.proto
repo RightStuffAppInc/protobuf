@@ -4,7 +4,7 @@ service Users {
     rpc CreateUser(CreateUserRequest) returns (UserReply) {}
     rpc GetUser(GetUserRequest) returns (UserReply) {}
     rpc UpdateUser(UpdateUserRequest) returns (UserReply) {}
-    rpc DeleteUser(DeleteUserRequest) returns (UserReply) {}
+    rpc DeleteUser(DeleteUserRequest) returns (DeleteUserReply) {}
 
     rpc SearchUsers(SearchUsersRequest) returns (UsersReply) {}
 
@@ -36,7 +36,6 @@ message Birthday {
 
 message Metadata {
     string user_id = 1;
-    bool is_exists = 2;
     string timestamp = 3;
     string created_at = 4;
     string updated_at = 5;
@@ -50,6 +49,7 @@ message UserReply {
     Birthday birthday = 5;
     PhoneNumber phone = 6;
     string email = 7;
+    string bio = 8;
 }
 
 message UsersReply {
@@ -73,9 +73,13 @@ message UpdateUserRequest {
     optional Birthday birthday = 5;
     optional PhoneNumber phone = 6;
     optional string email = 7;
+    optional string bio = 8;
 }
 
 message DeleteUserRequest {
+    string user_id = 1;
+}
+message DeleteUserReply {
     string user_id = 1;
 }
 
