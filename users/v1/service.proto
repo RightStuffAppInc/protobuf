@@ -45,7 +45,7 @@ message Height {
 }
 
 message Hometown {
-    string Country = 1;
+    string country = 1;
     string state = 2;
     string city = 3;
 }
@@ -72,6 +72,18 @@ enum Kids {
     KIDS_NOT_SURE = 5;
 }
 
+enum Religion {
+    RELIGION_UNKNOWN = 0;
+    RELIGION_BUDDHIST = 1;
+    RELIGION_CATHOLIC = 2;
+    RELIGION_CHRISTIAN = 3;
+    RELIGION_HINDU = 4;
+    RELIGION_JEWISH = 5;
+    RELIGION_MUSLIM = 6;
+    RELIGION_SPIRITUAL = 7;
+    RELIGION_NON_PRACTICING = 8;
+}
+
 message UserReply {
     Metadata metadata = 1;
     string first_name = 2;
@@ -86,11 +98,10 @@ message UserReply {
     Hometown hometown = 11;
     string occupation = 12;
     string education = 13;
-    string religion = 14;
+    Religion religion = 14;
     Range drink = 15;
     Range smoke = 16;
-    string siblings = 17;
-    Kids kids = 18;
+    Kids kids = 17;
 }
 
 message UsersReply {
@@ -120,11 +131,10 @@ message UpdateUserRequest {
     optional Hometown hometown = 11;
     optional string occupation = 12;
     optional string education = 13;
-    optional string religion = 14;
+    optional Religion religion = 14;
     optional Range drink = 15;
     optional Range smoke = 16;
-    optional string siblings = 17;
-    optional Kids kids = 18;
+    optional Kids kids = 17;
 }
 
 message DeleteUserRequest {
