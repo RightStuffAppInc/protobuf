@@ -12,9 +12,9 @@ service Users {
 }
 
 enum Gender {
-    UNKNOWN = 0;
-    MALE = 1;
-    FEMALE = 2;
+    GENDER_UNKNOWN = 0;
+    GENDER_MALE = 1;
+    GENDER_FEMALE = 2;
 }
 
 message PhoneNumber {
@@ -34,11 +34,42 @@ message Birthday {
     int32 day = 3;
 }
 
+enum Length {
+    LENGTH_IN = 0;
+    LENGTH_CM = 1;
+}
+
+message Height {
+    int32 magnitude = 1;
+    Length unit = 2;
+}
+
+message Hometown {
+    string Country = 1;
+    string state = 2;
+    string city = 3;
+}
+
 message Metadata {
     string user_id = 1;
     string timestamp = 3;
     string created_at = 4;
     string updated_at = 5;
+}
+
+enum Range {
+    RANGE_UNKNOWN = 0;
+    RANGE_YES = 1;
+    RANGE_NO = 2;
+    RANGE_SOMETIMES = 3;
+}
+
+enum Kids {
+    KIDS_UNKNOWN = 0;
+    KIDS_WANT = 1;
+    KIDS_OPEN = 2;
+    KIDS_HAVE = 4;
+    KIDS_NOT_SURE = 5;
 }
 
 message UserReply {
@@ -50,6 +81,16 @@ message UserReply {
     PhoneNumber phone = 6;
     string email = 7;
     string bio = 8;
+    Height height = 9;
+    string music = 10;
+    Hometown hometown = 11;
+    string occupation = 12;
+    string education = 13;
+    string religion = 14;
+    Range drink = 15;
+    Range smoke = 16;
+    string siblings = 17;
+    Kids kids = 18;
 }
 
 message UsersReply {
@@ -74,6 +115,16 @@ message UpdateUserRequest {
     optional PhoneNumber phone = 6;
     optional string email = 7;
     optional string bio = 8;
+    optional Height height = 9;
+    optional string music = 10;
+    optional Hometown hometown = 11;
+    optional string occupation = 12;
+    optional string education = 13;
+    optional string religion = 14;
+    optional Range drink = 15;
+    optional Range smoke = 16;
+    optional string siblings = 17;
+    optional Kids kids = 18;
 }
 
 message DeleteUserRequest {
