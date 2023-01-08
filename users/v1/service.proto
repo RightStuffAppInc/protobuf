@@ -90,7 +90,7 @@ message UserReply {
     string last_name = 3;
     Gender gender = 4;
     Birthday birthday = 5;
-    PhoneNumber phone = 6;
+    PhoneNumber phone_number = 6;
     string email = 7;
     string bio = 8;
     Height height = 9;
@@ -123,7 +123,7 @@ message UpdateUserRequest {
     optional string last_name = 3;
     optional Gender gender = 4;
     optional Birthday birthday = 5;
-    optional PhoneNumber phone = 6;
+    optional PhoneNumber phone_number = 6;
     optional string email = 7;
     optional string bio = 8;
     optional Height height = 9;
