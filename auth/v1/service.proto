@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+service Auth {
+    rpc SendOTP(SendOTPRequest) returns (SendOTPReply) {}
+    rpc VerifyOTP(VerifyOTPRequest) returns (AuthUserReply) {}
+
+    rpc VerifyToken(VerifyTokenRequest) returns (AuthUserReply) {}
+}
+
+message PhoneNumber {
+    string country = 1;
+    string number = 2;
+}
+
+message AuthUserReply {
+    string user_id = 1;
+}
+
+message SendOTPRequest {
+    oneof auth {
+        PhoneNumber phone_number = 1;
+        string email = 2;
+    }
+}
+
+message SendOTPReply {
+    string opt_id = 1;
+}
+
+message VerifyOTPRequest {
+    string opt_id = 1;
+    string otp = 2;
+}
+
+message VerifyTokenRequest {
+    string token = 1;
+}
