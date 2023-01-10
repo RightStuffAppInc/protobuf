@@ -7,6 +7,8 @@ service Auth {
     rpc VerifyOTP(VerifyOTPRequest) returns (AuthUserReply) {}
 
     rpc VerifyToken(VerifyTokenRequest) returns (AuthUserReply) {}
+
+    rpc GetAuth(GetAuthRequest) returns (GetAuthReply) {}
 }
 
 message AuthUserReply {
@@ -29,4 +31,18 @@ message VerifyOTPRequest {
 
 message VerifyTokenRequest {
     string token = 1;
+}
+
+message GetAuthRequest {
+    oneof auth {
+        string phone = 1;
+        string email = 2;
+    }
+}
+
+message GetAuthReply {
+    string user_id = 1;
+    string otp = 2;
+    string created_at = 3;
+    string expired_at = 4;
 }
