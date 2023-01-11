@@ -4,9 +4,10 @@ package auth;
 
 service Auth {
     rpc SendOTP(SendOTPRequest) returns (SendOTPReply) {}
-    rpc VerifyOTP(VerifyOTPRequest) returns (AuthUserReply) {}
+    rpc VerifyOTP(VerifyOTPRequest) returns (TokenReply) {}
 
     rpc VerifyToken(VerifyTokenRequest) returns (AuthUserReply) {}
+    rpc RefreshToken(RefreshTokenRequest) returns (TokenReply) {}
 
     rpc GetAuth(GetAuthRequest) returns (GetAuthReply) {}
 }
@@ -15,13 +16,17 @@ message AuthUserReply {
     string user_id = 1;
 }
 
+message TokenReply {
+    string token = 1;
+    string refresh = 2;
+}
+
 message SendOTPRequest {
     oneof auth {
         string phone = 1;
         string email = 2;
     }
 }
-
 message SendOTPReply {}
 
 message VerifyOTPRequest {
@@ -34,6 +39,10 @@ message VerifyOTPRequest {
 
 message VerifyTokenRequest {
     string token = 1;
+}
+
+message RefreshTokenRequest {
+    string refresh = 1;
 }
 
 message GetAuthRequest {
