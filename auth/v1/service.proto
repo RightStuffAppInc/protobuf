@@ -9,11 +9,22 @@ service Auth {
     rpc VerifyToken(VerifyTokenRequest) returns (AuthUserReply) {}
     rpc RefreshToken(RefreshTokenRequest) returns (TokenReply) {}
 
-    rpc GetAuth(GetAuthRequest) returns (GetAuthReply) {}
+    rpc GetAuth(GetAuthRequest) returns (AuthReply) {}
+    rpc GetToken(GetTokensRequest) returns (GetTokensReply) {}
+    
+    rpc CreateAuth(CreateAuthRequest) returns (AuthReply) {}
+    rpc UpdateAuth(UpdateAuthRequest) returns (AuthReply) {}
+    rpc DeleteAuth(DeleteAuthRequest) returns (DeleteAuthReply) {}
+}
+
+enum AuthType {
+    AUTH_TYPE_ADMIN = 0;
+    AUTH_TYPE_USER = 1;
 }
 
 message AuthUserReply {
-    string user_id = 1;
+    string auth_id = 1;
+    AuthType auth_type = 2;
 }
 
 message TokenReply {
@@ -22,18 +33,21 @@ message TokenReply {
 }
 
 message SendOTPRequest {
+    AuthType auth_type = 1;
+    bool is_silenced = 2;
     oneof auth {
-        string phone = 1;
-        string email = 2;
+        string phone = 3;
+        string email = 4;
     }
 }
 message SendOTPReply {}
 
 message VerifyOTPRequest {
-    string otp = 1;
+    AuthType auth_type = 1;
+    string otp = 2;
     oneof auth {
-        string phone = 2;
-        string email = 3;
+        string phone = 3;
+        string email = 4;
     }
 }
 
@@ -46,15 +60,60 @@ message RefreshTokenRequest {
 }
 
 message GetAuthRequest {
+    AuthType auth_type = 1;
     oneof auth {
-        string phone = 1;
-        string email = 2;
+        string phone = 2;
+        string email = 3;
+    }
+}
+message AuthReply {
+    message OTP {
+        string secret = 1;
+        bool is_verified = 2;
+        int32 attempts = 3;
+        string created_at = 4;
+        string last_attempt_at = 5;
+        string verified_at = 6;
+        string expired_at = 7;
+    }
+
+    string auth_id = 1;
+    string created_at = 2;
+    OTP otp = 3;
+    string phone = 4;
+    string email = 5;
+}
+
+message GetTokensRequest {
+    string auth_id = 1;
+}
+message GetTokensReply {
+    message Token {
+        string token_id = 1;
+        bool is_revoked = 2;
+        string created_at = 3;
+        string last_refresh_at = 4;
+        string expired_at = 5;
     }
 }
 
-message GetAuthReply {
-    string user_id = 1;
-    string otp = 2;
-    string created_at = 3;
-    string expired_at = 4;
+message CreateAuthRequest {
+    AuthType auth_type = 1;
+    oneof auth {
+        string phone = 2;
+        string email = 3;
+    }
 }
+
+message UpdateAuthRequest {
+    string auth_id = 1;
+    AuthType auth_type = 2;
+    optional string phone = 3;
+    optional string email = 4;
+}
+
+message DeleteAuthRequest {
+    string auth_id = 1;
+    AuthType auth_type = 2;
+}
+message DeleteAuthReply {}
