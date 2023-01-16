@@ -9,10 +9,11 @@ service Auth {
     rpc VerifyToken(VerifyTokenRequest) returns (AuthUserReply) {}
     rpc RefreshToken(RefreshTokenRequest) returns (TokenReply) {}
 
-    rpc GetAuth(GetAuthRequest) returns (AuthReply) {}
-    rpc GetToken(GetTokensRequest) returns (GetTokensReply) {}
+    rpc GetTokens(GetTokensRequest) returns (GetTokensReply) {}
+    rpc RevokeToken(RevokeTokenRequest) returns (RevokeTokenReply) {}
     
     rpc CreateAuth(CreateAuthRequest) returns (AuthReply) {}
+    rpc GetAuth(GetAuthRequest) returns (AuthReply) {}
     rpc UpdateAuth(UpdateAuthRequest) returns (AuthReply) {}
     rpc DeleteAuth(DeleteAuthRequest) returns (DeleteAuthReply) {}
 }
@@ -90,12 +91,19 @@ message GetTokensRequest {
 message GetTokensReply {
     message Token {
         string token_id = 1;
-        bool is_revoked = 2;
-        string created_at = 3;
-        string last_refresh_at = 4;
-        string expired_at = 5;
+        string auth_id = 2;
+        int32 num_of_refresh = 3;
+        bool is_revoked = 4;
+        string created_at = 5;
+        string last_refresh_at = 6;
     }
+    repeated Token tokens = 1;
 }
+
+message RevokeTokenRequest {
+    string token_id = 1;
+}
+message RevokeTokenReply {}
 
 message CreateAuthRequest {
     AuthType auth_type = 1;
