@@ -19,37 +19,16 @@ enum Gender {
     GENDER_FEMALE = 2;
 }
 
-message PhoneNumber {
-    string country = 1;
-    string number = 2;
-}
-
 message Location {
     string country = 1;
     string state = 2;
     string city = 3;
 }
 
-message Birthday {
+message Date {
     int32 year = 1;
     int32 month = 2;
     int32 day = 3;
-}
-
-enum Length {
-    LENGTH_IN = 0;
-    LENGTH_CM = 1;
-}
-
-message Height {
-    int32 magnitude = 1;
-    Length unit = 2;
-}
-
-message Hometown {
-    string country = 1;
-    string state = 2;
-    string city = 3;
 }
 
 message Metadata {
@@ -91,19 +70,17 @@ message UserReply {
     string first_name = 2;
     string last_name = 3;
     Gender gender = 4;
-    Birthday birthday = 5;
-    PhoneNumber phone_number = 6;
-    string email = 7;
-    string bio = 8;
-    Height height = 9;
-    string music = 10;
-    Hometown hometown = 11;
-    string occupation = 12;
-    string education = 13;
-    Religion religion = 14;
-    Range drink = 15;
-    Range smoke = 16;
-    Kids kids = 17;
+    Date birthday = 5;
+    string bio = 6;
+    int32 height = 7;
+    string music = 8;
+    Location hometown = 9;
+    string occupation = 10;
+    string education = 11;
+    Religion religion = 12;
+    Range drink = 13;
+    Range smoke = 14;
+    Kids kids = 15;
 }
 
 message UsersReply {
@@ -124,19 +101,17 @@ message UpdateUserRequest {
     optional string first_name = 2;
     optional string last_name = 3;
     optional Gender gender = 4;
-    optional Birthday birthday = 5;
-    optional PhoneNumber phone_number = 6;
-    optional string email = 7;
-    optional string bio = 8;
-    optional Height height = 9;
-    optional string music = 10;
-    optional Hometown hometown = 11;
-    optional string occupation = 12;
-    optional string education = 13;
-    optional Religion religion = 14;
-    optional Range drink = 15;
-    optional Range smoke = 16;
-    optional Kids kids = 17;
+    optional Date birthday = 5;
+    optional string bio = 6;
+    optional int32 height = 7;
+    optional string music = 8;
+    optional Location hometown = 9;
+    optional string occupation = 10;
+    optional string education = 11;
+    optional Religion religion = 12;
+    optional Range drink = 13;
+    optional Range smoke = 14;
+    optional Kids kids = 15;
 }
 
 message DeleteUserRequest {
