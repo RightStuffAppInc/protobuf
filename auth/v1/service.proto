@@ -14,6 +14,7 @@ service Auth {
     
     rpc CreateAuth(CreateAuthRequest) returns (AuthReply) {}
     rpc GetAuth(GetAuthRequest) returns (AuthReply) {}
+    rpc GetAuthByID(GetAuthByIDRequest) returns (AuthReply) {}
     rpc UpdateAuth(UpdateAuthRequest) returns (AuthReply) {}
     rpc DeleteAuth(DeleteAuthRequest) returns (DeleteAuthReply) {}
 }
@@ -83,6 +84,11 @@ message AuthReply {
     OTP otp = 3;
     string phone = 4;
     string email = 5;
+}
+
+message GetAuthByIDRequest {
+    AuthType auth_type = 1;
+    string auth_id = 2;
 }
 
 message GetTokensRequest {
