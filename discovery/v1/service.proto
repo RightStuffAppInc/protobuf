@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package discovery;
+
+service Discovery {
+    rpc UpdatePreference(UpdatePreferenceRequest) returns (PreferenceReply) {}
+
+    rpc GetUsers(GetUsersRequest) returns (UsersReply) {}
+    rpc GetEvents(GetEventsRequest) returns (EventsReply) {}
+}
+
+message UpdatePreferenceRequest {
+    string user_id = 1;
+    optional int32 max_age = 2;
+    optional int32 min_age = 3;
+    optional int32 max_distance = 4;
+    optional int32 min_distance = 5;
+}
+
+message PreferenceReply {
+    string user_id = 1;
+    int32 max_age = 2;
+    int32 min_age = 3;
+    int32 max_distance = 4;
+    int32 min_distance = 5;
+}
+
+message GetUsersRequest {
+    string user_id = 1;
+}
+
+message UsersReply {
+    repeated string user_ids = 1;
+    string next = 2;
+}
+
+message GetEventsRequest {
+    string user_id = 1;
+}
+
+message EventsReply {
+    repeated string event_ids = 1;
+    string next = 2;
+}

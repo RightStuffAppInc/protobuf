@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+package events;
+
+service Events {
+    rpc CreateEvent(CreateEventRequest) returns (EventReply) {}
+    rpc GetEvent(GetEventRequest) returns (EventReply) {}
+    rpc UpdateEvent(UpdateEventRequest) returns (EventReply) {}
+    rpc DeleteEvent(DeleteEventRequest) returns (DeleteEventReply) {}
+
+    rpc LikeEvent(LikeEventRequest) returns (LikeReply) {}
+    rpc GetEventLikes(GetEventLikesRequest) returns (LikesReply) {}
+    rpc GetUserLikes(GetUserLikesRequest) returns (LikesReply) {}
+
+    rpc GetEvents(GetEventsRequest) returns (EventsReply) {}
+}
+
+enum Visibility {
+    VISIBILITY_DEFAULT = 0;
+    VISIBILITY_LIKES = 1;
+}
+
+message EventReply {
+    string event_id = 1;
+    string creator_id = 2;
+    string title = 3;
+    string location = 4;
+    string description = 5;
+    string datetime = 6;
+    Visibility visibility = 7;
+}
+
+message EventsReply {
+    repeated EventReply events = 1;
+    string next = 2;
+}
+
+message LikeReply {
+    string event_id = 1;
+    string liker_id = 2;
+    string created_at = 3;
+}
+
+message LikesReply {
+    repeated LikeReply likes = 1;
+    string next = 2;
+}
+
+message CreateEventRequest {
+    string creator_id = 1;
+    string title = 2;
+    string location = 3;
+    string description = 4;
+    string datetime = 5;
+    Visibility visibility = 6;
+}
+
+message GetEventRequest {
+    string event_id = 1;
+}
+
+message UpdateEventRequest {
+    string event_id = 1;
+    string user_id = 2;
+}
+
+message DeleteEventRequest {
+    string event_id = 1;
+    string user_id = 2;
+}
+message DeleteEventReply {
+    string event_id = 1;
+}
+
+message LikeEventRequest {
+    string event_id = 1;
+    string user_id = 2;
+}
+
+message GetEventLikesRequest {
+    string event_id = 1;
+    string user_id = 2;
+    string cursor = 3;
+    int32 limit = 4;
+}
+
+message GetUserLikesRequest {
+    string user_id = 1;
+    string cursor = 2;
+    int32 limit = 3;
+}
+
+message GetEventsRequest {
+    string cursor = 1;
+    int32 limit = 2;
+}

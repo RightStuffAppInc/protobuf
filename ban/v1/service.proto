@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package ban;
+
+service Ban {
+    rpc GetUser(GetUserRequest) returns (UserReply) {}
+    rpc BanUser(BanUserRequest) returns (UserReply) {}
+}
+
+message UserReply {
+    string user_id = 1;
+    bool is_banned = 2;
+    string updated_at = 3;
+}
+
+message GetUserRequest {
+    string user_id = 1;
+}
+
+message BanUserRequest {
+    string user_id = 1;
+    bool is_banned = 2;
+}

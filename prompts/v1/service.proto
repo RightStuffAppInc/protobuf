@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+package prompts;
+
+service Prompts {
+    rpc CreatePrompt(CreatePromptRequest) returns (PromptReply) {}
+    rpc UpdatePrompt(UpdatePromptRequest) returns (PromptReply) {}
+    rpc DeletePrompt(DeletePromptRequest) returns (DeletePromptReply) {}
+
+    rpc GetPrompts(GetPromptsRequest) returns (PromptsReply) {}
+    
+    rpc UpdateResponse(UpdateResponseRequest) returns (ResponseReply) {}
+    rpc DeleteResponse(DeleteResponseRequest) returns (DeleteResponseReply) {}
+
+    rpc GetUserResponses(GetUserRepsonsesRequest) returns (ResponsesReply) {}
+    rpc GetPromptResponse(GetPromptResponsesRequest) returns (ResponsesReply) {}
+}
+
+message PromptReply {
+    string prompt_id = 1;
+    string title = 2;
+    string created_at = 3;
+}
+
+message PromptsReply {
+    repeated PromptReply prompts = 1;
+    string next = 2;
+}
+
+message ResponseReply {
+    string prompt_id = 1;
+    string user_id = 2;
+    string response = 3;
+    string created_at = 4;
+}
+
+message ResponsesReply {
+    repeated ResponseReply responses = 1;
+    string next = 2;
+}
+
+message CreatePromptRequest {
+    string title = 1;
+}
+
+message UpdatePromptRequest {
+    string prompt_id = 1;
+    string title = 2;
+}
+
+message DeletePromptRequest {
+    string prompt_id = 1;
+}
+message DeletePromptReply {
+    string prompt_id = 1;
+}
+
+message GetPromptsRequest {
+    string cursor = 1;
+    int32 limit = 2;
+}
+
+message UpdateResponseRequest {
+    string prompt_id = 1;
+    string user_id = 2;
+    string response = 3;
+}
+
+message DeleteResponseRequest {
+    string prompt_id = 1;
+    string user_id = 2;
+}
+message DeleteResponseReply {
+    string prompt_id = 1;
+    string user_id = 2;
+}
+
+message GetUserRepsonsesRequest {
+    string user_id = 1;
+    string cursor = 2;
+    int32 limit = 3;
+}
+
+message GetPromptResponsesRequest {
+    string prompt_id = 1;
+    string cursor = 2;
+    int32 limit = 3;
+}

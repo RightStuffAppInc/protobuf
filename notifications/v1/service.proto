@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package notifications;
+
+service Notifications {
+    rpc GetUser(GetUserRequest) returns (UserReply) {}
+    rpc UpdateUser(UpdateUserRequest) returns (UserReply) {}
+}
+
+message UserReply {
+    string user_id = 1;
+    bool likes = 2;
+    bool messages = 3;
+    bool promotions = 4;
+    bool announcements = 5;
+}
+
+message GetUserRequest {
+    string user_id = 1;
+}
+
+message UpdateUserRequest {
+    string user_id = 1;
+    optional bool likes = 2;
+    optional bool messages = 3;
+    optional bool promotions = 4;
+    optional bool announcements = 5;
+}

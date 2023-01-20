@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package invite;
+
+service Invite {
+    rpc GetUser(GetUserRequest) returns (UserReply) {}
+    rpc GetInvite(GetInviteRequest) returns (InviteReply) {}
+    rpc GetInvites(GetInvitesRequest) returns (InvitesReply) {}
+    rpc SendInvite(SendInviteRequest) returns (InvitesReply) {}
+}
+
+message UserReply {
+    string user_id = 1;
+    int32 invitesSent = 2;
+    int32 invitesLeft = 3;
+}
+
+message InviteReply {
+    string inviter_id = 1;
+    string invitee_id = 2;
+    string created_at = 3;
+}
+
+message InvitesReply {
+    repeated InviteReply invites = 1;
+    string next = 2;
+}
+
+message GetUserRequest {
+    string user_id = 1;
+}
+
+message GetInviteRequest {
+    string user_id = 1;
+}
+
+message GetInvitesRequest {
+    string user_id = 1;
+    string cursor = 2;
+    int32 limit = 3;
+}
+
+message SendInviteRequest {
+    string inviter_id = 1;
+    string invitee_id = 2;
+}

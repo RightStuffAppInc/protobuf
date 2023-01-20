@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package Messaging;
+
+service Messaging {
+    rpc GetChannel(GetChannelRequest) returns (ChannelReply) {}
+}
+
+message ChannelReply {}
+
+message GetChannelRequest {}
