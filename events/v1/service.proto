@@ -7,12 +7,14 @@ service Events {
     rpc GetEvent(GetEventRequest) returns (EventReply) {}
     rpc UpdateEvent(UpdateEventRequest) returns (EventReply) {}
     rpc DeleteEvent(DeleteEventRequest) returns (DeleteEventReply) {}
+    
+    rpc GetEvents(GetEventsRequest) returns (EventsReply) {}
 
-    rpc LikeEvent(LikeEventRequest) returns (LikeReply) {}
+    rpc CreateLike(CreateLikeRequest) returns (LikeReply) {}
+    rpc GetLike(GetLikeRequest) returns (LikeReply) {}
     rpc GetEventLikes(GetEventLikesRequest) returns (LikesReply) {}
     rpc GetUserLikes(GetUserLikesRequest) returns (LikesReply) {}
 
-    rpc GetEvents(GetEventsRequest) returns (EventsReply) {}
 }
 
 enum Visibility {
@@ -64,7 +66,7 @@ message GetEventRequest {
 
 message UpdateEventRequest {
     string event_id = 1;
-    string user_id = 2;
+    string creator_id = 2;
     optional string title = 3;
     optional string location = 4;
     optional string description = 5;
@@ -75,26 +77,31 @@ message UpdateEventRequest {
 
 message DeleteEventRequest {
     string event_id = 1;
-    string user_id = 2;
+    string creator_id = 2;
 }
 message DeleteEventReply {
     string event_id = 1;
 }
 
-message LikeEventRequest {
+message CreateLikeRequest {
     string event_id = 1;
-    string user_id = 2;
+    string liker_id = 2;
+}
+
+message GetLikeRequest {
+    string event_id = 1;
+    string liker_id = 2;
 }
 
 message GetEventLikesRequest {
     string event_id = 1;
-    string user_id = 2;
+    string creator_id = 2;
     string cursor = 3;
     int32 limit = 4;
 }
 
 message GetUserLikesRequest {
-    string user_id = 1;
+    string liker_id = 1;
     string cursor = 2;
     int32 limit = 3;
 }
