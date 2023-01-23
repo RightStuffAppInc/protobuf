@@ -26,7 +26,7 @@ message EventReply {
     string title = 3;
     string location = 4;
     string description = 5;
-    string datetime = 6;
+    string start = 6;
     Visibility visibility = 7;
 }
 
@@ -51,7 +51,7 @@ message CreateEventRequest {
     string title = 2;
     string location = 3;
     string description = 4;
-    string datetime = 5;
+    string start = 5;
     Visibility visibility = 6;
 }
 
@@ -62,6 +62,11 @@ message GetEventRequest {
 message UpdateEventRequest {
     string event_id = 1;
     string user_id = 2;
+    optional string title = 3;
+    optional string location = 4;
+    optional string description = 5;
+    optional string start = 6;
+    optional Visibility visibility = 7;
 }
 
 message DeleteEventRequest {
