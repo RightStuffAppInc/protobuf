@@ -10,7 +10,8 @@ service Ban {
 message UserReply {
     string user_id = 1;
     bool is_banned = 2;
-    string updated_at = 3;
+    string created_at = 3;
+    string updated_at = 4;
 }
 
 message GetUserRequest {
