@@ -22,12 +22,15 @@ enum Visibility {
 
 message EventReply {
     string event_id = 1;
-    string creator_id = 2;
-    string title = 3;
-    string location = 4;
-    string description = 5;
-    string start = 6;
-    Visibility visibility = 7;
+    string created_at = 2;
+    string updated_at = 3;
+    string creator_id = 4;
+    string title = 5;
+    string location = 6;
+    string description = 7;
+    string start = 8;
+    Visibility visibility = 9;
+    bool is_finished = 10;
 }
 
 message EventsReply {
@@ -67,6 +70,7 @@ message UpdateEventRequest {
     optional string description = 5;
     optional string start = 6;
     optional Visibility visibility = 7;
+    optional bool is_finished = 8;
 }
 
 message DeleteEventRequest {
