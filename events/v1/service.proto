@@ -9,6 +9,7 @@ service Events {
     rpc DeleteEvent(DeleteEventRequest) returns (DeleteEventReply) {}
     
     rpc GetEvents(GetEventsRequest) returns (EventsReply) {}
+    rpc GetUserEvents(GetUserEventsRequest) returns (EventsReply) {}
 
     rpc CreateLike(CreateLikeRequest) returns (LikeReply) {}
     rpc GetLike(GetLikeRequest) returns (LikeReply) {}
@@ -109,4 +110,10 @@ message GetUserLikesRequest {
 message GetEventsRequest {
     string cursor = 1;
     int32 limit = 2;
+}
+
+message GetUserEventsRequest {
+    string creatore_id = 1;
+    string cursor_id = 2;
+    int32 limit = 3;
 }
