@@ -113,7 +113,7 @@ message GetEventsRequest {
 }
 
 message GetUserEventsRequest {
-    string creatore_id = 1;
-    string cursor_id = 2;
+    string creator_id = 1;
+    string cursor = 2;
     int32 limit = 3;
 }
