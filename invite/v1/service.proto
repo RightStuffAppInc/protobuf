@@ -12,7 +12,6 @@ service Invite {
 message UserReply {
     string user_id = 1;
     string inviter_id = 2;
-    bool is_approved = 3;
 }
 
 message InviteReply {
