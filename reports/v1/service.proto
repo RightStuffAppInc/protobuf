@@ -87,13 +87,13 @@ message GetReportsRequest {
 }
 
 message GetReporterRequest {
-    string user_id = 1;
+    string reporter_id = 1;
     string cursor = 2;
     int32 limit = 3;
 }
 
 message GetReporteeRequest {
-    string user_id = 1;
+    string reportee_id = 1;
     string cursor = 2;
     int32 limit = 3;
 }
