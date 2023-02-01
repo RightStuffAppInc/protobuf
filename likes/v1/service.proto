@@ -11,7 +11,8 @@ service Likes {
 message LikeReply {
     string liker_id = 1;
     string likee_id = 2;
-    string created_at = 3;
+    string message = 3;
+    string created_at = 4;
 }
 
 message LikesReply {
@@ -22,6 +23,7 @@ message LikesReply {
 message CreateLikeRequest {
     string liker_id = 1;
     string likee_id = 2;
+    string message = 3;
 }
 
 message GetLikersRequest {
