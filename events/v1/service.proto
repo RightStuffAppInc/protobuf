@@ -45,6 +45,7 @@ message LikeReply {
     string event_id = 1;
     string liker_id = 2;
     string created_at = 3;
+    string message = 4;
 }
 
 message LikesReply {
@@ -87,6 +88,7 @@ message DeleteEventReply {
 message CreateLikeRequest {
     string event_id = 1;
     string liker_id = 2;
+    string message = 3;
 }
 
 message GetLikeRequest {
@@ -96,9 +98,8 @@ message GetLikeRequest {
 
 message GetEventLikesRequest {
     string event_id = 1;
-    string creator_id = 2;
-    string cursor = 3;
-    int32 limit = 4;
+    string cursor = 2;
+    int32 limit = 3;
 }
 
 message GetUserLikesRequest {
