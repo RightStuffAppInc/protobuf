@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package bucket;
+
+service Bucket {
+    rpc CreatePAR(CreatePARRequest) returns (PARReply) {}
+}
+
+message PARReply {
+    string user_id = 1;
+    string par = 2;
+    string expires_at = 3;
+}
+
+message CreatePARRequest {
+    string user_id = 1;
+    int32 duration = 2; // seconds
+}
