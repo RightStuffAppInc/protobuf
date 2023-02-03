@@ -10,6 +10,7 @@ message PARReply {
     string user_id = 1;
     string par = 2;
     string expires_at = 3;
+    string base = 4;
 }
 
 message CreatePARRequest {
