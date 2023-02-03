@@ -6,6 +6,9 @@ service Users {
     rpc CreateUser(CreateUserRequest) returns (UserReply) {}
     rpc GetUser(GetUserRequest) returns (UserReply) {}
     rpc UpdateUser(UpdateUserRequest) returns (UserReply) {}
+    rpc UpdateProfile(UpdateProfileRequest) returns (UserReply) {}
+    rpc UpdateImage(UpdateImageRequest) returns (UserReply) {}
+    rpc SwapImages(SwapImagesRequest) returns (UserReply) {}
     rpc DeleteUser(DeleteUserRequest) returns (DeleteUserReply) {}
 
     rpc SearchUsers(SearchUsersRequest) returns (UsersReply) {}
@@ -81,6 +84,8 @@ message UserReply {
     Range drink = 13;
     Range smoke = 14;
     Kids kids = 15;
+    string profile = 16;
+    repeated string images = 17;
 }
 
 message UsersReply {
@@ -112,6 +117,23 @@ message UpdateUserRequest {
     optional Range drink = 13;
     optional Range smoke = 14;
     optional Kids kids = 15;
+}
+
+message UpdateProfileRequest {
+    string user_id = 1;
+    string profile = 2;
+}
+
+message UpdateImageRequest {
+    string user_id = 1;
+    string image = 2;
+    int32 index = 3;
+}
+
+message SwapImagesRequest {
+    string user_id = 1;
+    int32 index_1 = 2;
+    int32 index_2 = 3;
 }
 
 message DeleteUserRequest {
