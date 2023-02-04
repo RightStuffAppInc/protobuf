@@ -1,11 +1,103 @@
 syntax = "proto3";
 
-package Messaging;
+package messaging;
 
 service Messaging {
+    rpc CreateChannel(CreateChannelRequest) returns (ChannelReply) {}
     rpc GetChannel(GetChannelRequest) returns (ChannelReply) {}
+    rpc SetHiddenChannel(SetHiddenChannelRequest) returns (ChannelReply) {}
+    rpc SetUnreadChannel(SetUnreadChannelRequest) returns (ChannelReply) {}
+    rpc DeleteChannel(DeleteChannelRequest) returns (DeleteChannelReply) {}
+    
+    rpc GetChannels(GetChannelsRequest) returns (ChannelsReply) {}
+
+    rpc CreateMessage(CreateMessageRequest) returns (MessageReply) {}
+    rpc GetMessage(GetMessageRequest) returns (MessageReply) {}
+    rpc DeleteMessage(DeleteMessageRequest) returns (DeleteMessageReply) {}
+    
+    rpc GetMessages(GetMessagesRequest) returns (MessagesReply) {}
 }
 
 message ChannelReply {}
 
-message GetChannelRequest {}
+message ChannelsReply {
+    repeated ChannelReply channels = 1;
+    string next = 2;
+}
+
+message MessageReply {
+    string message_id = 1;
+    string sender_id = 2;
+}
+
+message MessagesReply {
+    repeated MessageReply messages = 1;
+    string next = 2;
+}
+
+enum MessageType {
+    TEXT = 0;
+    IMAGE = 1;
+    VIDEO = 2;
+    EVENT = 3;
+}
+
+message CreateChannelRequest {
+    repeated string member_ids = 1;
+}
+
+message GetChannelRequest {
+    string channel_id = 1;
+}
+
+message GetChannelsRequest {
+    string user_id = 1;
+    string cursor = 2;
+    int32 limit = 3;
+}
+
+message SetHiddenChannelRequest {
+    string user_id = 1;
+    string channel_id = 2;
+    bool is_hidden = 3;
+}
+
+message SetUnreadChannelRequest {
+    string user_id = 1;
+    string channel_id = 2;
+    bool is_unread = 3;
+}
+
+message DeleteChannelRequest {
+    string channel_id = 1;
+}
+message DeleteChannelReply {
+    string channel_id = 1;
+}
+
+message CreateMessageRequest {
+    string channel_id = 1;
+    string sender_id = 2;
+    MessageType type = 3;
+    string payload = 4;
+    string created_at = 5;
+}
+
+message GetMessageRequest {
+    string message_id = 1;
+}
+
+message DeleteMessageRequest {
+    string user_id = 1;
+    string message_id = 2;
+}
+message DeleteMessageReply {
+    string message_id = 1;
+}
+
+message GetMessagesRequest {
+    string user_id = 1;
+    string channel_id = 2;
+    string cursor = 3;
+    int32 limit = 4;
+}
