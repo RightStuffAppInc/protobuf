@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package block;
+
+service Block {
+    rpc UpdateBlock(UpdateBlockRequest) returns (BlockReply) {}
+    rpc GetBlock(GetBlockRequest) returns (BlockReply) {}
+}
+
+message BlockReply {
+    string blocker_id = 1;
+    string blockee_id = 2;
+    bool is_blocked = 3;
+    string updated_at = 4;
+}
+
+message UpdateBlockRequest {
+    string blocker_id = 1;
+    string blockee_id = 2;
+    bool is_blocked = 3;
+}
+
+message GetBlockRequest {
+    string blocker_id = 1;
+    string blockee_id = 2;
+}
+

@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package likes;
+
+service Likes {
+    rpc CreateLike(CreateLikeRequest) returns (LikeReply) {}
+    rpc GetLikers(GetLikersRequest) returns (LikesReply) {}
+    rpc GetLikees(GetLikeesRequest) returns (LikesReply) {}
+}
+
+message LikeReply {
+    string liker_id = 1;
+    string likee_id = 2;
+    string message = 3;
+    string created_at = 4;
+}
+
+message LikesReply {
+    repeated LikeReply likes = 1;
+    string next = 2;
+}
+
+message CreateLikeRequest {
+    string liker_id = 1;
+    string likee_id = 2;
+    string message = 3;
+}
+
+message GetLikersRequest {
+    string likee_id = 1;
+    string cursor = 2;
+    int32 limit = 3;
+}
+
+message GetLikeesRequest {
+    string liker_id = 1;
+    string cursor = 2;
+    int32 limit = 3;
+}

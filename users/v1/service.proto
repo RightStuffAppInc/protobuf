@@ -8,6 +8,9 @@ service Users {
     rpc CreateUser(CreateUserRequest) returns (UserReply) {}
     rpc GetUser(GetUserRequest) returns (UserReply) {}
     rpc UpdateUser(UpdateUserRequest) returns (UserReply) {}
+    rpc UpdateProfile(UpdateProfileRequest) returns (UserReply) {}
+    rpc UpdateImage(UpdateImageRequest) returns (UserReply) {}
+    rpc SwapImages(SwapImagesRequest) returns (UserReply) {}
     rpc DeleteUser(DeleteUserRequest) returns (DeletedUserReply) {}
 
     rpc SearchUsers(SearchUsersRequest) returns (UsersReply) {}
@@ -20,7 +23,7 @@ service Users {
 }
 
 enum Gender {
-    GENDER_UNKNOWN = 0;
+    GENDER_NONE = 0;
     GENDER_MALE = 1;
     GENDER_FEMALE = 2;
 }
@@ -45,14 +48,14 @@ message Metadata {
 }
 
 enum Range {
-    RANGE_UNKNOWN = 0;
+    RANGE_NONE = 0;
     RANGE_YES = 1;
     RANGE_NO = 2;
     RANGE_SOMETIMES = 3;
 }
 
 enum Kids {
-    KIDS_UNKNOWN = 0;
+    KIDS_NONE = 0;
     KIDS_WANT = 1;
     KIDS_OPEN = 2;
     KIDS_HAVE = 4;
@@ -60,7 +63,7 @@ enum Kids {
 }
 
 enum Religion {
-    RELIGION_UNKNOWN = 0;
+    RELIGION_NONE = 0;
     RELIGION_BUDDHIST = 1;
     RELIGION_CATHOLIC = 2;
     RELIGION_CHRISTIAN = 3;
@@ -87,6 +90,8 @@ message UserReply {
     Range drink = 13;
     Range smoke = 14;
     Kids kids = 15;
+    string profile = 16;
+    repeated string images = 17;
 }
 
 message UsersReply {
@@ -122,6 +127,23 @@ message UpdateUserRequest {
     optional Range drink = 13;
     optional Range smoke = 14;
     optional Kids kids = 15;
+}
+
+message UpdateProfileRequest {
+    string user_id = 1;
+    string profile = 2;
+}
+
+message UpdateImageRequest {
+    string user_id = 1;
+    string image = 2;
+    int32 index = 3;
+}
+
+message SwapImagesRequest {
+    string user_id = 1;
+    int32 index_1 = 2;
+    int32 index_2 = 3;
 }
 
 message DeleteUserRequest {

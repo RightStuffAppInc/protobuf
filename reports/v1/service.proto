@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+package reports;
+
+service Reports {
+    rpc CreateReason(CreateReasonRequest) returns (ReasonReply) {}
+    rpc GetReason(GetReasonRequest) returns (ReasonReply) {}
+    rpc UpdateReason(UpdateReasonRequest) returns (ReasonReply) {}
+    rpc DeleteReason(DeleteReasonRequest) returns (DeleteReasonReply) {}
+
+    rpc GetReasons(GetReasonsRequest) returns (ReasonsReply) {}
+
+    rpc CreateReport(CreateReportRequest) returns (ReportReply) {}
+    rpc DeleteReport(DeleteReportRequest) returns (DeleteReportReply) {}
+
+    rpc GetReports(GetReportsRequest) returns (ReportsReply) {}
+    rpc GetReporter(GetReporterRequest) returns (ReportsReply) {}
+    rpc GetReportee(GetReporteeRequest) returns (ReportsReply) {}
+}
+
+message ReasonReply {
+    string reason_id = 1;
+    string title = 2;
+    string created_at = 3;
+    string updated_at = 4;
+}
+
+message ReasonsReply {
+    repeated ReasonReply reasons = 1;
+    string next = 2;
+}
+
+message ReportReply {
+    string report_id = 1;
+    string reporter_id = 2;
+    string reportee_id = 3;
+    string reason_id = 4;
+    string created_at = 5;
+}
+
+message ReportsReply {
+    repeated ReportReply reports = 1;
+    string next = 2;
+}
+
+message CreateReasonRequest {
+    string title = 1;
+}
+
+message GetReasonRequest {
+    string reason_id = 1;
+}
+
+message UpdateReasonRequest {
+    string reason_id = 1;
+    string title = 2;
+}
+
+message DeleteReasonRequest {
+    string reason_id = 1;
+}
+message DeleteReasonReply {
+    string reason_id = 1;
+}
+
+message GetReasonsRequest {
+    string cursor = 1;
+    int32 limit = 2;
+}
+
+message CreateReportRequest {
+    string reporter_id = 1;
+    string reportee_id = 2;
+    string reason_id = 3;
+}
+
+message DeleteReportRequest {
+    string report_id = 1;
+}
+message DeleteReportReply {
+    string report_id = 1;
+}
+
+message GetReportsRequest {
+    string cursor = 1;
+    int32 limit = 2;
+}
+
+message GetReporterRequest {
+    string reporter_id = 1;
+    string cursor = 2;
+    int32 limit = 3;
+}
+
+message GetReporteeRequest {
+    string reportee_id = 1;
+    string cursor = 2;
+    int32 limit = 3;
+}
