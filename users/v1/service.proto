@@ -2,15 +2,21 @@ syntax = "proto3";
 
 package users;
 
+import "export/v1/message.proto";
+
 service Users {
     rpc CreateUser(CreateUserRequest) returns (UserReply) {}
     rpc GetUser(GetUserRequest) returns (UserReply) {}
     rpc UpdateUser(UpdateUserRequest) returns (UserReply) {}
-    rpc DeleteUser(DeleteUserRequest) returns (DeleteUserReply) {}
+    rpc DeleteUser(DeleteUserRequest) returns (DeletedUserReply) {}
 
     rpc SearchUsers(SearchUsersRequest) returns (UsersReply) {}
 
-    rpc ExportUsers(ExportUsersRequest) returns (ExportUsersReply) {}
+    rpc EmitUser(EmitUserRequest) returns (UserReply) {}
+    rpc EmitDeletedUser(EmitDeletedUserRequest) returns (DeletedUserReply) {}
+
+    rpc ExportUsers(ExportRequest) returns (ExportReply) {}
+    rpc ExportDeletedUsers(ExportRequest) returns (ExportReply) {}
 }
 
 enum Gender {
@@ -88,6 +94,10 @@ message UsersReply {
     string next = 2;
 }
 
+message DeletedUserReply {
+    string user_id = 1;
+}
+
 message CreateUserRequest {
     string user_id = 1;
 }
@@ -117,19 +127,15 @@ message UpdateUserRequest {
 message DeleteUserRequest {
     string user_id = 1;
 }
-message DeleteUserReply {
-    string user_id = 1;
-}
 
 message SearchUsersRequest {
     string query = 1;
 }
 
-message ExportUsersRequest {}
+message EmitUserRequest {
+    string user_id = 1;
+}
 
-message ExportUsersReply {
-    int32 total = 1;
-    string start_time = 2;
-    string end_time = 3;
-    string duration = 4;
+message EmitDeletedUserRequest {
+    string user_id = 1;
 }

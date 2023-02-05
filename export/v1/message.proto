@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+message ExportRequest {
+    int32 workers = 1;
+}
+
+message ExportReply {
+    int32 total = 1;
+    string start_time = 2;
+    string end_time = 3;
+    string duration = 4;
+}
