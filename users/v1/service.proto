@@ -13,8 +13,6 @@ service Users {
     rpc SwapImages(SwapImagesRequest) returns (UserReply) {}
     rpc DeleteUser(DeleteUserRequest) returns (DeletedUserReply) {}
 
-    rpc SearchUsers(SearchUsersRequest) returns (UsersReply) {}
-
     rpc EmitUser(EmitUserRequest) returns (UserReply) {}
     rpc EmitDeletedUser(EmitDeletedUserRequest) returns (DeletedUserReply) {}
 
