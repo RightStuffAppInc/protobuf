@@ -16,6 +16,10 @@ service Events {
     rpc GetEventLikes(GetEventLikesRequest) returns (LikesReply) {}
     rpc GetUserLikes(GetUserLikesRequest) returns (LikesReply) {}
 
+    rpc SetSeenLikes(SetSeenLikesRequest) returns (SetSeenLikesReply) {}
+
+    rpc GetCreatorLikesNum(GetCreatorLikesNumRequest) returns (CreatorLikesNumReply) {}
+    rpc EmitCreatorLikesNum(EmitCreatorLikesNumRequest) returns (CreatorLikesNumReply) {}
 }
 
 enum Visibility {
@@ -51,6 +55,11 @@ message LikeReply {
 message LikesReply {
     repeated LikeReply likes = 1;
     string next = 2;
+}
+
+message CreatorLikesNumReply {
+    string creator_id = 1;
+    int32 likes = 2;
 }
 
 message CreateEventRequest {
@@ -117,4 +126,20 @@ message GetUserEventsRequest {
     string creator_id = 1;
     string cursor = 2;
     int32 limit = 3;
+}
+
+message SetSeenLikesRequest {
+    string event_id = 1;
+}
+message SetSeenLikesReply {
+    string event_id = 1;
+    int32 likes = 2;
+}
+
+message GetCreatorLikesNumRequest {
+    string creator_id = 1;
+}
+
+message EmitCreatorLikesNumRequest {
+    string creator_id = 1;
 }
