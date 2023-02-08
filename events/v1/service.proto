@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package events;
 
+import "export/v1/message.proto";
+
 service Events {
     rpc CreateEvent(CreateEventRequest) returns (EventReply) {}
     rpc GetEvent(GetEventRequest) returns (EventReply) {}
@@ -17,6 +19,9 @@ service Events {
     rpc GetUserLikes(GetUserLikesRequest) returns (LikesReply) {}
 
     rpc SetSeenLikes(SetSeenLikesRequest) returns (SetSeenLikesReply) {}
+
+    rpc EmitEvent(EmitEventRequest) returns (EventReply) {}
+    rpc ExportEvents(ExportRequest) returns (ExportReply) {}
 
     rpc GetCreatorLikesNum(GetCreatorLikesNumRequest) returns (CreatorLikesNumReply) {}
     rpc EmitCreatorLikesNum(EmitCreatorLikesNumRequest) returns (CreatorLikesNumReply) {}
@@ -134,6 +139,10 @@ message SetSeenLikesRequest {
 message SetSeenLikesReply {
     string event_id = 1;
     int32 likes = 2;
+}
+
+message EmitEventRequest {
+    string event_id = 1;
 }
 
 message GetCreatorLikesNumRequest {
