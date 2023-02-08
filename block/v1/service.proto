@@ -2,9 +2,14 @@ syntax = "proto3";
 
 package block;
 
+import "export/v1/message.proto";
+
 service Block {
     rpc UpdateBlock(UpdateBlockRequest) returns (BlockReply) {}
     rpc GetBlock(GetBlockRequest) returns (BlockReply) {}
+
+    rpc EmitBlock(EmitBlockRequest) returns (BlockReply) {}
+    rpc ExportBlocks(ExportRequest) returns (ExportReply) {}
 }
 
 message BlockReply {
@@ -25,3 +30,7 @@ message GetBlockRequest {
     string blockee_id = 2;
 }
 
+message EmitBlockRequest {
+    string blocker_id = 1;
+    string blockee_id = 2;
+}
