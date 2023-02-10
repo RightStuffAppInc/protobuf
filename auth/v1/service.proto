@@ -13,10 +13,17 @@ service Auth {
     rpc RevokeToken(RevokeTokenRequest) returns (RevokeTokenReply) {}
     
     rpc CreateAuth(CreateAuthRequest) returns (AuthReply) {}
+    rpc CreateAuthWithID(CreateAuthWithIDRequest) returns (AuthReply) {}
     rpc GetAuth(GetAuthRequest) returns (AuthReply) {}
-    rpc GetAuthByID(GetAuthByIDRequest) returns (AuthReply) {}
-    rpc UpdateAuth(UpdateAuthRequest) returns (AuthReply) {}
     rpc DeleteAuth(DeleteAuthRequest) returns (DeleteAuthReply) {}
+
+    rpc GetAuths(GetAuthsRequest) returns (AuthsReply) {}
+    
+    rpc GetPhone(GetPhoneRequest) returns (PhoneReply) {}
+    rpc GetEmail(GetEmailRequest) returns (EmailReply) {}
+
+    rpc CreateHiddenAuth(CreateHiddenAuthRequest) returns (AuthReply) {}
+    rpc UpdateHiddenAuth(UpdateHiddenAuthRequest) returns (AuthReply) {}
 }
 
 enum AuthType {
@@ -25,8 +32,8 @@ enum AuthType {
 }
 
 message AuthUserReply {
-    string auth_id = 1;
-    AuthType auth_type = 2;
+    AuthType auth_type = 1;
+    string user_id = 2;
 }
 
 message TokenReply {
@@ -79,25 +86,53 @@ message AuthReply {
         string expired_at = 7;
     }
 
-    string auth_id = 1;
+    string user_id = 1;
     string created_at = 2;
     OTP otp = 3;
-    string phone = 4;
-    string email = 5;
+    bool is_hidden = 4;
 }
 
-message GetAuthByIDRequest {
-    AuthType auth_type = 1;
-    string auth_id = 2;
+message GetAuthsRequest {
+    string user_id = 1;
+}
+
+message AuthsReply {
+    repeated AuthReply auths = 2;
+}
+
+message GetPhoneRequest {
+    string user_id = 1;
+}
+message PhoneReply {
+    string user_id = 1;
+    string phone = 2;
+    bool is_verified = 3;
+}
+
+message GetEmailRequest {
+    string user_id = 1;
+}
+message EmailReply {
+    string user_id = 1;
+    string email = 2;
+    bool is_verified = 3;
+}
+
+message SetVerifiedAuthRequest {
+    string user_id = 1;
+    oneof auth {
+        string phone = 2;
+        string email = 3;
+    }
 }
 
 message GetTokensRequest {
-    string auth_id = 1;
+    string user_id = 1;
 }
 message GetTokensReply {
     message Token {
         string token_id = 1;
-        string auth_id = 2;
+        string user_id = 2;
         int32 num_of_refresh = 3;
         bool is_revoked = 4;
         string created_at = 5;
@@ -119,15 +154,35 @@ message CreateAuthRequest {
     }
 }
 
-message UpdateAuthRequest {
-    string auth_id = 1;
-    AuthType auth_type = 2;
-    optional string phone = 3;
-    optional string email = 4;
+message CreateAuthWithIDRequest {
+    string user_id = 1;
+    oneof auth {
+        string phone = 2;
+        string email = 3;
+    }
 }
 
 message DeleteAuthRequest {
-    string auth_id = 1;
-    AuthType auth_type = 2;
+    AuthType auth_type = 1;
+    oneof auth {
+        string phone = 2;
+        string email = 3;
+    }
 }
 message DeleteAuthReply {}
+
+message CreateHiddenAuthRequest {
+    string user_id = 1;
+    oneof auth {
+        string phone = 2;
+        string email = 3;
+    }
+}
+
+message UpdateHiddenAuthRequest {
+    string user_id = 1;
+    oneof auth {
+        string phone = 2;
+        string email = 3;
+    }
+}
