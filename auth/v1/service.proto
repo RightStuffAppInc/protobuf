@@ -16,14 +16,9 @@ service Auth {
     rpc CreateAuthWithID(CreateAuthWithIDRequest) returns (AuthReply) {}
     rpc GetAuth(GetAuthRequest) returns (AuthReply) {}
     rpc DeleteAuth(DeleteAuthRequest) returns (DeleteAuthReply) {}
-
-    rpc GetAuths(GetAuthsRequest) returns (AuthsReply) {}
     
     rpc GetPhone(GetPhoneRequest) returns (PhoneReply) {}
     rpc GetEmail(GetEmailRequest) returns (EmailReply) {}
-
-    rpc CreateHiddenAuth(CreateHiddenAuthRequest) returns (AuthReply) {}
-    rpc UpdateHiddenAuth(UpdateHiddenAuthRequest) returns (AuthReply) {}
 }
 
 enum AuthType {
