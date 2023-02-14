@@ -84,7 +84,6 @@ message AuthReply {
     string user_id = 1;
     string created_at = 2;
     OTP otp = 3;
-    bool is_hidden = 4;
 }
 
 message GetAuthsRequest {
@@ -165,19 +164,3 @@ message DeleteAuthRequest {
     }
 }
 message DeleteAuthReply {}
-
-message CreateHiddenAuthRequest {
-    string user_id = 1;
-    oneof auth {
-        string phone = 2;
-        string email = 3;
-    }
-}
-
-message UpdateHiddenAuthRequest {
-    string user_id = 1;
-    oneof auth {
-        string phone = 2;
-        string email = 3;
-    }
-}
