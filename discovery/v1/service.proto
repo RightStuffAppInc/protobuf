@@ -13,24 +13,27 @@ service Discovery {
     rpc ResetSeen(ResetSeenRequest) returns (SeenReply) {}
 }
 
+message Int {
+    int32 max = 1;
+    int32 min = 2;
+}
+message Coordinates {
+    float longitude = 1;
+    float latitude = 2;
+}
+
 message UpdateUserRequest {
     string user_id = 1;
-    optional int32 max_age = 2;
-    optional int32 min_age = 3;
-    optional int32 max_distance = 4;
-    optional int32 min_distance = 5;
-    optional float longitude = 6;
-    optional float latitude = 7;
+    optional Int age = 2;
+    optional Int distance = 3;
+    optional Coordinates location = 4;
 }
 
 message UserReply {
     string user_id = 1;
-    int32 max_age = 2;
-    int32 min_age = 3;
-    int32 max_distance = 4;
-    int32 min_distance = 5;
-    float longitude = 6;
-    float latitude = 7;
+    Int age = 2;
+    Int distance = 3;
+    Coordinates location = 4;
 }
 
 message GetUsersRequest {
