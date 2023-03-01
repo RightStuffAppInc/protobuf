@@ -6,7 +6,7 @@ service Messaging {
     rpc CreateChannel(CreateChannelRequest) returns (ChannelReply) {}
     rpc GetChannel(GetChannelRequest) returns (ChannelReply) {}
     rpc SetHiddenChannel(SetHiddenChannelRequest) returns (ChannelReply) {}
-    rpc SetUnreadChannel(SetUnreadChannelRequest) returns (ChannelReply) {}
+    rpc SetUnread(SetUnreadRequest) returns (ChannelReply) {}
     rpc DeleteChannel(DeleteChannelRequest) returns (DeleteChannelReply) {}
     
     rpc GetChannels(GetChannelsRequest) returns (ChannelsReply) {}
@@ -82,10 +82,10 @@ message SetHiddenChannelRequest {
     bool is_hidden = 3;
 }
 
-message SetUnreadChannelRequest {
+message SetUnreadRequest {
     string user_id = 1;
     string channel_id = 2;
-    bool is_unread = 3;
+    string message_id = 3;
 }
 
 message DeleteChannelRequest {
