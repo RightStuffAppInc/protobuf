@@ -16,6 +16,8 @@ service Messaging {
     rpc DeleteMessage(DeleteMessageRequest) returns (DeleteMessageReply) {}
     
     rpc GetMessages(GetMessagesRequest) returns (MessagesReply) {}
+
+    rpc GetUnreads(GetUnreadsRequest) returns (UnreadsReply) {}
 }
 
 message ChannelReply {
@@ -122,4 +124,12 @@ message GetMessagesRequest {
     string channel_id = 2;
     string cursor = 3;
     int32 limit = 4;
+}
+
+message GetUnreadsRequest {
+    string user_id = 1;
+}
+message UnreadsReply {
+    string user_id = 1;
+    int32 num = 2;
 }
