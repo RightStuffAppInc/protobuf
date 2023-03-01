@@ -2,31 +2,46 @@ syntax = "proto3";
 
 package discovery;
 
+
 service Discovery {
-    rpc UpdatePreference(UpdatePreferenceRequest) returns (PreferenceReply) {}
+    rpc UpdateUser(UpdateUserRequest) returns (UserReply) {}
 
     rpc GetUsers(GetUsersRequest) returns (UsersReply) {}
     rpc GetEvents(GetEventsRequest) returns (EventsReply) {}
+
+    rpc SetSeen(SetSeenRequest) returns (SeenReply) {}
+    rpc ResetSeen(ResetSeenRequest) returns (SeenReply) {}
 }
 
-message UpdatePreferenceRequest {
-    string user_id = 1;
-    optional int32 max_age = 2;
-    optional int32 min_age = 3;
-    optional int32 max_distance = 4;
-    optional int32 min_distance = 5;
+message Int {
+    int32 max = 1;
+    int32 min = 2;
+}
+message Coordinates {
+    float longitude = 1;
+    float latitude = 2;
 }
 
-message PreferenceReply {
+message UpdateUserRequest {
     string user_id = 1;
-    int32 max_age = 2;
-    int32 min_age = 3;
-    int32 max_distance = 4;
-    int32 min_distance = 5;
+    optional Int age = 2;
+    optional Int distance = 3;
+    optional Coordinates location = 4;
+    optional bool is_hidden = 5;
+}
+
+message UserReply {
+    string user_id = 1;
+    Int age = 2;
+    Int distance = 3;
+    Coordinates location = 4;
+    bool is_hidden = 5;
 }
 
 message GetUsersRequest {
     string user_id = 1;
+    string cursor = 2;
+    int32 limit = 3;
 }
 
 message UsersReply {
@@ -41,4 +56,15 @@ message GetEventsRequest {
 message EventsReply {
     repeated string event_ids = 1;
     string next = 2;
+}
+
+message SeenReply {}
+
+message SetSeenRequest {
+    string user_id = 1;
+    string other_id = 2;
+}
+
+message ResetSeenRequest {
+    string user_id = 1;
 }
