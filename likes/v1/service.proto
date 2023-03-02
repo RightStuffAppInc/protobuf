@@ -2,10 +2,15 @@ syntax = "proto3";
 
 package likes;
 
+import "export/v1/message.proto";
+
 service Likes {
     rpc CreateLike(CreateLikeRequest) returns (LikeReply) {}
     rpc GetLikers(GetLikersRequest) returns (LikesReply) {}
     rpc GetLikees(GetLikeesRequest) returns (LikesReply) {}
+
+    rpc ExportLikes(ExportRequest) returns (ExportReply) {}
+    rpc EmitLike(EmitLikeRequest) returns (LikeReply) {}
 }
 
 message LikeReply {
@@ -36,4 +41,9 @@ message GetLikeesRequest {
     string liker_id = 1;
     string cursor = 2;
     int32 limit = 3;
+}
+
+message EmitLikeRequest {
+    string liker_id = 1;
+    string likee_id = 2;
 }

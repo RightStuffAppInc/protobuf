@@ -6,7 +6,7 @@ service Messaging {
     rpc CreateChannel(CreateChannelRequest) returns (ChannelReply) {}
     rpc GetChannel(GetChannelRequest) returns (ChannelReply) {}
     rpc SetHiddenChannel(SetHiddenChannelRequest) returns (ChannelReply) {}
-    rpc SetUnreadChannel(SetUnreadChannelRequest) returns (ChannelReply) {}
+    rpc SetUnread(SetUnreadRequest) returns (ChannelReply) {}
     rpc DeleteChannel(DeleteChannelRequest) returns (DeleteChannelReply) {}
     
     rpc GetChannels(GetChannelsRequest) returns (ChannelsReply) {}
@@ -16,30 +16,50 @@ service Messaging {
     rpc DeleteMessage(DeleteMessageRequest) returns (DeleteMessageReply) {}
     
     rpc GetMessages(GetMessagesRequest) returns (MessagesReply) {}
+
+    rpc GetUnreads(GetUnreadsRequest) returns (UnreadsReply) {}
 }
 
-message ChannelReply {}
+message ChannelReply {
+    string channel_id = 1;
+    repeated string member_ids = 2;
+    string created_at = 3;
+}
 
 message ChannelsReply {
     repeated ChannelReply channels = 1;
     string next = 2;
 }
 
+message TextMessage {
+    string sender_id = 1;
+    string text = 2;
+}
+
+message ImageMessage {
+    string sender_id = 1;
+    string image = 2;
+}
+
+message VideoMessage {
+    string sender_id = 1;
+    string video = 2;
+}
+
 message MessageReply {
     string message_id = 1;
-    string sender_id = 2;
+    string channel_id = 2;
+    string timestamp = 3;
+    oneof payload {
+        TextMessage text = 4;
+        ImageMessage image = 5;
+        VideoMessage video = 6;
+    }
 }
 
 message MessagesReply {
     repeated MessageReply messages = 1;
     string next = 2;
-}
-
-enum MessageType {
-    TEXT = 0;
-    IMAGE = 1;
-    VIDEO = 2;
-    EVENT = 3;
 }
 
 message CreateChannelRequest {
@@ -62,14 +82,15 @@ message SetHiddenChannelRequest {
     bool is_hidden = 3;
 }
 
-message SetUnreadChannelRequest {
+message SetUnreadRequest {
     string user_id = 1;
     string channel_id = 2;
-    bool is_unread = 3;
+    string message_id = 3;
 }
 
 message DeleteChannelRequest {
     string channel_id = 1;
+    string member_id = 2;
 }
 message DeleteChannelReply {
     string channel_id = 1;
@@ -78,9 +99,11 @@ message DeleteChannelReply {
 message CreateMessageRequest {
     string channel_id = 1;
     string sender_id = 2;
-    MessageType type = 3;
-    string payload = 4;
-    string created_at = 5;
+    oneof payload {
+        string text = 3;
+        string image = 4;
+        string video = 5;
+    }
 }
 
 message GetMessageRequest {
@@ -88,11 +111,12 @@ message GetMessageRequest {
 }
 
 message DeleteMessageRequest {
-    string user_id = 1;
-    string message_id = 2;
+    string message_id = 1;
+    string sender_id = 2;
 }
 message DeleteMessageReply {
     string message_id = 1;
+    string sender_id = 2;
 }
 
 message GetMessagesRequest {
@@ -100,4 +124,12 @@ message GetMessagesRequest {
     string channel_id = 2;
     string cursor = 3;
     int32 limit = 4;
+}
+
+message GetUnreadsRequest {
+    string user_id = 1;
+}
+message UnreadsReply {
+    string user_id = 1;
+    int32 num = 2;
 }
