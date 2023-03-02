@@ -5,6 +5,7 @@ package auth;
 service Auth {
     rpc SendOTP(SendOTPRequest) returns (SendOTPReply) {}
     rpc VerifyOTP(VerifyOTPRequest) returns (TokenReply) {}
+    rpc VerifyAuth(VerifyAuthRequest) returns (VerifyAuthReply) {}
 
     rpc VerifyToken(VerifyTokenRequest) returns (AuthUserReply) {}
     rpc RefreshToken(RefreshTokenRequest) returns (TokenReply) {}
@@ -54,6 +55,16 @@ message VerifyOTPRequest {
         string email = 4;
     }
 }
+
+message VerifyAuthRequest {
+    string user_id = 1;
+    string otp = 2;
+    oneof auth {
+        string phone = 3;
+        string email = 4;
+    }
+}
+message VerifyAuthReply {}
 
 message VerifyTokenRequest {
     string token = 1;
