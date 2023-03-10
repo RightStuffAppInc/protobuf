@@ -5,6 +5,7 @@ package auth;
 service Auth {
     rpc SendOTP(SendOTPRequest) returns (SendOTPReply) {}
     rpc VerifyOTP(VerifyOTPRequest) returns (TokenReply) {}
+    rpc VerifyAuth(VerifyAuthRequest) returns (VerifyAuthReply) {}
 
     rpc VerifyToken(VerifyTokenRequest) returns (AuthUserReply) {}
     rpc RefreshToken(RefreshTokenRequest) returns (TokenReply) {}
@@ -16,14 +17,9 @@ service Auth {
     rpc CreateAuthWithID(CreateAuthWithIDRequest) returns (AuthReply) {}
     rpc GetAuth(GetAuthRequest) returns (AuthReply) {}
     rpc DeleteAuth(DeleteAuthRequest) returns (DeleteAuthReply) {}
-
-    rpc GetAuths(GetAuthsRequest) returns (AuthsReply) {}
     
     rpc GetPhone(GetPhoneRequest) returns (PhoneReply) {}
     rpc GetEmail(GetEmailRequest) returns (EmailReply) {}
-
-    rpc CreateHiddenAuth(CreateHiddenAuthRequest) returns (AuthReply) {}
-    rpc UpdateHiddenAuth(UpdateHiddenAuthRequest) returns (AuthReply) {}
 }
 
 enum AuthType {
@@ -60,6 +56,16 @@ message VerifyOTPRequest {
     }
 }
 
+message VerifyAuthRequest {
+    string user_id = 1;
+    string otp = 2;
+    oneof auth {
+        string phone = 3;
+        string email = 4;
+    }
+}
+message VerifyAuthReply {}
+
 message VerifyTokenRequest {
     string token = 1;
 }
@@ -89,7 +95,6 @@ message AuthReply {
     string user_id = 1;
     string created_at = 2;
     OTP otp = 3;
-    bool is_hidden = 4;
 }
 
 message GetAuthsRequest {
@@ -170,19 +175,3 @@ message DeleteAuthRequest {
     }
 }
 message DeleteAuthReply {}
-
-message CreateHiddenAuthRequest {
-    string user_id = 1;
-    oneof auth {
-        string phone = 2;
-        string email = 3;
-    }
-}
-
-message UpdateHiddenAuthRequest {
-    string user_id = 1;
-    oneof auth {
-        string phone = 2;
-        string email = 3;
-    }
-}

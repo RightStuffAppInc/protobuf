@@ -2,22 +2,24 @@ syntax = "proto3";
 
 package invite;
 
+import "export/v1/message.proto";
+
 service Invite {
     rpc GetUser(GetUserRequest) returns (UserReply) {}
     rpc GetInvites(GetInvitesRequest) returns (GetInvitesReply) {}
-    rpc SendInvite(SendInviteRequest) returns (InviteReply) {}
+    rpc UpdateUser(UpdateUserRequest) returns (UserReply) {}
+    rpc SendInvite(SendInviteRequest) returns (UserReply) {}
     rpc ApproveUser(ApproveUserRequest) returns (ApproveUserReply) {}
+
+
+    rpc ExportUsers(ExportRequest) returns (ExportReply) {}
+    rpc EmitUser(EmitUserRequest) returns (UserReply) {}
 }
 
 message UserReply {
     string user_id = 1;
     string inviter_id = 2;
-}
-
-message InviteReply {
-    string inviter_id = 1;
-    string invitee_id = 2;
-    string created_at = 3;
+    int32 limit = 3;
 }
 
 message GetUserRequest {
@@ -28,17 +30,36 @@ message GetInvitesRequest {
     string inviter_id = 1;
 }
 message GetInvitesReply {
-    repeated InviteReply invites = 1;
+    message Invite {
+        string inviter_id = 1;
+        string invitee_id = 2;
+        string created_at = 3;
+    }
+
+    repeated Invite invites = 1;
+}
+
+message UpdateUserRequest {
+    string user_id = 1;
+    int32 limit = 3;
 }
 
 message SendInviteRequest {
     string inviter_id = 1;
     string invitee_id = 2;
+    oneof method {
+        string phone = 3;
+        string email = 4;
+    }
 }
 
 message ApproveUserRequest {
     string user_id = 1;
 }
 message ApproveUserReply {
-    repeated string user_ids = 1;
+    repeated UserReply users = 1;
+}
+
+message EmitUserRequest {
+    string user_id  = 1;
 }
