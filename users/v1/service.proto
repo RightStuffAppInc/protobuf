@@ -92,6 +92,7 @@ message UserReply {
     repeated string images = 17;
 
     int32 animation = 100;
+    int32 page = 101;
 }
 
 message UsersReply {
@@ -129,6 +130,7 @@ message UpdateUserRequest {
     optional Kids kids = 15;
 
     optional int32 animation = 100;
+    optional int32 page = 101;
 }
 
 message UpdateProfileRequest {
