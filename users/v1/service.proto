@@ -90,6 +90,9 @@ message UserReply {
     Kids kids = 15;
     string profile = 16;
     repeated string images = 17;
+
+    int32 animation = 100;
+    int32 page = 101;
 }
 
 message UsersReply {
@@ -125,6 +128,9 @@ message UpdateUserRequest {
     optional Range drink = 13;
     optional Range smoke = 14;
     optional Kids kids = 15;
+
+    optional int32 animation = 100;
+    optional int32 page = 101;
 }
 
 message UpdateProfileRequest {
