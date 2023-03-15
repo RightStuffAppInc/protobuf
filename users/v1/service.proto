@@ -26,12 +26,6 @@ enum Gender {
     GENDER_FEMALE = 2;
 }
 
-message Location {
-    string country = 1;
-    string state = 2;
-    string city = 3;
-}
-
 message Date {
     int32 year = 1;
     int32 month = 2;
@@ -81,7 +75,7 @@ message UserReply {
     string bio = 6;
     int32 height = 7;
     string music = 8;
-    Location hometown = 9;
+    string hometown = 9;
     string occupation = 10;
     string education = 11;
     Religion religion = 12;
@@ -90,6 +84,9 @@ message UserReply {
     Kids kids = 15;
     string profile = 16;
     repeated string images = 17;
+
+    int32 animation = 100;
+    int32 page = 101;
 }
 
 message UsersReply {
@@ -118,13 +115,16 @@ message UpdateUserRequest {
     optional string bio = 6;
     optional int32 height = 7;
     optional string music = 8;
-    optional Location hometown = 9;
+    optional string hometown = 9;
     optional string occupation = 10;
     optional string education = 11;
     optional Religion religion = 12;
     optional Range drink = 13;
     optional Range smoke = 14;
     optional Kids kids = 15;
+
+    optional int32 animation = 100;
+    optional int32 page = 101;
 }
 
 message UpdateProfileRequest {
