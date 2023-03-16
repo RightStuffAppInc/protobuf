@@ -4,6 +4,7 @@ package discovery;
 
 
 service Discovery {
+    rpc GetUser(GetUserRequest) returns (UserReply) {}
     rpc UpdateUser(UpdateUserRequest) returns (UserReply) {}
 
     rpc GetUsers(GetUsersRequest) returns (UsersReply) {}
@@ -18,8 +19,13 @@ message Int {
     int32 min = 2;
 }
 message Coordinates {
-    float longitude = 1;
-    float latitude = 2;
+    double longitude = 1;
+    double latitude = 2;
+    string name = 3;
+}
+
+message GetUserRequest {
+    string user_id = 1;
 }
 
 message UpdateUserRequest {
