@@ -68,21 +68,21 @@ enum Religion {
 
 message UserReply {
     Metadata metadata = 1;
-    string first_name = 2;
-    string last_name = 3;
-    Gender gender = 4;
-    Date birthday = 5;
-    string bio = 6;
-    int32 height = 7;
-    string music = 8;
-    string hometown = 9;
-    string occupation = 10;
-    string education = 11;
-    Religion religion = 12;
-    Range drink = 13;
-    Range smoke = 14;
-    Kids kids = 15;
-    string profile = 16;
+    optional string first_name = 2;
+    optional string last_name = 3;
+    optional Gender gender = 4;
+    optional Date birthday = 5;
+    optional string bio = 6;
+    optional int32 height = 7;
+    optional string music = 8;
+    optional string hometown = 9;
+    optional string occupation = 10;
+    optional string education = 11;
+    optional Religion religion = 12;
+    optional Range drink = 13;
+    optional Range smoke = 14;
+    optional Kids kids = 15;
+    optional string profile = 16;
     repeated string images = 17;
 
     int32 animation = 100;
