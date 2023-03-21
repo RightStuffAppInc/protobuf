@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package match;
+
+service Match {
+    rpc CheckMatch(CheckMatchRequest) returns (MatchReply) {}
+}
+
+message MatchReply {
+    bool is_match = 1;
+    string channel_id = 2;
+}
+
+message CheckMatchRequest {
+    string user_id = 1;
+    string other_id = 2;
+}
