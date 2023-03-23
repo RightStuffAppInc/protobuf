@@ -19,8 +19,7 @@ service Invite {
 message UserReply {
     string user_id = 1;
     string inviter_id = 2;
-    bool is_skipped = 3;
-    int32 limit = 4;
+    int32 limit = 3;
 }
 
 message GetUserRequest {
