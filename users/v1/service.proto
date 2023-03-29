@@ -66,6 +66,11 @@ enum Religion {
     RELIGION_NON_PRACTICING = 8;
 }
 
+message Music {
+    string title = 1;
+    string url = 2;
+}
+
 message UserReply {
     Metadata metadata = 1;
     optional string first_name = 2;
@@ -74,7 +79,7 @@ message UserReply {
     optional Date birthday = 5;
     optional string bio = 6;
     optional int32 height = 7;
-    optional string music = 8;
+    optional Music music = 8;
     optional string hometown = 9;
     optional string occupation = 10;
     optional string education = 11;
@@ -116,7 +121,7 @@ message UpdateUserRequest {
     optional Date birthday = 5;
     optional string bio = 6;
     optional int32 height = 7;
-    optional string music = 8;
+    optional Music music = 8;
     optional string hometown = 9;
     optional string occupation = 10;
     optional string education = 11;
