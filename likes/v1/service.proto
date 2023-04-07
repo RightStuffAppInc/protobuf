@@ -5,14 +5,25 @@ package likes;
 import "export/v1/message.proto";
 
 service Likes {
+    rpc GetUser(GetUserRequest) returns (UserReply) {}
+    rpc UpdateUser(UpdateUserRequest) returns (UserReply) {}
+
     rpc CreateLike(CreateLikeRequest) returns (LikeReply) {}
     rpc CreateDislike(CreateDislikeRequest) returns (DislikeReply) {}
 
     rpc GetLikers(GetLikersRequest) returns (LikesReply) {}
     rpc GetLikees(GetLikeesRequest) returns (LikesReply) {}
 
+    rpc GetDislikers(GetDislikersRequest) returns (DislikesReply) {}
+    rpc GetDislikees(GetDislikeesRequest) returns (DislikesReply) {}
+
     rpc ExportLikes(ExportRequest) returns (ExportReply) {}
     rpc EmitLike(EmitLikeRequest) returns (LikeReply) {}
+}
+
+message UserReply {
+    string user_id = 1;
+    int32 limit = 2;
 }
 
 message LikeReply {
@@ -31,6 +42,20 @@ message DislikeReply {
     string disliker_id = 1;
     string dislikee_id = 2;
     string created_at = 3;
+}
+
+message DislikesReply {
+    repeated DislikeReply dislikes = 1;
+    string next = 2;
+}
+
+message GetUserRequest {
+    string user_id = 1;
+}
+
+message UpdateUserRequest {
+    string user_id = 1;
+    int32 limit = 2;
 }
 
 message CreateLikeRequest {
@@ -53,6 +78,18 @@ message GetLikersRequest {
 
 message GetLikeesRequest {
     string liker_id = 1;
+    string cursor = 2;
+    int32 limit = 3;
+}
+
+message GetDislikersRequest {
+    string dislikee_id = 1;
+    string cursor = 2;
+    int32 limit = 3; 
+}
+
+message GetDislikeesRequest {
+    string disliker_id = 1;
     string cursor = 2;
     int32 limit = 3;
 }
