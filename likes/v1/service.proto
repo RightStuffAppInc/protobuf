@@ -6,7 +6,7 @@ import "export/v1/message.proto";
 
 service Likes {
     rpc CreateLike(CreateLikeRequest) returns (LikeReply) {}
-    rpc DislikeLike(DislikeLikeRequest) returns (LikeReply) {}
+    rpc CreateDislike(CreateDislikeRequest) returns (DislikeReply) {}
 
     rpc GetLikers(GetLikersRequest) returns (LikesReply) {}
     rpc GetLikees(GetLikeesRequest) returns (LikesReply) {}
@@ -19,13 +19,18 @@ message LikeReply {
     string liker_id = 1;
     string likee_id = 2;
     string message = 3;
-    bool is_disliked = 4;
-    string created_at = 5;
+    string created_at = 4;
 }
 
 message LikesReply {
     repeated LikeReply likes = 1;
     string next = 2;
+}
+
+message DislikeReply {
+    string disliker_id = 1;
+    string dislikee_id = 2;
+    string created_at = 3;
 }
 
 message CreateLikeRequest {
@@ -34,9 +39,9 @@ message CreateLikeRequest {
     string message = 3;
 }
 
-message DislikeLikeRequest {
-    string likee_id = 1;
-    string liker_id = 2;
+message CreateDislikeRequest {
+    string dislikee_id = 1;
+    string disliker_id = 2;
 }
 
 message GetLikersRequest {
