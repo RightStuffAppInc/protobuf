@@ -18,7 +18,7 @@ service Likes {
 message LikeReply {
     string liker_id = 1;
     string likee_id = 2;
-    string message = 3;
+    optional string message = 3;
     string created_at = 4;
 }
 
@@ -36,7 +36,7 @@ message DislikeReply {
 message CreateLikeRequest {
     string liker_id = 1;
     string likee_id = 2;
-    string message = 3;
+    optional string message = 3;
 }
 
 message CreateDislikeRequest {
