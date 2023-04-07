@@ -36,6 +36,7 @@ message CreateLikeRequest {
 
 message DislikeLikeRequest {
     string likee_id = 1;
+    string liker_id = 2;
 }
 
 message GetLikersRequest {
