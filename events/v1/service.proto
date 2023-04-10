@@ -14,6 +14,7 @@ service Events {
     rpc GetUserEvents(GetUserEventsRequest) returns (EventsReply) {}
 
     rpc CreateLike(CreateLikeRequest) returns (LikeReply) {}
+    rpc UpdateLike(UpdateLikeRequest) returns (LikeReply) {}
     rpc GetLike(GetLikeRequest) returns (LikeReply) {}
     rpc GetEventLikes(GetEventLikesRequest) returns (LikesReply) {}
     rpc GetUserLikes(GetUserLikesRequest) returns (LikesReply) {}
@@ -27,6 +28,12 @@ service Events {
 
     rpc GetCreatorLikesNum(GetCreatorLikesNumRequest) returns (CreatorLikesNumReply) {}
     rpc EmitCreatorLikesNum(EmitCreatorLikesNumRequest) returns (CreatorLikesNumReply) {}
+}
+
+enum Status {
+    STATUS_REQUESTED = 0;
+    STATUS_ACCPETED = 1;
+    STATUS_REJECTED = 2;
 }
 
 enum Visibility {
@@ -58,6 +65,7 @@ message LikeReply {
     string created_at = 3;
     optional string message = 4;
     optional string video = 5;
+    Status status = 6;
 }
 
 message LikesReply {
@@ -112,6 +120,13 @@ message CreateLikeRequest {
     string liker_id = 2;
     optional string message = 3;
     optional string video = 4;
+}
+
+message UpdateLikeRequest {
+    string event_id = 1;
+    string creator_id = 2;
+    string liker_id = 3;
+    Status status = 4;
 }
 
 message GetLikeRequest {
