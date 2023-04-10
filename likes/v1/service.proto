@@ -9,16 +9,19 @@ service Likes {
     rpc UpdateUser(UpdateUserRequest) returns (UserReply) {}
 
     rpc CreateLike(CreateLikeRequest) returns (LikeReply) {}
-    rpc CreateDislike(CreateDislikeRequest) returns (DislikeReply) {}
+    rpc UpdateLike(UpdateLikeRequest) returns (LikeReply) {}
 
     rpc GetLikers(GetLikersRequest) returns (LikesReply) {}
     rpc GetLikees(GetLikeesRequest) returns (LikesReply) {}
 
-    rpc GetDislikers(GetDislikersRequest) returns (DislikesReply) {}
-    rpc GetDislikees(GetDislikeesRequest) returns (DislikesReply) {}
-
     rpc ExportLikes(ExportRequest) returns (ExportReply) {}
     rpc EmitLike(EmitLikeRequest) returns (LikeReply) {}
+}
+
+enum Status {
+    STATUS_REQUESTED = 0;
+    STATUS_ACCEPTED = 1;
+    STATUS_REJECTED = 2;
 }
 
 message UserReply {
@@ -29,23 +32,16 @@ message UserReply {
 message LikeReply {
     string liker_id = 1;
     string likee_id = 2;
-    optional string message = 3;
-    string created_at = 4;
+    string created_at = 3;
+    string updated_at = 4;
+    
+    optional string message = 5;
+    Status status = 6;
+    string channel_id = 7;
 }
 
 message LikesReply {
     repeated LikeReply likes = 1;
-    string next = 2;
-}
-
-message DislikeReply {
-    string disliker_id = 1;
-    string dislikee_id = 2;
-    string created_at = 3;
-}
-
-message DislikesReply {
-    repeated DislikeReply dislikes = 1;
     string next = 2;
 }
 
@@ -64,9 +60,10 @@ message CreateLikeRequest {
     optional string message = 3;
 }
 
-message CreateDislikeRequest {
-    string dislikee_id = 1;
-    string disliker_id = 2;
+message UpdateLikeRequest {
+    string liker_id = 1;
+    string likee_id = 2;
+    Status status = 3;
 }
 
 message GetLikersRequest {
@@ -78,18 +75,6 @@ message GetLikersRequest {
 
 message GetLikeesRequest {
     string liker_id = 1;
-    string cursor = 2;
-    int32 limit = 3;
-}
-
-message GetDislikersRequest {
-    string dislikee_id = 1;
-    string cursor = 2;
-    int32 limit = 3; 
-}
-
-message GetDislikeesRequest {
-    string disliker_id = 1;
     string cursor = 2;
     int32 limit = 3;
 }
