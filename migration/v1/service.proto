@@ -3,10 +3,15 @@ syntax = "proto3";
 package messaging;
 
 service Migration {
-    rpc MigrateUsers(MigrateUsersRequest) returns (UsersReply) {}
+    rpc MigrateUsers(MigrateUsersRequest) returns (MigrationReply) {}
 }
 
 message MigrateUsersRequest {}
-message UsersReply {
-    int32 num = 1;
+
+message MigrationReply {
+    string id = 1;
+    int32 num = 2;
+    string start = 3;
+    string end = 4;
+    string error = 5;
 }
