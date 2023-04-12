@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package messaging;
+
+service Migration {
+    rpc MigrateUsers(MigrateUsersRequest) returns (UsersReply) {}
+}
+
+message MigrateUsersRequest {}
+message UsersReply {
+    int32 num = 1;
+}
