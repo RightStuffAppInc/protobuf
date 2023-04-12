@@ -14,9 +14,12 @@ service Events {
     rpc GetUserEvents(GetUserEventsRequest) returns (EventsReply) {}
 
     rpc CreateLike(CreateLikeRequest) returns (LikeReply) {}
+    rpc UpdateLike(UpdateLikeRequest) returns (LikeReply) {}
     rpc GetLike(GetLikeRequest) returns (LikeReply) {}
     rpc GetEventLikes(GetEventLikesRequest) returns (LikesReply) {}
     rpc GetUserLikes(GetUserLikesRequest) returns (LikesReply) {}
+
+    rpc CreateDislike(CreateDislikeRequest) returns (DislikeReply) {}
 
     rpc SetSeenLikes(SetSeenLikesRequest) returns (SetSeenLikesReply) {}
 
@@ -25,6 +28,12 @@ service Events {
 
     rpc GetCreatorLikesNum(GetCreatorLikesNumRequest) returns (CreatorLikesNumReply) {}
     rpc EmitCreatorLikesNum(EmitCreatorLikesNumRequest) returns (CreatorLikesNumReply) {}
+}
+
+enum Status {
+    STATUS_REQUESTED = 0;
+    STATUS_ACCPETED = 1;
+    STATUS_REJECTED = 2;
 }
 
 enum Visibility {
@@ -54,12 +63,19 @@ message LikeReply {
     string event_id = 1;
     string liker_id = 2;
     string created_at = 3;
-    string message = 4;
+    optional string message = 4;
+    optional string video = 5;
+    Status status = 6;
 }
 
 message LikesReply {
     repeated LikeReply likes = 1;
     string next = 2;
+}
+
+message DislikeReply {
+    string event_id = 1;
+    string disliker_id = 2;
 }
 
 message CreatorLikesNumReply {
@@ -102,7 +118,15 @@ message DeleteEventReply {
 message CreateLikeRequest {
     string event_id = 1;
     string liker_id = 2;
-    string message = 3;
+    optional string message = 3;
+    optional string video = 4;
+}
+
+message UpdateLikeRequest {
+    string event_id = 1;
+    string creator_id = 2;
+    string liker_id = 3;
+    Status status = 4;
 }
 
 message GetLikeRequest {
@@ -120,6 +144,11 @@ message GetUserLikesRequest {
     string liker_id = 1;
     string cursor = 2;
     int32 limit = 3;
+}
+
+message CreateDislikeRequest {
+    string event_id = 1;
+    string disliker_id = 2;
 }
 
 message GetEventsRequest {

@@ -5,7 +5,12 @@ package likes;
 import "export/v1/message.proto";
 
 service Likes {
+    rpc GetUser(GetUserRequest) returns (UserReply) {}
+    rpc UpdateUser(UpdateUserRequest) returns (UserReply) {}
+
     rpc CreateLike(CreateLikeRequest) returns (LikeReply) {}
+    rpc UpdateLike(UpdateLikeRequest) returns (LikeReply) {}
+
     rpc GetLikers(GetLikersRequest) returns (LikesReply) {}
     rpc GetLikees(GetLikeesRequest) returns (LikesReply) {}
 
@@ -13,11 +18,26 @@ service Likes {
     rpc EmitLike(EmitLikeRequest) returns (LikeReply) {}
 }
 
+enum Status {
+    STATUS_REQUESTED = 0;
+    STATUS_ACCEPTED = 1;
+    STATUS_REJECTED = 2;
+}
+
+message UserReply {
+    string user_id = 1;
+    int32 limit = 2;
+}
+
 message LikeReply {
     string liker_id = 1;
     string likee_id = 2;
-    string message = 3;
-    string created_at = 4;
+    string created_at = 3;
+    string updated_at = 4;
+    
+    optional string message = 5;
+    Status status = 6;
+    string channel_id = 7;
 }
 
 message LikesReply {
@@ -25,16 +45,32 @@ message LikesReply {
     string next = 2;
 }
 
+message GetUserRequest {
+    string user_id = 1;
+}
+
+message UpdateUserRequest {
+    string user_id = 1;
+    int32 limit = 2;
+}
+
 message CreateLikeRequest {
     string liker_id = 1;
     string likee_id = 2;
-    string message = 3;
+    optional string message = 3;
+}
+
+message UpdateLikeRequest {
+    string liker_id = 1;
+    string likee_id = 2;
+    Status status = 3;
 }
 
 message GetLikersRequest {
     string likee_id = 1;
     string cursor = 2;
     int32 limit = 3;
+    bool is_disliked = 4;
 }
 
 message GetLikeesRequest {
