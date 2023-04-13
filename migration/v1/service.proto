@@ -4,9 +4,10 @@ package messaging;
 
 service Migration {
     rpc MigrateUsers(MigrateUsersRequest) returns (MigrationReply) {}
+    rpc MigrateChats(MigrateChatsRequest) returns (MigrationReply) {}
+    rpc MigrateMessages(MigrateMessagesRequest) returns (MigrationReply) {}
+    rpc MigrateLikes(MigrateLikesRequest) returns (MigrationReply) {}
 }
-
-message MigrateUsersRequest {}
 
 message MigrationReply {
     string id = 1;
@@ -15,3 +16,11 @@ message MigrationReply {
     string end = 4;
     string error = 5;
 }
+
+message MigrateUsersRequest {}
+
+message MigrateChatsRequest {}
+
+message MigrateMessagesRequest {}
+
+message MigrateLikesRequest {}
