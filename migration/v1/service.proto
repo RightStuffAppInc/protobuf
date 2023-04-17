@@ -7,6 +7,8 @@ service Migration {
     rpc MigrateChats(MigrateChatsRequest) returns (MigrationReply) {}
     rpc MigrateMessages(MigrateMessagesRequest) returns (MigrationReply) {}
     rpc MigrateLikes(MigrateLikesRequest) returns (MigrationReply) {}
+    rpc MigrateEvents(MigrateEventsRequest) returns (MigrationReply) {}
+    rpc MigratePrompts(MigratePromptsRequest) returns (MigrationReply) {}
 }
 
 message MigrationReply {
@@ -24,3 +26,7 @@ message MigrateChatsRequest {}
 message MigrateMessagesRequest {}
 
 message MigrateLikesRequest {}
+
+message MigrateEventsRequest {}
+
+message MigratePromptsRequest {}
