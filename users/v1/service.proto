@@ -69,6 +69,7 @@ enum Religion {
 message Music {
     string title = 1;
     string url = 2;
+    string id = 3;
 }
 
 message UserReply {
