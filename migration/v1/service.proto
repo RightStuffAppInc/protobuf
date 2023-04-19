@@ -9,6 +9,7 @@ service Migration {
     rpc MigrateLikes(MigrateLikesRequest) returns (MigrationReply) {}
     rpc MigrateEvents(MigrateEventsRequest) returns (MigrationReply) {}
     rpc MigratePrompts(MigratePromptsRequest) returns (MigrationReply) {}
+    rpc MigrateInvites(MigrateInvitesRequest) returns (MigrationReply) {}
 }
 
 message MigrationReply {
@@ -30,3 +31,5 @@ message MigrateLikesRequest {}
 message MigrateEventsRequest {}
 
 message MigratePromptsRequest {}
+
+message MigrateInvitesRequest {}
