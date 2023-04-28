@@ -5,6 +5,7 @@ package messaging;
 service Migration {
     rpc MigrateUsers(MigrateUsersRequest) returns (MigrationReply) {}
     rpc MigrateUserAttributes(MigrateUserAttributesRequest) returns (MigrationReply) {}
+    rpc MigrateUserImages(MigrateUserImagesRequest) returns (MigrationReply) {}
     rpc MigrateChats(MigrateChatsRequest) returns (MigrationReply) {}
     rpc MigrateMessages(MigrateMessagesRequest) returns (MigrationReply) {}
     rpc MigrateLikes(MigrateLikesRequest) returns (MigrationReply) {}
@@ -24,6 +25,8 @@ message MigrationReply {
 message MigrateUsersRequest {}
 
 message MigrateUserAttributesRequest {}
+
+message MigrateUserImagesRequest {}
 
 message MigrateChatsRequest {}
 
