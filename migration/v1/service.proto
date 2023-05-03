@@ -12,6 +12,7 @@ service Migration {
     rpc MigrateEvents(MigrateEventsRequest) returns (MigrationReply) {}
     rpc MigratePrompts(MigratePromptsRequest) returns (MigrationReply) {}
     rpc MigrateInvites(MigrateInvitesRequest) returns (MigrationReply) {}
+    rpc MigrateViews(MigrateViewsRequest) returns (MigrationReply) {}
 }
 
 message MigrationReply {
@@ -39,3 +40,5 @@ message MigrateEventsRequest {}
 message MigratePromptsRequest {}
 
 message MigrateInvitesRequest {}
+
+message MigrateViewsRequest {}
