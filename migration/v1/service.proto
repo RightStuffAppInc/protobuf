@@ -4,11 +4,16 @@ package messaging;
 
 service Migration {
     rpc MigrateUsers(MigrateUsersRequest) returns (MigrationReply) {}
+    rpc MigrateUserAttributes(MigrateUserAttributesRequest) returns (MigrationReply) {}
+    rpc MigrateUserImages(MigrateUserImagesRequest) returns (MigrationReply) {}
     rpc MigrateChats(MigrateChatsRequest) returns (MigrationReply) {}
     rpc MigrateMessages(MigrateMessagesRequest) returns (MigrationReply) {}
     rpc MigrateLikes(MigrateLikesRequest) returns (MigrationReply) {}
     rpc MigrateEvents(MigrateEventsRequest) returns (MigrationReply) {}
     rpc MigratePrompts(MigratePromptsRequest) returns (MigrationReply) {}
+    rpc MigrateInvites(MigrateInvitesRequest) returns (MigrationReply) {}
+    rpc MigrateViews(MigrateViewsRequest) returns (MigrationReply) {}
+    rpc MigrateResets(MigrateResetsRequest) returns (MigrationReply) {}
 }
 
 message MigrationReply {
@@ -21,6 +26,10 @@ message MigrationReply {
 
 message MigrateUsersRequest {}
 
+message MigrateUserAttributesRequest {}
+
+message MigrateUserImagesRequest {}
+
 message MigrateChatsRequest {}
 
 message MigrateMessagesRequest {}
@@ -30,3 +39,9 @@ message MigrateLikesRequest {}
 message MigrateEventsRequest {}
 
 message MigratePromptsRequest {}
+
+message MigrateInvitesRequest {}
+
+message MigrateViewsRequest {}
+
+message MigrateResetsRequest {}
