@@ -151,8 +151,8 @@ message UpdateImageRequest {
 
 message SwapImagesRequest {
     string user_id = 1;
-    int32 index_1 = 2;
-    int32 index_2 = 3;
+    int32 source = 2;
+    int32 destination = 3;
 }
 
 message DeleteUserRequest {
