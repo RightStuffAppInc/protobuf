@@ -10,9 +10,10 @@ service Notifications {
 message UserReply {
     string user_id = 1;
     bool likes = 2;
-    bool messages = 3;
-    bool promotions = 4;
-    bool announcements = 5;
+    bool matches = 3;
+    bool messages = 4;
+    bool promotions = 5;
+    bool announcements = 6;
 }
 
 message GetUserRequest {
@@ -22,7 +23,8 @@ message GetUserRequest {
 message UpdateUserRequest {
     string user_id = 1;
     optional bool likes = 2;
-    optional bool messages = 3;
-    optional bool promotions = 4;
-    optional bool announcements = 5;
+    optional bool matches = 3;
+    optional bool messages = 4;
+    optional bool promotions = 5;
+    optional bool announcements = 6;
 }

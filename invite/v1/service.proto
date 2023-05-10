@@ -41,7 +41,8 @@ message GetInvitesReply {
 
 message UpdateUserRequest {
     string user_id = 1;
-    int32 limit = 3;
+    optional bool is_skipped = 2;
+    optional int32 limit = 3;
 }
 
 message SendInviteRequest {

@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package subscription;
+
+service Subscription {
+    rpc GetUser(GetUserRequest) returns (UserReply) {}
+}
+
+message GetUserRequest {
+    string user_id = 1;
+}
+
+message UserReply {
+    string user_id = 1;
+    bool is_premium = 2;
+}

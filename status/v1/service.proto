@@ -1,0 +1,24 @@
+
+syntax = "proto3";
+
+package status;
+
+service Status {
+    // TODO (sbk): make into streams but rpc is easier for now since no 
+    // reconnect logic & make it more reliable
+    rpc GetStatus(GetStatusRequest) returns (StatusReply) {}
+    rpc UpdateStatus(UpdateStatusRequest) returns (StatusReply) {}
+}
+
+message StatusReply {
+    string user_id = 1;
+    string updated_at = 3;
+}
+
+message GetStatusRequest {
+    string user_id = 1;
+}
+
+message UpdateStatusRequest {
+    string user_id = 1;
+}

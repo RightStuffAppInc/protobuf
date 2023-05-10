@@ -10,6 +10,7 @@ service Prompts {
 
     rpc GetPrompts(GetPromptsRequest) returns (PromptsReply) {}
 
+    rpc CreateUser(CreateUserRequest) returns (UserReply) {}
     rpc GetUser(GetUserRequest) returns (UserReply) {}
     
     rpc SetResponse(SetResponseRequest) returns (UserReply) {}
@@ -64,6 +65,10 @@ message GetPromptsRequest {
     int32 limit = 2;
 }
 
+message CreateUserRequest {
+    string user_id = 1;
+}
+
 message GetUserRequest {
     string user_id = 1;
 }
@@ -77,8 +82,8 @@ message SetResponseRequest {
 
 message SwapResponsesRequest {
     string user_id = 1;
-    int32 index_1 = 2;
-    int32 index_2 = 3;
+    int32 source = 2;
+    int32 destination = 3;
 }
 
 message DeleteResponseRequest {
