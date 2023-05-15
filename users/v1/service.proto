@@ -91,9 +91,9 @@ message UserReply {
     optional Kids kids = 15;
     optional string profile = 16;
     repeated string images = 17;
-    
     bool isSeenApproved = 18;
-
+    optional int32 zipcode = 19;
+    
     int32 animation = 100;
     int32 page = 101;
 }
@@ -133,6 +133,7 @@ message UpdateUserRequest {
     optional Kids kids = 15;
 
     optional bool isSeenApproved = 18;
+    optional int32 zipcode = 19;
 
     optional int32 animation = 100;
     optional int32 page = 101;
