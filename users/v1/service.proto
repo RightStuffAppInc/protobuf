@@ -13,6 +13,8 @@ service Users {
     rpc SwapImages(SwapImagesRequest) returns (UserReply) {}
     rpc DeleteUser(DeleteUserRequest) returns (DeletedUserReply) {}
 
+    rpc GetUsers(GetUsersRequest) returns (UsersReply) {}
+
     rpc EmitUser(EmitUserRequest) returns (UserReply) {}
     rpc EmitDeletedUser(EmitDeletedUserRequest) returns (DeletedUserReply) {}
 
@@ -158,6 +160,11 @@ message SwapImagesRequest {
 
 message DeleteUserRequest {
     string user_id = 1;
+}
+
+message GetUsersRequest {
+    string cursor = 1;
+    int32 limit = 2;
 }
 
 message SearchUsersRequest {
