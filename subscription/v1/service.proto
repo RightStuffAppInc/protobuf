@@ -4,6 +4,7 @@ package subscription;
 
 service Subscription {
     rpc GetUser(GetUserRequest) returns (UserReply) {}
+    rpc VerifyReceipt(VerifyReceiptRequest) returns (UserReply) {}
 }
 
 message GetUserRequest {
@@ -13,4 +14,9 @@ message GetUserRequest {
 message UserReply {
     string user_id = 1;
     bool is_premium = 2;
+}
+
+message VerifyReceiptRequest {
+    string user_id = 1;
+    string receipt = 2;
 }
