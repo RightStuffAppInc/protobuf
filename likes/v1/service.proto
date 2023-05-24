@@ -58,6 +58,7 @@ message CreateLikeRequest {
     string liker_id = 1;
     string likee_id = 2;
     optional string message = 3;
+    optional string video = 4;
 }
 
 message UpdateLikeRequest {
