@@ -36,6 +36,7 @@ message LikeReply {
     string updated_at = 4;
     
     optional string message = 5;
+    optional string video = 11;
     Status status = 6;
     string channel_id = 7;
 }
