@@ -78,7 +78,6 @@ message MessagesReply {
 message CreateChannelRequest {
     message Message {
         string timestamp = 1;
-        string sender_id = 2;
         oneof payload {
             TextMessage text = 10;
             ImageMessage image = 11;
