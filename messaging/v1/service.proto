@@ -47,6 +47,16 @@ message VideoMessage {
     string video = 2;
 }
 
+message EventLikeMessage {
+    string event_id = 1;
+    string liker_id = 2;
+}
+
+message LikeMessage {
+    string liker_id = 1;
+    string likee_id = 2;
+}
+
 message MessageReply {
     string message_id = 1;
     string channel_id = 2;
@@ -55,6 +65,8 @@ message MessageReply {
         TextMessage text = 4;
         ImageMessage image = 5;
         VideoMessage video = 6;
+        EventLikeMessage event = 7;
+        LikeMessage like = 8;
     }
 }
 
@@ -64,7 +76,19 @@ message MessagesReply {
 }
 
 message CreateChannelRequest {
+    message Message {
+        string timestamp = 1;
+        oneof payload {
+            TextMessage text = 10;
+            ImageMessage image = 11;
+            VideoMessage video = 12;
+            EventLikeMessage event = 13;
+            LikeMessage like = 14;
+        }
+    }
+
     repeated string member_ids = 1;
+    repeated Message messages = 2;
 }
 
 message GetChannelRequest {

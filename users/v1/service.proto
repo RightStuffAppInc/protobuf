@@ -13,6 +13,8 @@ service Users {
     rpc SwapImages(SwapImagesRequest) returns (UserReply) {}
     rpc DeleteUser(DeleteUserRequest) returns (DeletedUserReply) {}
 
+    rpc GetUsers(GetUsersRequest) returns (UsersReply) {}
+
     rpc EmitUser(EmitUserRequest) returns (UserReply) {}
     rpc EmitDeletedUser(EmitDeletedUserRequest) returns (DeletedUserReply) {}
 
@@ -91,9 +93,9 @@ message UserReply {
     optional Kids kids = 15;
     optional string profile = 16;
     repeated string images = 17;
-    
     bool isSeenApproved = 18;
-
+    optional int32 zipcode = 19;
+    
     int32 animation = 100;
     int32 page = 101;
 }
@@ -133,6 +135,7 @@ message UpdateUserRequest {
     optional Kids kids = 15;
 
     optional bool isSeenApproved = 18;
+    optional int32 zipcode = 19;
 
     optional int32 animation = 100;
     optional int32 page = 101;
@@ -151,12 +154,17 @@ message UpdateImageRequest {
 
 message SwapImagesRequest {
     string user_id = 1;
-    int32 index_1 = 2;
-    int32 index_2 = 3;
+    int32 source = 2;
+    int32 destination = 3;
 }
 
 message DeleteUserRequest {
     string user_id = 1;
+}
+
+message GetUsersRequest {
+    string cursor = 1;
+    int32 limit = 2;
 }
 
 message SearchUsersRequest {

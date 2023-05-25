@@ -25,6 +25,8 @@ service Events {
 
     rpc EmitEvent(EmitEventRequest) returns (EventReply) {}
     rpc ExportEvents(ExportRequest) returns (ExportReply) {}
+    rpc ExportLikes(ExportRequest) returns (ExportReply) {}
+    rpc ExportDislikes(ExportRequest) returns (ExportReply) {}
 
     rpc GetCreatorLikesNum(GetCreatorLikesNumRequest) returns (CreatorLikesNumReply) {}
     rpc EmitCreatorLikesNum(EmitCreatorLikesNumRequest) returns (CreatorLikesNumReply) {}
