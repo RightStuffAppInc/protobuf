@@ -57,6 +57,8 @@ message UsersReply {
 
 message GetEventsRequest {
     string user_id = 1;
+    string cursor = 2;
+    int32 limit = 3;
 }
 
 message EventsReply {
