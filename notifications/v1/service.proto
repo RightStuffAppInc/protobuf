@@ -5,6 +5,8 @@ package notifications;
 service Notifications {
     rpc GetUser(GetUserRequest) returns (UserReply) {}
     rpc UpdateUser(UpdateUserRequest) returns (UserReply) {}
+
+    rpc AddToken(AddTokenRequest) returns (UserReply) {}
 }
 
 message UserReply {
@@ -14,6 +16,13 @@ message UserReply {
     bool messages = 4;
     bool promotions = 5;
     bool announcements = 6;
+
+    message Token {
+        string token = 1;
+        string created_at = 2;
+    }
+
+    repeated Token tokens = 10;
 }
 
 message GetUserRequest {
@@ -27,4 +36,9 @@ message UpdateUserRequest {
     optional bool messages = 4;
     optional bool promotions = 5;
     optional bool announcements = 6;
+}
+
+message AddTokenRequest {
+    string user_id = 1;
+    string token = 2;
 }

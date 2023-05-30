@@ -20,6 +20,7 @@ service Events {
     rpc GetUserLikes(GetUserLikesRequest) returns (LikesReply) {}
 
     rpc CreateDislike(CreateDislikeRequest) returns (DislikeReply) {}
+    rpc GetDislike(GetDislikeRequest) returns (DislikeReply) {}
 
     rpc SetSeenLikes(SetSeenLikesRequest) returns (SetSeenLikesReply) {}
 
@@ -68,6 +69,7 @@ message LikeReply {
     optional string message = 4;
     optional string video = 5;
     Status status = 6;
+    string channel_id = 7;
 }
 
 message LikesReply {
@@ -149,6 +151,11 @@ message GetUserLikesRequest {
 }
 
 message CreateDislikeRequest {
+    string event_id = 1;
+    string disliker_id = 2;
+}
+
+message GetDislikeRequest {
     string event_id = 1;
     string disliker_id = 2;
 }
