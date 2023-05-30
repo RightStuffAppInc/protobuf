@@ -12,12 +12,14 @@ service Likes {
     rpc GetLike(GetLikeRequest) returns (LikeReply) {}
     rpc UpdateLike(UpdateLikeRequest) returns (LikeReply) {}
 
-
     rpc GetLikers(GetLikersRequest) returns (LikesReply) {}
     rpc GetLikees(GetLikeesRequest) returns (LikesReply) {}
 
     rpc ExportLikes(ExportRequest) returns (ExportReply) {}
     rpc EmitLike(EmitLikeRequest) returns (LikeReply) {}
+
+    rpc GetUnreadLikes(GetUnreadLikesRequest) returns (UnreadReply) {}
+    rpc SetSeenLikes(SetSeenLikesRequest) returns (UnreadReply) {}
 }
 
 enum Status {
@@ -91,4 +93,17 @@ message GetLikeesRequest {
 message EmitLikeRequest {
     string liker_id = 1;
     string likee_id = 2;
+}
+
+message UnreadReply {
+    string likee_id = 1;
+    int32 unread = 2;
+}
+
+message GetUnreadLikesRequest {
+    string likee_id = 1;
+}
+
+message SetSeenLikesRequest {
+    string likee_id = 1;
 }

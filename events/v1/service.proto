@@ -172,7 +172,7 @@ message GetUserEventsRequest {
 }
 
 message SetSeenLikesRequest {
-    string event_id = 1;
+    string creator_id = 1;
 }
 message SetSeenLikesReply {
     string event_id = 1;
