@@ -20,6 +20,7 @@ service Likes {
 
     rpc GetUnreadLikes(GetUnreadLikesRequest) returns (UnreadReply) {}
     rpc SetSeenLikes(SetSeenLikesRequest) returns (UnreadReply) {}
+    rpc EmitUnreadLikes(GetUnreadLikesRequest) returns (UnreadReply) {}
 }
 
 enum Status {
