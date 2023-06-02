@@ -93,6 +93,8 @@ message CreateChannelRequest {
         }
     }
 
+    string creator_id = 10;
+
     repeated string member_ids = 1;
     Source source = 2;
     repeated Message messages = 3;
