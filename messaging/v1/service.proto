@@ -6,6 +6,7 @@ service Messaging {
     rpc CreateChannel(CreateChannelRequest) returns (ChannelReply) {}
     rpc GetChannel(GetChannelRequest) returns (ChannelReply) {}
     rpc SetHiddenChannel(SetHiddenChannelRequest) returns (ChannelReply) {}
+    rpc SetRead(SetReadRequest) returns (ChannelReply) {}
     rpc SetUnread(SetUnreadRequest) returns (ChannelReply) {}
     rpc DeleteChannel(DeleteChannelRequest) returns (DeleteChannelReply) {}
     
@@ -21,10 +22,16 @@ service Messaging {
     rpc GetChannelUnreads(GetChannelUnreadsRequest) returns (ChannelUnreadsReply) {}
 }
 
+enum Source {
+    LIKES = 0;
+    EVENTS = 2;
+}
+
 message ChannelReply {
     string channel_id = 1;
     repeated string member_ids = 2;
-    string created_at = 3;
+    Source source = 3;
+    string created_at = 4;
 }
 
 message ChannelsReply {
@@ -87,8 +94,11 @@ message CreateChannelRequest {
         }
     }
 
+    string creator_id = 10;
+
     repeated string member_ids = 1;
-    repeated Message messages = 2;
+    Source source = 2;
+    repeated Message messages = 3;
 }
 
 message GetChannelRequest {
@@ -107,10 +117,15 @@ message SetHiddenChannelRequest {
     bool is_hidden = 3;
 }
 
-message SetUnreadRequest {
+message SetReadRequest {
     string user_id = 1;
     string channel_id = 2;
     string message_id = 3;
+}
+
+message SetUnreadRequest {
+    string user_id = 1;
+    string channel_id = 2;
 }
 
 message DeleteChannelRequest {
