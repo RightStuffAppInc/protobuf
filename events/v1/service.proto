@@ -130,6 +130,8 @@ message UpdateLikeRequest {
     string creator_id = 2;
     string liker_id = 3;
     Status status = 4;
+    optional string message = 5;
+    optional string video = 6;
 }
 
 message GetLikeRequest {
