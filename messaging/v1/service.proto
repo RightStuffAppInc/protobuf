@@ -20,7 +20,6 @@ service Messaging {
 
     rpc GetUnreads(GetUnreadsRequest) returns (UnreadsReply) {}
     rpc GetChannelUnreads(GetChannelUnreadsRequest) returns (ChannelUnreadsReply) {}
-    rpc GetUnreadMessages(GetUnreadMessagesRequest) returns (UnreadsReply) {}
 }
 
 enum Source {
@@ -188,8 +187,4 @@ message ChannelUnreadsReply {
     string user_id = 1;
     string channel_id = 2;
     int32 num = 3;
-}
-
-message GetUnreadMessagesRequest {
-    string user_id = 1;
 }
