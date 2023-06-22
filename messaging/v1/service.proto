@@ -65,7 +65,8 @@ message LikeMessage {
 }
 
 message MatchMessage {
-    repeated string member_ids = 1;
+    bool is_shown = 1;
+    repeated string member_ids = 2;
 }
 
 message MessageReply {
