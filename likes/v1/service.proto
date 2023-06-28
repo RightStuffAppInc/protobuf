@@ -76,6 +76,8 @@ message UpdateLikeRequest {
     string liker_id = 1;
     string likee_id = 2;
     Status status = 3;
+    optional string message = 4;
+    optional string video = 5;
 }
 
 message GetLikersRequest {
