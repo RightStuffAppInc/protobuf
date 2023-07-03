@@ -2,9 +2,13 @@ syntax = "proto3";
 
 package ban;
 
+import "export/v1/message.proto";
+
 service Ban {
     rpc GetUser(GetUserRequest) returns (UserReply) {}
     rpc BanUser(BanUserRequest) returns (UserReply) {}
+
+    rpc ExportBans(ExportRequest) returns (ExportReply) {}
 }
 
 message UserReply {
