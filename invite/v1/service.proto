@@ -17,22 +17,22 @@ service Invite {
 }
 
 message UserReply {
-    string user_id = 1;
-    string inviter_id = 2;
+    string phone = 1;
+    string inviter = 2;
     int32 limit = 3;
 }
 
 message GetUserRequest {
-    string user_id = 1;
+    string phone = 1;
 }
 
 message GetInvitesRequest {
-    string inviter_id = 1;
+    string phone = 1;
 }
 message GetInvitesReply {
     message Invite {
-        string inviter_id = 1;
-        string invitee_id = 2;
+        string inviter = 1;
+        string invitee = 2;
         string created_at = 3;
     }
 
@@ -40,27 +40,23 @@ message GetInvitesReply {
 }
 
 message UpdateUserRequest {
-    string user_id = 1;
+    string phone = 1;
     optional bool is_skipped = 2;
     optional int32 limit = 3;
 }
 
 message SendInviteRequest {
-    string inviter_id = 1;
-    string invitee_id = 2;
-    oneof method {
-        string phone = 3;
-        string email = 4;
-    }
+    string inviter = 1;
+    string invitee = 2;
 }
 
 message ApproveUserRequest {
-    string user_id = 1;
+    string phone = 1;
 }
 message ApproveUserReply {
     repeated UserReply users = 1;
 }
 
 message EmitUserRequest {
-    string user_id  = 1;
+    string phone  = 1;
 }

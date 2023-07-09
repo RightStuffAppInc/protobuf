@@ -9,6 +9,7 @@ service Likes {
     rpc UpdateUser(UpdateUserRequest) returns (UserReply) {}
 
     rpc CreateLike(CreateLikeRequest) returns (LikeReply) {}
+    rpc GetLike(GetLikeRequest) returns (LikeReply) {}
     rpc UpdateLike(UpdateLikeRequest) returns (LikeReply) {}
 
     rpc GetLikers(GetLikersRequest) returns (LikesReply) {}
@@ -16,6 +17,10 @@ service Likes {
 
     rpc ExportLikes(ExportRequest) returns (ExportReply) {}
     rpc EmitLike(EmitLikeRequest) returns (LikeReply) {}
+
+    rpc GetUnreadLikes(GetUnreadLikesRequest) returns (UnreadReply) {}
+    rpc SetSeenLikes(SetSeenLikesRequest) returns (UnreadReply) {}
+    rpc EmitUnreadLikes(EmitUnreadLikesRequest) returns (UnreadReply) {}
 }
 
 enum Status {
@@ -62,10 +67,17 @@ message CreateLikeRequest {
     optional string video = 4;
 }
 
+message GetLikeRequest {
+    string liker_id = 1;
+    string likee_id = 2;
+}
+
 message UpdateLikeRequest {
     string liker_id = 1;
     string likee_id = 2;
     Status status = 3;
+    optional string message = 4;
+    optional string video = 5;
 }
 
 message GetLikersRequest {
@@ -84,4 +96,22 @@ message GetLikeesRequest {
 message EmitLikeRequest {
     string liker_id = 1;
     string likee_id = 2;
+}
+
+message UnreadReply {
+    string likee_id = 1;
+    int32 unread = 2;
+    string timestamp = 3;
+}
+
+message GetUnreadLikesRequest {
+    string likee_id = 1;
+}
+
+message SetSeenLikesRequest {
+    string likee_id = 1;
+}
+
+message EmitUnreadLikesRequest {
+    string likee_id = 1;
 }
