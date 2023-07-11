@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package reports;
 
+import "export/v1/message.proto";
+
 service Reports {
     rpc CreateReason(CreateReasonRequest) returns (ReasonReply) {}
     rpc GetReason(GetReasonRequest) returns (ReasonReply) {}
@@ -16,6 +18,8 @@ service Reports {
     rpc GetReports(GetReportsRequest) returns (ReportsReply) {}
     rpc GetReporter(GetReporterRequest) returns (ReportsReply) {}
     rpc GetReportee(GetReporteeRequest) returns (ReportsReply) {}
+
+    rpc ExportUsers(ExportRequest) returns (ExportReply) {}
 }
 
 message ReasonReply {

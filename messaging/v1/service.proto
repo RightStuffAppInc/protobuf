@@ -6,6 +6,7 @@ service Messaging {
     rpc CreateChannel(CreateChannelRequest) returns (ChannelReply) {}
     rpc GetChannel(GetChannelRequest) returns (ChannelReply) {}
     rpc SetHiddenChannel(SetHiddenChannelRequest) returns (ChannelReply) {}
+    rpc SetRead(SetReadRequest) returns (ChannelReply) {}
     rpc SetUnread(SetUnreadRequest) returns (ChannelReply) {}
     rpc DeleteChannel(DeleteChannelRequest) returns (DeleteChannelReply) {}
     
@@ -21,10 +22,16 @@ service Messaging {
     rpc GetChannelUnreads(GetChannelUnreadsRequest) returns (ChannelUnreadsReply) {}
 }
 
+enum Source {
+    LIKES = 0;
+    EVENTS = 2;
+}
+
 message ChannelReply {
     string channel_id = 1;
     repeated string member_ids = 2;
-    string created_at = 3;
+    Source source = 3;
+    string created_at = 4;
 }
 
 message ChannelsReply {
@@ -47,6 +54,21 @@ message VideoMessage {
     string video = 2;
 }
 
+message EventLikeMessage {
+    string event_id = 1;
+    string liker_id = 2;
+}
+
+message LikeMessage {
+    string liker_id = 1;
+    string likee_id = 2;
+}
+
+message MatchMessage {
+    bool is_shown = 1;
+    repeated string member_ids = 2;
+}
+
 message MessageReply {
     string message_id = 1;
     string channel_id = 2;
@@ -55,6 +77,9 @@ message MessageReply {
         TextMessage text = 4;
         ImageMessage image = 5;
         VideoMessage video = 6;
+        EventLikeMessage event = 7;
+        LikeMessage like = 8;
+        MatchMessage match = 9;
     }
 }
 
@@ -64,7 +89,22 @@ message MessagesReply {
 }
 
 message CreateChannelRequest {
+    message Message {
+        string timestamp = 1;
+        oneof payload {
+            TextMessage text = 10;
+            ImageMessage image = 11;
+            VideoMessage video = 12;
+            EventLikeMessage event = 13;
+            LikeMessage like = 14;
+        }
+    }
+
+    string creator_id = 10;
+
     repeated string member_ids = 1;
+    Source source = 2;
+    repeated Message messages = 3;
 }
 
 message GetChannelRequest {
@@ -83,10 +123,15 @@ message SetHiddenChannelRequest {
     bool is_hidden = 3;
 }
 
-message SetUnreadRequest {
+message SetReadRequest {
     string user_id = 1;
     string channel_id = 2;
     string message_id = 3;
+}
+
+message SetUnreadRequest {
+    string user_id = 1;
+    string channel_id = 2;
 }
 
 message DeleteChannelRequest {
