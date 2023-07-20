@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package group;
+
+import "export/v1/message.proto";
+
+service Group {
+    rpc CreateGroup(CreateGroupRequest) returns (GroupReply) {}
+    rpc GetGroup(GetGroupRequest) returns (GroupReply) {}
+    rpc UpdateGroup(UpdateGroupRequest) returns (GroupReply) {}
+
+    rpc GetUser(GetUserRequest) returns (UserReply) {}
+    rpc AddUser(AddUserRequest) returns (UserReply) {}
+    rpc RemoveUser(RemoveUserRequest) returns (UserReply) {}
+
+    rpc ExportUsers(ExportRequest) returns (ExportReply) {}
+    rpc EmitUser(EmitUserRequest) returns (UserReply) {}
+}
+
+message GroupReply {
+    string group_id = 1;
+    string name = 2;
+    string description = 3;
+    string created_at = 4;
+}
+
+message CreateGroupRequest {
+    string name = 1;
+    string description = 2;
+}
+
+message GetGroupRequest {
+    string group_id = 1;
+}
+
+message UpdateGroupRequest {
+    string group_id = 1;
+    optional string name = 2;
+    optional string description = 3;
+}
+
+message UserReply {
+    string user_id = 1;
+    repeated string groups = 2;
+}
+
+message GetUserRequest {
+    string user_id = 1;
+}
+
+message AddUserRequest {
+    string group_id = 1;
+    string user_id = 2;
+}
+
+message RemoveUserRequest {
+    string group_id = 1;
+    string user_id = 2;
+}
+
+message EmitUserRequest {
+    string user_id = 1;
+}
