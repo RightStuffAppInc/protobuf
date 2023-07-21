@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package reports;
+
+service Search {
+    rpc GetUsers(GetUsersRequest) returns (UsersReply) {}
+}
+
+message UsersReply {
+    repeated string user_ids = 1;
+    string next = 2;
+}
+
+message GetUsersRequest {
+    string cursor = 1;
+    int32 limit = 2;
+
+    string phone = 10;
+    string email = 11;
+
+    string first = 100;
+    string last = 101;
+    string gender = 102;
+    string bio = 103;
+    int32 min_height = 104;
+    int32 max_height = 105;
+    string mustic_title = 106;
+    string mustic_artist = 107;
+    string hometown = 108;
+    string education = 109;
+    string religion = 110;
+    string drink = 111;
+    string smoke = 112;
+    string kids = 113;
+    bool is_completed = 199;
+    
+    bool is_invited = 120;
+    
+    repeated string group_ids = 130;
+    
+    bool is_premium = 140;
+
+    int32 min_age = 200;
+    int32 max_age = 201;
+    bool is_hidden = 202;
+}
