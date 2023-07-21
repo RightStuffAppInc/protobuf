@@ -64,6 +64,11 @@ message LikeMessage {
     string likee_id = 2;
 }
 
+message MatchMessage {
+    bool is_shown = 1;
+    repeated string member_ids = 2;
+}
+
 message MessageReply {
     string message_id = 1;
     string channel_id = 2;
@@ -74,6 +79,7 @@ message MessageReply {
         VideoMessage video = 6;
         EventLikeMessage event = 7;
         LikeMessage like = 8;
+        MatchMessage match = 9;
     }
 }
 
