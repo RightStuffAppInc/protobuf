@@ -91,6 +91,7 @@ message GetLikeesRequest {
     string liker_id = 1;
     string cursor = 2;
     int32 limit = 3;
+    bool is_requested = 4;
 }
 
 message EmitLikeRequest {
