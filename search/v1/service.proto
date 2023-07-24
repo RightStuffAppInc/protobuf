@@ -15,32 +15,32 @@ message GetUsersRequest {
     string cursor = 1;
     int32 limit = 2;
 
-    string phone = 10;
-    string email = 11;
+    optional string phone = 10;
+    optional string email = 11;
 
-    string first = 100;
-    string last = 101;
-    string gender = 102;
-    string bio = 103;
-    int32 min_height = 104;
-    int32 max_height = 105;
-    string mustic_title = 106;
-    string mustic_artist = 107;
-    string hometown = 108;
-    string education = 109;
-    string religion = 110;
-    string drink = 111;
-    string smoke = 112;
-    string kids = 113;
-    bool is_completed = 199;
+    optional string first = 100;
+    optional string last = 101;
+    optional string gender = 102;
+    optional string bio = 103;
+    optional int32 min_height = 104;
+    optional int32 max_height = 105;
+    optional string mustic_title = 106;
+    optional string mustic_artist = 107;
+    optional string hometown = 108;
+    optional string education = 109;
+    optional string religion = 110;
+    optional string drink = 111;
+    optional string smoke = 112;
+    optional string kids = 113;
+    optional bool is_completed = 199;
     
-    bool is_invited = 120;
+    optional bool is_invited = 120;
     
     repeated string group_ids = 130;
     
-    bool is_premium = 140;
+    optional bool is_premium = 140;
 
-    int32 min_age = 200;
-    int32 max_age = 201;
-    bool is_hidden = 202;
+    optional int32 min_age = 200;
+    optional int32 max_age = 201;
+    optional bool is_hidden = 202;
 }
