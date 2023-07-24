@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package subscription;
+package verification;
 
 import "export/v1/message.proto";
 
