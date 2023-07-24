@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package subscription;
+
+import "export/v1/message.proto";
+
+service Verification {
+    rpc GetUser(GetUserRequest) returns (UserReply) {}
+    rpc UpdateUser(UpdateUserRequest) returns (UserReply) {}
+
+    rpc ExportUsers(ExportRequest) returns (ExportReply) {}
+}
+
+message UserReply {
+    string user_id = 1;
+    bool is_verified = 2;
+}
+
+message GetUserRequest {
+    string user_id = 1;
+}
+
+message UpdateUserRequest {
+    string user_id = 1;
+    bool is_verified = 2;
+}
