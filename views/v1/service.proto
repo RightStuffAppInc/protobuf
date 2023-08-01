@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package users;
+
+import "export/v1/message.proto"; 
+
+service Users {
+    rpc AddView(AddViewRequest) returns (ViewsReply) {}
+    rpc GetViews(GetViewsRequest) returns (ViewsReply) {}
+
+    rpc ExportViews(ExportRequest) returns (ExportReply) {}
+}
+
+message ViewsReply {
+    string viewer_id = 1;
+    string viewee_id = 2;
+    int32 count = 3;
+}
+
+message AddViewRequest {
+    string viewer_id = 1;
+    string viewee_id = 2;
+}
+
+message GetViewsRequest {
+    string viewer_id = 1;
+    string viewee_id = 2;
+}
+
