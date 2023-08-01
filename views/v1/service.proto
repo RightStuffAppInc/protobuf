@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package users;
+package views;
 
 import "export/v1/message.proto"; 
 
-service Users {
+service Views {
     rpc AddView(AddViewRequest) returns (ViewsReply) {}
     rpc GetViews(GetViewsRequest) returns (ViewsReply) {}
 
@@ -15,6 +15,7 @@ message ViewsReply {
     string viewer_id = 1;
     string viewee_id = 2;
     int32 count = 3;
+    string last_viewed_at = 4;
 }
 
 message AddViewRequest {
