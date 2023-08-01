@@ -14,27 +14,18 @@ service Discovery {
     rpc ResetSeen(ResetSeenRequest) returns (SeenReply) {}
 }
 
-message Int {
-    int32 max = 1;
-    int32 min = 2;
-}
-
 message GetUserRequest {
     string user_id = 1;
 }
 
 message UpdateUserRequest {
     string user_id = 1;
-    optional Int age = 2;
-    optional Int distance = 3;
-    optional bool is_hidden = 5;
+    optional bool is_hidden = 2;
 }
 
 message UserReply {
     string user_id = 1;
-    Int age = 2;
-    Int distance = 3;
-    bool is_hidden = 5;
+    bool is_hidden = 2;
 }
 
 message GetUsersRequest {
