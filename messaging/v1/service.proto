@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package messaging;
 
+import "export/v1/message.proto";
+
 service Messaging {
     rpc CreateChannel(CreateChannelRequest) returns (ChannelReply) {}
     rpc GetChannel(GetChannelRequest) returns (ChannelReply) {}
@@ -20,6 +22,8 @@ service Messaging {
 
     rpc GetUnreads(GetUnreadsRequest) returns (UnreadsReply) {}
     rpc GetChannelUnreads(GetChannelUnreadsRequest) returns (ChannelUnreadsReply) {}
+
+    rpc ExportChannels(ExportRequest) returns (ExportReply) {}
 }
 
 enum Source {
