@@ -10,7 +10,13 @@ service Discovery {
     rpc GetUsers(GetUsersRequest) returns (UsersReply) {}
     rpc GetEvents(GetEventsRequest) returns (EventsReply) {}
 
+    rpc AddView(AddViewRequest) returns (SeenReply) {}
     rpc ResetSeen(ResetSeenRequest) returns (SeenReply) {}
+}
+
+message Int {
+    int32 min = 1;
+    int32 max = 2;
 }
 
 message GetUserRequest {
@@ -20,6 +26,9 @@ message GetUserRequest {
 message UpdateUserRequest {
     string user_id = 1;
     optional bool is_hidden = 2;
+
+    optional Int age = 10;
+    optional Int distance = 11;
 }
 
 message UserReply {
@@ -50,6 +59,11 @@ message EventsReply {
 }
 
 message SeenReply {}
+
+message AddViewRequest {
+    string viewer_id = 1;
+    string viewee_id = 2;
+}
 
 message ResetSeenRequest {
     string user_id = 1;
