@@ -51,11 +51,6 @@ message EventsReply {
 
 message SeenReply {}
 
-message SetSeenRequest {
-    string user_id = 1;
-    string other_id = 2;
-}
-
 message ResetSeenRequest {
     string user_id = 1;
 }
