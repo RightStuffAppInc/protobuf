@@ -10,7 +10,6 @@ service Discovery {
     rpc GetUsers(GetUsersRequest) returns (UsersReply) {}
     rpc GetEvents(GetEventsRequest) returns (EventsReply) {}
 
-    rpc SetSeen(SetSeenRequest) returns (SeenReply) {}
     rpc ResetSeen(ResetSeenRequest) returns (SeenReply) {}
 }
 
