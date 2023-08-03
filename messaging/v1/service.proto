@@ -2,9 +2,12 @@ syntax = "proto3";
 
 package messaging;
 
+import "export/v1/message.proto";
+
 service Messaging {
     rpc CreateChannel(CreateChannelRequest) returns (ChannelReply) {}
     rpc GetChannel(GetChannelRequest) returns (ChannelReply) {}
+    rpc GetChannelByMemberIDs(GetChannelByMemberIDsRequest) returns (ChannelReply) {}
     rpc SetHiddenChannel(SetHiddenChannelRequest) returns (ChannelReply) {}
     rpc SetRead(SetReadRequest) returns (ChannelReply) {}
     rpc SetUnread(SetUnreadRequest) returns (ChannelReply) {}
@@ -20,6 +23,8 @@ service Messaging {
 
     rpc GetUnreads(GetUnreadsRequest) returns (UnreadsReply) {}
     rpc GetChannelUnreads(GetChannelUnreadsRequest) returns (ChannelUnreadsReply) {}
+
+    rpc ExportChannels(ExportRequest) returns (ExportReply) {}
 }
 
 enum Source {
@@ -109,6 +114,10 @@ message CreateChannelRequest {
 
 message GetChannelRequest {
     string channel_id = 1;
+}
+
+message GetChannelByMemberIDsRequest {
+    repeated string member_ids = 1;
 }
 
 message GetChannelsRequest {
