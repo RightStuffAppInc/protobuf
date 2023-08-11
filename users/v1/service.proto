@@ -110,6 +110,7 @@ message UserReply {
 
     Int age = 21;
     Int distance = 22;
+    bool is_paused = 23;
     
     int32 animation = 100;
     int32 page = 101;
@@ -155,6 +156,7 @@ message UpdateUserRequest {
 
     optional Int age = 21;
     optional Int distance = 22;
+    optional bool is_paused = 23;
 
     optional int32 animation = 100;
     optional int32 page = 101;
