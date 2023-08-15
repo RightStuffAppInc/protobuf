@@ -13,11 +13,13 @@ service Reports {
     rpc GetReasons(GetReasonsRequest) returns (ReasonsReply) {}
 
     rpc CreateReport(CreateReportRequest) returns (ReportReply) {}
+    rpc UpdateReport(UpdateReportRequest) returns (ReportReply) {} 
     rpc DeleteReport(DeleteReportRequest) returns (DeleteReportReply) {}
 
     rpc GetReports(GetReportsRequest) returns (ReportsReply) {}
     rpc GetReporter(GetReporterRequest) returns (ReportsReply) {}
     rpc GetReportee(GetReporteeRequest) returns (ReportsReply) {}
+
 
     rpc ExportUsers(ExportRequest) returns (ExportReply) {}
 }
@@ -40,6 +42,7 @@ message ReportReply {
     string reportee_id = 3;
     string reason_id = 4;
     string created_at = 5;
+    bool is_resolved = 6;
 }
 
 message ReportsReply {
@@ -76,6 +79,12 @@ message CreateReportRequest {
     string reporter_id = 1;
     string reportee_id = 2;
     string reason_id = 3;
+}
+
+message UpdateReportRequest {
+    string reporter_id = 1;
+    string reportee_id = 2;
+    bool is_resolved = 3;
 }
 
 message DeleteReportRequest {
