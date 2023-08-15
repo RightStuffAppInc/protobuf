@@ -82,9 +82,8 @@ message CreateReportRequest {
 }
 
 message UpdateReportRequest {
-    string reporter_id = 1;
-    string reportee_id = 2;
-    bool is_resolved = 3;
+    string report_id = 1;
+    bool is_resolved = 2;
 }
 
 message DeleteReportRequest {
