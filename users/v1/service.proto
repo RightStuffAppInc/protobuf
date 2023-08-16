@@ -14,6 +14,7 @@ service Users {
     rpc DeleteUser(DeleteUserRequest) returns (DeletedUserReply) {}
 
     rpc GetUsers(GetUsersRequest) returns (UsersReply) {}
+    rpc GetTotalUsers(GetTotalUsersRequest) returns (TotalReply) {}
 
     rpc EmitUser(EmitUserRequest) returns (UserReply) {}
     rpc EmitDeletedUser(EmitDeletedUserRequest) returns (DeletedUserReply) {}
@@ -119,7 +120,6 @@ message UserReply {
 message UsersReply {
     repeated UserReply users = 1;
     string next = 2;
-    int32 total = 3;
 }
 
 message DeletedUserReply {
@@ -199,4 +199,10 @@ message EmitUserRequest {
 
 message EmitDeletedUserRequest {
     string user_id = 1;
+}
+
+message GetTotalUsersRequest {}
+
+message TotalReply {
+    int32 total = 1;
 }
