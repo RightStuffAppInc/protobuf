@@ -9,6 +9,7 @@ service Search {
 message UsersReply {
     repeated string user_ids = 1;
     string next = 2;
+    int32 total = 3;
 }
 
 message GetUsersRequest {

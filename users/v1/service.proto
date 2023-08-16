@@ -119,6 +119,7 @@ message UserReply {
 message UsersReply {
     repeated UserReply users = 1;
     string next = 2;
+    int32 total = 3;
 }
 
 message DeletedUserReply {
