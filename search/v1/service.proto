@@ -34,7 +34,7 @@ message GetUsersRequest {
     optional string kids = 113;
     optional bool is_completed = 199;
     
-    optional bool is_invited = 120;
+    optional bool is_approved = 120;
     
     repeated string group_ids = 130;
     
