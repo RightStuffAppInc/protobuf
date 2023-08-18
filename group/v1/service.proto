@@ -9,6 +9,8 @@ service Group {
     rpc GetGroup(GetGroupRequest) returns (GroupReply) {}
     rpc UpdateGroup(UpdateGroupRequest) returns (GroupReply) {}
 
+    rpc GetGroups(GetGroupsRequest) returns (GroupsReply) {}
+
     rpc GetUser(GetUserRequest) returns (UserReply) {}
     rpc AddUser(AddUserRequest) returns (UserReply) {}
     rpc RemoveUser(RemoveUserRequest) returns (UserReply) {}
@@ -37,6 +39,16 @@ message UpdateGroupRequest {
     string group_id = 1;
     optional string name = 2;
     optional string description = 3;
+}
+
+message GroupsReply {
+    repeated string group_ids = 1;
+    string next = 2;
+}
+
+message GetGroupsRequest {
+    string cursor = 1;
+    int32 limit = 2;
 }
 
 message UserReply {
