@@ -42,7 +42,7 @@ message UpdateGroupRequest {
 }
 
 message GroupsReply {
-    repeated string group_ids = 1;
+    repeated GroupReply groups = 1;
     string next = 2;
 }
 
