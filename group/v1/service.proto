@@ -73,9 +73,11 @@ message GetMemberGroupsRequest {
 }
 
 message MemberReply {
-    string group_id = 2;
-    string member_id = 1;
-    string added_at = 3;
+    string group_id = 1;
+    string member_id = 2;
+    bool is_deleted = 3;
+    string added_at = 4;
+    string deleted_at = 5;
 }
 
 message AddMemberRequest {
