@@ -10,6 +10,7 @@ service Likes {
 
     rpc CreateLike(CreateLikeRequest) returns (LikeReply) {}
     rpc GetLike(GetLikeRequest) returns (LikeReply) {}
+    rpc UpdateLike_0(UpdateLikeRequest) returns (LikeReply) {}
     rpc UpdateLike(UpdateLikeRequest) returns (LikeReply) {}
 
     rpc GetLikers(GetLikersRequest) returns (LikesReply) {}
@@ -70,6 +71,13 @@ message CreateLikeRequest {
 message GetLikeRequest {
     string liker_id = 1;
     string likee_id = 2;
+}
+
+message UpdateLike_0Request {
+    string liker_id = 1;
+    string likee_id = 2;
+    optional string message = 3;
+    optional string video = 4;
 }
 
 message UpdateLikeRequest {
