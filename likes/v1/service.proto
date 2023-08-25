@@ -10,7 +10,7 @@ service Likes {
 
     rpc CreateLike(CreateLikeRequest) returns (LikeReply) {}
     rpc GetLike(GetLikeRequest) returns (LikeReply) {}
-    rpc UpdateLike_0(UpdateLikeRequest) returns (LikeReply) {}
+    rpc UpdateLike_0(UpdateLike_0Request) returns (LikeReply) {}
     rpc UpdateLike(UpdateLikeRequest) returns (LikeReply) {}
 
     rpc GetLikers(GetLikersRequest) returns (LikesReply) {}
