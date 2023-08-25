@@ -37,7 +37,8 @@ message GetUsersRequest {
     
     optional bool is_approved = 120;
     
-    repeated string group_ids = 130;
+    repeated string indclude_group_ids = 130;
+    repeated string exclude_group_ids = 131;
     
     optional bool is_premium = 140;
 
