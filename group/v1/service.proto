@@ -8,25 +8,33 @@ service Group {
     rpc CreateGroup(CreateGroupRequest) returns (GroupReply) {}
     rpc GetGroup(GetGroupRequest) returns (GroupReply) {}
     rpc UpdateGroup(UpdateGroupRequest) returns (GroupReply) {}
-
-    rpc GetTotal(GetTotalRequest) returns (TotalReply) {}
-    rpc GetUsers(GetUsersRequest) returns (UsersReply) {}
-
+    rpc DeleteGroup(DeleteGroupRequest) returns (GroupReply) {}
+    
     rpc GetGroups(GetGroupsRequest) returns (GroupsReply) {}
+    
+    rpc AddMember(AddMemberRequest) returns (MemberReply) {}
+    rpc RemoveMember(RemoveMemberRequest) returns (MemberReply) {}
+    rpc GetMemberGroups(GetMemberGroupsRequest) returns (GroupsReply) {}
 
-    rpc GetUser(GetUserRequest) returns (UserReply) {}
-    rpc AddUser(AddUserRequest) returns (UserReply) {}
-    rpc RemoveUser(RemoveUserRequest) returns (UserReply) {}
+    rpc GetMembers(GetMembersRequest) returns (MembersReply) {}
+    rpc GetTotalMembers(GetTotalMembersRequest) returns (TotalReply) {}
 
     rpc ExportUsers(ExportRequest) returns (ExportReply) {}
     rpc EmitUser(EmitUserRequest) returns (UserReply) {}
 }
 
 message GroupReply {
-    string group_id = 1;
+    message Metadata {
+        string group_id = 1;
+        bool is_deleted = 2;
+        string created_at = 3;
+        string updated_at = 4;
+        string deleted_at = 5;
+    }
+
+    Metadata metadata = 1;
     string name = 2;
     string description = 3;
-    string created_at = 4;
 }
 
 message CreateGroupRequest {
@@ -44,23 +52,8 @@ message UpdateGroupRequest {
     optional string description = 3;
 }
 
-message TotalReply {
-    int32 total = 1;
-}
-
-message GetTotalRequest {
+message DeleteGroupRequest {
     string group_id = 1;
-}
-
-message UsersReply {
-    repeated string user_ids = 1;
-    string next = 2;
-}
-
-message GetUsersRequest {
-    string group_id = 1;
-    string cursor = 2;
-    int32 limit = 3;
 }
 
 message GroupsReply {
@@ -73,23 +66,49 @@ message GetGroupsRequest {
     int32 limit = 2;
 }
 
+message GetMemberGroupsRequest {
+    string member_id = 1;
+    string cursor = 2;
+    int32 limit = 3;
+}
+
+message MemberReply {
+    string group_id = 2;
+    string member_id = 1;
+    string added_at = 3;
+}
+
+message AddMemberRequest {
+    string group_id = 1;
+    string member_id = 2;
+}
+
+message RemoveMemberRequest {
+    string group_id = 1;
+    string member_id = 2;
+}
+
+message MembersReply {
+    repeated MemberReply members = 1;
+    string next = 2;
+}
+
+message GetMembersRequest {
+    string group_id = 1;
+    string cursor = 2;
+    int32 limit = 3;
+}
+
+message TotalReply {
+    int32 total = 1;
+}
+
+message GetTotalMembersRequest {
+    string group_id = 1;
+}
+
 message UserReply {
     string user_id = 1;
-    repeated string groups = 2;
-}
-
-message GetUserRequest {
-    string user_id = 1;
-}
-
-message AddUserRequest {
-    string group_id = 1;
-    string user_id = 2;
-}
-
-message RemoveUserRequest {
-    string group_id = 1;
-    string user_id = 2;
 }
 
 message EmitUserRequest {
