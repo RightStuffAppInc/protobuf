@@ -12,6 +12,7 @@ service Likes {
     rpc GetLike(GetLikeRequest) returns (LikeReply) {}
     rpc UpdateLike_0(UpdateLike_0Request) returns (LikeReply) {}
     rpc UpdateLike(UpdateLikeRequest) returns (LikeReply) {}
+    rpc DeleteLike(DeleteLikeRequest) returns (DeleteLikeReply) {}
 
     rpc GetLikers(GetLikersRequest) returns (LikesReply) {}
     rpc GetLikees(GetLikeesRequest) returns (LikesReply) {}
@@ -86,6 +87,16 @@ message UpdateLikeRequest {
     Status status = 3;
     optional string message = 4;
     optional string video = 5;
+}
+
+message DeleteLikeReply {
+    string liker_id = 1;
+    string likee_id = 2;
+}
+
+message DeleteLikeRequest {
+    string liker_id = 1;
+    string likee_id = 2;
 }
 
 message GetLikersRequest {
