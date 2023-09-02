@@ -21,8 +21,13 @@ message GetUsersRequest {
     string cursor = 1;
     int32 limit = 2;
 
+    
     optional string phone = 10;
     optional string email = 11;
+    
+    optional bool is_deleted = 12;
+    optional bool is_banned = 13;
+
 
     optional string first = 100;
     optional string last = 101;
