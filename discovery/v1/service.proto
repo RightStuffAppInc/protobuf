@@ -34,6 +34,9 @@ message UpdateUserRequest {
 message UserReply {
     string user_id = 1;
     bool is_hidden = 2;
+
+    Int age = 3;
+    Int distance = 4;
 }
 
 message GetUsersRequest {
