@@ -9,6 +9,8 @@ service Notifications {
     rpc AddToken(AddTokenRequest) returns (UserReply) {}
     rpc ClearToken(ClearTokenRequest) returns (UserReply) {}
 
+    rpc SendBadge(SendBadgeRequest) returns (BadgeReply) {}
+
     rpc AnnouncementCreate(AnnouncementCreateRequest) returns (AnnouncementReply) {}
     rpc AnnouncementGet(AnnoucementGetRequest) returns (AnnouncementReply) {}
     rpc AnnouncementUpdate(AnnoucementUpdateRequest) returns (AnnouncementReply) {}
@@ -52,6 +54,15 @@ message AddTokenRequest {
 message ClearTokenRequest {
     string user_id = 1;
     string token = 2;
+}
+
+message BadgeReply {
+    string user_id = 1;
+    int32 badge = 2;
+}
+
+message SendBadgeRequest {
+    string user_id = 1;
 }
 
 /* Announcements */
