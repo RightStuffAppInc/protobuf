@@ -8,6 +8,9 @@ service Views {
     rpc AddView(AddViewRequest) returns (ViewsReply) {}
     rpc GetViews(GetViewsRequest) returns (ViewsReply) {}
 
+    rpc GetViewersTotal(GetViewersTotalRequest) returns (ViewsTotalReply) {}
+    rpc GetVieweesTotal(GetVieweesTotalRequest) returns (ViewsTotalReply) {}
+
     rpc ExportViews(ExportRequest) returns (ExportReply) {}
 }
 
@@ -18,6 +21,10 @@ message ViewsReply {
     string last_viewed_at = 4;
 }
 
+message ViewsTotalReply {
+    int64 total = 1;
+}
+
 message AddViewRequest {
     string viewer_id = 1;
     string viewee_id = 2;
@@ -26,5 +33,13 @@ message AddViewRequest {
 message GetViewsRequest {
     string viewer_id = 1;
     string viewee_id = 2;
+}
+
+message GetViewersTotalRequest {
+    string viewee_id = 1;
+}
+
+message GetVieweesTotalRequest {
+    string viewer_id = 1;
 }
 
