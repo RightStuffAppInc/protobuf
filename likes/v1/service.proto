@@ -114,6 +114,7 @@ message GetLikersRequest {
 
 message GetLikersTotalRequest {
     string likee_id = 1;
+    string created_at = 2;
 }
 
 message GetLikeesRequest {
@@ -125,6 +126,7 @@ message GetLikeesRequest {
 
 message GetLikeesTotalRequest {
     string liker_id = 1;
+    string created_at = 2;
 }
 
 message EmitLikeRequest {
