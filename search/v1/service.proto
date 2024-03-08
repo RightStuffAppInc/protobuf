@@ -9,14 +9,25 @@ service Search {
 message UsersReply {
     repeated string user_ids = 1;
     string next = 2;
+    int32 total = 3;
 }
 
 message GetUsersRequest {
+    enum SortBy {
+        DEFAULT = 0;
+        CREATED_AT = 1;
+    }
+
     string cursor = 1;
     int32 limit = 2;
 
+    
     optional string phone = 10;
     optional string email = 11;
+    
+    optional bool is_deleted = 12;
+    optional bool is_banned = 13;
+
 
     optional string first = 100;
     optional string last = 101;
@@ -34,13 +45,16 @@ message GetUsersRequest {
     optional string kids = 113;
     optional bool is_completed = 199;
     
-    optional bool is_invited = 120;
+    optional bool is_approved = 120;
     
-    repeated string group_ids = 130;
+    repeated string indclude_group_ids = 130;
+    repeated string exclude_group_ids = 131;
     
     optional bool is_premium = 140;
 
     optional int32 min_age = 200;
     optional int32 max_age = 201;
     optional bool is_hidden = 202;
+
+    optional SortBy sort_by = 300;
 }
