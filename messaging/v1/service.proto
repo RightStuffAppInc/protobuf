@@ -16,6 +16,7 @@ service Messaging {
     rpc GetChannels(GetChannelsRequest) returns (ChannelsReply) {}
 
     rpc CreateMessage(CreateMessageRequest) returns (MessageReply) {}
+    rpc CreateAdminMessage(CreateAdminMessageRequest) returns (MessageReply) {}
     rpc GetMessage(GetMessageRequest) returns (MessageReply) {}
     rpc DeleteMessage(DeleteMessageRequest) returns (DeleteMessageReply) {}
     
@@ -154,6 +155,16 @@ message DeleteChannelReply {
 message CreateMessageRequest {
     string channel_id = 1;
     string sender_id = 2;
+    oneof payload {
+        string text = 3;
+        string image = 4;
+        string video = 5;
+    }
+}
+
+message CreateAdminMessageRequest {
+    string user_id = 1;
+    string admin_id = 2;
     oneof payload {
         string text = 3;
         string image = 4;
