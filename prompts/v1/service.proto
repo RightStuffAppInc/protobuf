@@ -9,8 +9,6 @@ service Prompts {
     rpc DeletePrompt(DeletePromptRequest) returns (DeletePromptReply) {}
 
     rpc GetPrompts(GetPromptsRequest) returns (PromptsReply) {}
-    rpc GetResponses(GetResponsesRequest) returns (ResponsesReply) {}
-    rpc GetTotalResponses(GetResponsesTotalRequest) returns (TotalReply) {}
 
     rpc CreateUser(CreateUserRequest) returns (UserReply) {}
     rpc GetUser(GetUserRequest) returns (UserReply) {}
@@ -31,25 +29,15 @@ message PromptsReply {
     string next = 2;
 }
 
-message Response {
-    string prompt_id = 1;
-    string response = 2;
-    string created_at = 3;
-}
-
 message UserReply {
+    message Response {
+        string prompt_id = 1;
+        string response = 2;
+        string created_at = 3;
+    }
 
     string user_id = 1;
     repeated Response responses = 2;
-}
-
-message ResponsesReply {
-    repeated Response responses = 1;
-    string next = 2;
-}
-
-message TotalReply {
-    int32 total = 1;
 }
 
 message CreatePromptRequest {
@@ -75,16 +63,6 @@ message DeletePromptReply {
 message GetPromptsRequest {
     string cursor = 1;
     int32 limit = 2;
-}
-
-message GetResponsesRequest {
-    string prompt_id = 1;
-    string cursor = 2;
-    int32 limit = 3;
-}
-
-message GetResponsesTotalRequest {
-    string prompt_id = 1;
 }
 
 message CreateUserRequest {
