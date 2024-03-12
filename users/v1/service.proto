@@ -13,6 +13,9 @@ service Users {
     rpc SwapImages(SwapImagesRequest) returns (UserReply) {}
     rpc DeleteUser(DeleteUserRequest) returns (DeletedUserReply) {}
 
+    rpc GetUsers(GetUsersRequest) returns (UsersReply) {}
+    rpc GetTotalUsers(GetTotalUsersRequest) returns (TotalReply) {}
+
     rpc EmitUser(EmitUserRequest) returns (UserReply) {}
     rpc EmitDeletedUser(EmitDeletedUserRequest) returns (DeletedUserReply) {}
 
@@ -73,6 +76,17 @@ message Music {
     string artist = 4;
 }
 
+message Location {
+    double longitude = 1;
+    double latitude = 2;
+    string name = 3;
+}
+
+message Int {
+    int32 max = 1;
+    int32 min = 2;
+}
+
 message UserReply {
     Metadata metadata = 1;
     optional string first_name = 2;
@@ -91,9 +105,14 @@ message UserReply {
     optional Kids kids = 15;
     optional string profile = 16;
     repeated string images = 17;
-    
     bool isSeenApproved = 18;
+    optional int32 zipcode = 19;
+    Location location = 20;
 
+    Int age = 21;
+    Int distance = 22;
+    bool is_paused = 23;
+    
     int32 animation = 100;
     int32 page = 101;
 }
@@ -133,6 +152,12 @@ message UpdateUserRequest {
     optional Kids kids = 15;
 
     optional bool isSeenApproved = 18;
+    optional int32 zipcode = 19;
+    optional Location location = 20;
+
+    optional Int age = 21;
+    optional Int distance = 22;
+    optional bool is_paused = 23;
 
     optional int32 animation = 100;
     optional int32 page = 101;
@@ -159,6 +184,11 @@ message DeleteUserRequest {
     string user_id = 1;
 }
 
+message GetUsersRequest {
+    string cursor = 1;
+    int32 limit = 2;
+}
+
 message SearchUsersRequest {
     string query = 1;
 }
@@ -169,4 +199,10 @@ message EmitUserRequest {
 
 message EmitDeletedUserRequest {
     string user_id = 1;
+}
+
+message GetTotalUsersRequest {}
+
+message TotalReply {
+    int32 total = 1;
 }

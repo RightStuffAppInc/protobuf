@@ -9,13 +9,22 @@ service Likes {
     rpc UpdateUser(UpdateUserRequest) returns (UserReply) {}
 
     rpc CreateLike(CreateLikeRequest) returns (LikeReply) {}
+    rpc GetLike(GetLikeRequest) returns (LikeReply) {}
+    rpc UpdateLike_0(UpdateLike_0Request) returns (LikeReply) {}
     rpc UpdateLike(UpdateLikeRequest) returns (LikeReply) {}
+    rpc DeleteLike(DeleteLikeRequest) returns (DeleteLikeReply) {}
 
     rpc GetLikers(GetLikersRequest) returns (LikesReply) {}
+    rpc GetLikersTotal(GetLikersTotalRequest) returns (LikesTotalReply) {}
     rpc GetLikees(GetLikeesRequest) returns (LikesReply) {}
+    rpc GetLikeesTotal(GetLikeesTotalRequest) returns (LikesTotalReply) {}
 
     rpc ExportLikes(ExportRequest) returns (ExportReply) {}
     rpc EmitLike(EmitLikeRequest) returns (LikeReply) {}
+
+    rpc GetUnreadLikes(GetUnreadLikesRequest) returns (UnreadReply) {}
+    rpc SetSeenLikes(SetSeenLikesRequest) returns (UnreadReply) {}
+    rpc EmitUnreadLikes(EmitUnreadLikesRequest) returns (UnreadReply) {}
 }
 
 enum Status {
@@ -36,6 +45,7 @@ message LikeReply {
     string updated_at = 4;
     
     optional string message = 5;
+    optional string video = 11;
     Status status = 6;
     string channel_id = 7;
 }
@@ -43,6 +53,10 @@ message LikeReply {
 message LikesReply {
     repeated LikeReply likes = 1;
     string next = 2;
+}
+
+message LikesTotalReply {
+    int64 total = 1;
 }
 
 message GetUserRequest {
@@ -58,12 +72,37 @@ message CreateLikeRequest {
     string liker_id = 1;
     string likee_id = 2;
     optional string message = 3;
+    optional string video = 4;
+}
+
+message GetLikeRequest {
+    string liker_id = 1;
+    string likee_id = 2;
+}
+
+message UpdateLike_0Request {
+    string liker_id = 1;
+    string likee_id = 2;
+    optional string message = 3;
+    optional string video = 4;
 }
 
 message UpdateLikeRequest {
     string liker_id = 1;
     string likee_id = 2;
     Status status = 3;
+    optional string message = 4;
+    optional string video = 5;
+}
+
+message DeleteLikeReply {
+    string liker_id = 1;
+    string likee_id = 2;
+}
+
+message DeleteLikeRequest {
+    string liker_id = 1;
+    string likee_id = 2;
 }
 
 message GetLikersRequest {
@@ -73,13 +112,42 @@ message GetLikersRequest {
     bool is_disliked = 4;
 }
 
+message GetLikersTotalRequest {
+    string likee_id = 1;
+    string created_at = 2;
+}
+
 message GetLikeesRequest {
     string liker_id = 1;
     string cursor = 2;
     int32 limit = 3;
+    bool is_requested = 4;
+}
+
+message GetLikeesTotalRequest {
+    string liker_id = 1;
+    string created_at = 2;
 }
 
 message EmitLikeRequest {
     string liker_id = 1;
     string likee_id = 2;
+}
+
+message UnreadReply {
+    string likee_id = 1;
+    int32 unread = 2;
+    string timestamp = 3;
+}
+
+message GetUnreadLikesRequest {
+    string likee_id = 1;
+}
+
+message SetSeenLikesRequest {
+    string likee_id = 1;
+}
+
+message EmitUnreadLikesRequest {
+    string likee_id = 1;
 }

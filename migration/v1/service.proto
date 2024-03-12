@@ -14,6 +14,15 @@ service Migration {
     rpc MigrateInvites(MigrateInvitesRequest) returns (MigrationReply) {}
     rpc MigrateViews(MigrateViewsRequest) returns (MigrationReply) {}
     rpc MigrateResets(MigrateResetsRequest) returns (MigrationReply) {}
+    rpc MigrateReasons(MigrateReasonsRequest) returns (MigrationReply) {}
+    rpc MigrateReports(MigrateReportsRequest) returns (MigrationReply) {}
+    rpc MigrateBans(MigrateBansRequest) returns (MigrationReply) {}
+    rpc MigratePromptResponses(MigratePromptResponsesRequest) returns (MigrationReply) {}
+    rpc MigrateEventInterests(MigrateEventInterestsRequest) returns (MigrationReply) {}
+    rpc MigrateNotifications(MigrateNotificationsRequest) returns (MigrationReply) {}
+    rpc MigratePreferences(MigratePreferencesRequest) returns (MigrationReply) {}
+    rpc MigrateBlocks(MigrateBlocksRequest) returns (MigrationReply) {}
+    rpc MigratePages(MigratePagesRequest) returns (MigrationReply) {}
 }
 
 message MigrationReply {
@@ -34,7 +43,10 @@ message MigrateChatsRequest {}
 
 message MigrateMessagesRequest {}
 
-message MigrateLikesRequest {}
+message MigrateLikesRequest {
+    int32 limit = 1;
+    int32 offset = 2;
+}
 
 message MigrateEventsRequest {}
 
@@ -45,3 +57,21 @@ message MigrateInvitesRequest {}
 message MigrateViewsRequest {}
 
 message MigrateResetsRequest {}
+
+message MigrateReasonsRequest {}
+
+message MigrateReportsRequest {}
+
+message MigrateBansRequest {}
+
+message MigratePromptResponsesRequest {}
+
+message MigrateEventInterestsRequest {}
+
+message MigrateNotificationsRequest {}
+
+message MigratePreferencesRequest {}
+
+message MigrateBlocksRequest {}
+
+message MigratePagesRequest {}
