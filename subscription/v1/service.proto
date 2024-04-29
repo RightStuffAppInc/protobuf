@@ -13,6 +13,7 @@ message UserReply {
     string user_id = 1;
     bool is_premium = 2;
     bool is_locked = 3;
+    bool is_top = 4;
 }
 
 message GetUserRequest {
@@ -23,6 +24,7 @@ message UpdateUserRequest {
     string user_id = 1;
     optional bool is_premium = 2;
     optional bool is_locked = 3;
+    optional bool is_top = 4;
 }
 
 
