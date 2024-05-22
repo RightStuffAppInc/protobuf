@@ -4,17 +4,29 @@ package subscription;
 
 service Subscription {
     rpc GetUser(GetUserRequest) returns (UserReply) {}
+    rpc UpdateUser(UpdateUserRequest) returns (UserReply) {}
+    
     rpc VerifyReceipt(VerifyReceiptRequest) returns (UserReply) {}
+}
+
+message UserReply {
+    string user_id = 1;
+    bool is_premium = 2;
+    bool is_locked = 3;
+    bool is_top = 4;
 }
 
 message GetUserRequest {
     string user_id = 1;
 }
 
-message UserReply {
+message UpdateUserRequest {
     string user_id = 1;
-    bool is_premium = 2;
+    optional bool is_premium = 2;
+    optional bool is_locked = 3;
+    optional bool is_top = 4;
 }
+
 
 message VerifyReceiptRequest {
     string user_id = 1;
