@@ -20,6 +20,9 @@ service Migration {
     rpc MigratePromptResponses(MigratePromptResponsesRequest) returns (MigrationReply) {}
     rpc MigrateEventInterests(MigrateEventInterestsRequest) returns (MigrationReply) {}
     rpc MigrateNotifications(MigrateNotificationsRequest) returns (MigrationReply) {}
+    rpc MigratePreferences(MigratePreferencesRequest) returns (MigrationReply) {}
+    rpc MigrateBlocks(MigrateBlocksRequest) returns (MigrationReply) {}
+    rpc MigratePages(MigratePagesRequest) returns (MigrationReply) {}
 }
 
 message MigrationReply {
@@ -66,3 +69,9 @@ message MigratePromptResponsesRequest {}
 message MigrateEventInterestsRequest {}
 
 message MigrateNotificationsRequest {}
+
+message MigratePreferencesRequest {}
+
+message MigrateBlocksRequest {}
+
+message MigratePagesRequest {}

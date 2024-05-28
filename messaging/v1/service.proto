@@ -2,9 +2,12 @@ syntax = "proto3";
 
 package messaging;
 
+import "export/v1/message.proto";
+
 service Messaging {
     rpc CreateChannel(CreateChannelRequest) returns (ChannelReply) {}
     rpc GetChannel(GetChannelRequest) returns (ChannelReply) {}
+    rpc GetChannelByMemberIDs(GetChannelByMemberIDsRequest) returns (ChannelReply) {}
     rpc SetHiddenChannel(SetHiddenChannelRequest) returns (ChannelReply) {}
     rpc SetRead(SetReadRequest) returns (ChannelReply) {}
     rpc SetUnread(SetUnreadRequest) returns (ChannelReply) {}
@@ -13,6 +16,7 @@ service Messaging {
     rpc GetChannels(GetChannelsRequest) returns (ChannelsReply) {}
 
     rpc CreateMessage(CreateMessageRequest) returns (MessageReply) {}
+    rpc CreateAdminMessage(CreateAdminMessageRequest) returns (MessageReply) {}
     rpc GetMessage(GetMessageRequest) returns (MessageReply) {}
     rpc DeleteMessage(DeleteMessageRequest) returns (DeleteMessageReply) {}
     
@@ -20,6 +24,8 @@ service Messaging {
 
     rpc GetUnreads(GetUnreadsRequest) returns (UnreadsReply) {}
     rpc GetChannelUnreads(GetChannelUnreadsRequest) returns (ChannelUnreadsReply) {}
+
+    rpc ExportChannels(ExportRequest) returns (ExportReply) {}
 }
 
 enum Source {
@@ -111,6 +117,10 @@ message GetChannelRequest {
     string channel_id = 1;
 }
 
+message GetChannelByMemberIDsRequest {
+    repeated string member_ids = 1;
+}
+
 message GetChannelsRequest {
     string user_id = 1;
     string cursor = 2;
@@ -145,6 +155,16 @@ message DeleteChannelReply {
 message CreateMessageRequest {
     string channel_id = 1;
     string sender_id = 2;
+    oneof payload {
+        string text = 3;
+        string image = 4;
+        string video = 5;
+    }
+}
+
+message CreateAdminMessageRequest {
+    string user_id = 1;
+    string admin_id = 2;
     oneof payload {
         string text = 3;
         string image = 4;
