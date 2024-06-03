@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package files;
+
+service Files {
+    rpc CreateFile(CreateFileRequest) returns (FileReply) {}
+    rpc GetFile(GetFileRequest) returns (FileReply) {}
+
+    rpc GetFiles(GetFilesRequest) returns (FilesReply) {}
+}
+
+message FileReply {
+    string file_id = 1;
+    string owner_id = 2;
+    bool is_deleted = 3;
+
+    string created_at = 10;
+    string deleted_at = 11;
+    
+    string content_type = 100;
+    int64 content_length = 101;
+    
+    string upload = 200;
+    string download = 300;
+}
+
+message FilesReply {
+    repeated FileReply files = 1;
+    string next = 2;
+}
+
+message CreateFileRequest {
+    string owner_id = 2;
+
+    string content_type = 100;
+    int64 content_length = 101;
+}
+
+message GetFileRequest {
+    string file_id = 1;
+}
+
+message GetFilesRequest {
+    message Query {
+        optional string owner_id = 2;
+    }
+
+    Query query = 1;
+    string cursor = 2;
+    int32 limit = 3;
+}
