@@ -131,12 +131,20 @@ message CreateLikeRequest {
     string post_id = 2;
     string liker_id = 3;
 
-    string text = 200;
-    string video_id = 300;
+    optional string text = 200;
+    optional string video_id = 300;
 }
 
 message GetLikeRequest {
-    string like_id = 1;
+    message Search {
+        string post_id = 1;
+        string liker_id = 2;
+    }
+
+    oneof Query {
+        string like_id = 1;
+        Search search = 2;
+    }
 }
 
 message UpdateLikeAsLikerRequest {
@@ -152,7 +160,8 @@ message UpdateLikeAsCreatorRequest {
     string creator_id = 2;
 
     Status status = 100;
-
+    optional string text = 200;
+    optional string video_id = 300;
 }
 
 message DeleteLikeRequest {
@@ -162,7 +171,8 @@ message DeleteLikeRequest {
 
 message GetLikesRequest {
     message Query {
-        optional string liker_id = 1;
+        optional string post_id = 2;
+        optional string liker_id = 3;
     }
     Query query = 1;
     string cursor = 2;
