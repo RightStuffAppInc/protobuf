@@ -73,7 +73,7 @@ message UpdatePostRequest {
     string post_id = 1;
     string creator_id = 2;
 
-    Visibility visibility = 20;
+    optional Visibility visibility = 20;
 
     optional string text = 100;
     optional string image_id = 200;
