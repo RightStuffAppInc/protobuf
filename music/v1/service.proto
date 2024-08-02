@@ -4,6 +4,12 @@ package music;
 
 service Music {
     rpc GetPlaylist(GetPlaylistRequest) returns (Playlist) {}
+    rpc SearchSongs(SearchSongsRequest) returns (Songs) {}
+}
+
+message Songs {
+    repeated Song songs = 1;
+    string next = 2;
 }
 
 message Playlist {
@@ -14,10 +20,22 @@ message Playlist {
 
 message Song {
     string id = 1;
+    
+    string title = 100;
+    string artist = 101;
+    
+    string artwork = 200;
+    string preview = 201;
 }
 
 message GetPlaylistRequest {
     string id = 1;
+    string cursor = 2;
+    int32 limit = 3;
+}
+
+message SearchSongsRequest {
+    string query = 1;
     string cursor = 2;
     int32 limit = 3;
 }
