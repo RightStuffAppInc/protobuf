@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package music;
+
+service Music {
+    rpc GetPlaylist(GetPlaylistRequest) returns (Playlist) {}
+}
+
+message Playlist {
+    string id = 1;
+    repeated Song songs = 2;
+    string next = 3;
+}
+
+message Song {
+    string id = 1;
+}
+
+message GetPlaylistRequest {
+    string id = 1;
+    string cursor = 2;
+    int32 limit = 3;
+}
