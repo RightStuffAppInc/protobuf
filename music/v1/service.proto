@@ -3,19 +3,13 @@ syntax = "proto3";
 package music;
 
 service Music {
-    rpc GetPlaylist(GetPlaylistRequest) returns (Playlist) {}
+    rpc GetPlaylist(GetPlaylistRequest) returns (Songs) {}
     rpc SearchSongs(SearchSongsRequest) returns (Songs) {}
 }
 
 message Songs {
     repeated Song songs = 1;
     string next = 2;
-}
-
-message Playlist {
-    string id = 1;
-    repeated Song songs = 2;
-    string next = 3;
 }
 
 message Song {
@@ -28,11 +22,7 @@ message Song {
     string preview = 201;
 }
 
-message GetPlaylistRequest {
-    string id = 1;
-    string cursor = 2;
-    int32 limit = 3;
-}
+message GetPlaylistRequest {}
 
 message SearchSongsRequest {
     string query = 1;
