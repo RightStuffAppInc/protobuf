@@ -18,7 +18,7 @@ service Prompts {
     rpc DeleteResponse(DeleteResponseRequest) returns (UserReply) {}
 
     rpc GetResponses(GetResponsesRequest) returns (ResponsesReply) {}
-    rpc GetTotal(GetTotalRequest) returns (TotalReply) {}
+    rpc GetResponsesTotal(GetResponsesTotalRequest) returns (TotalReply) {}
 }
 
 message PromptReply {
@@ -36,6 +36,7 @@ message Response {
     string prompt_id = 1;
     string response = 2;
     string created_at = 3;
+    string responder_id = 4;
 }
 
 message ResponsesReply  {
@@ -114,6 +115,6 @@ message GetResponsesRequest {
     int32 limit = 3;
 }
 
-message GetTotalRequest {
+message GetResponsesTotalRequest {
     string prompt_id = 1;
 }

@@ -1,0 +1,141 @@
+syntax = "proto3";
+
+package posts;
+
+import "export/v1/message.proto";
+
+service PostLikes {
+    rpc CreateLike(CreateLikeRequest) returns  (LikeReply) {}
+    rpc GetLike(GetLikeRequest) returns (LikeReply) {}
+    rpc UpdateLikeAsLiker(UpdateLikeAsLikerRequest) returns (LikeReply) {}
+    rpc UpdateLikeAsCreator(UpdateLikeAsCreatorRequest) returns (LikeReply) {}
+    rpc DeleteLike(DeleteLikeRequest) returns (LikeReply) {}
+
+    rpc GetLikes(GetLikesRequest) returns (LikesReply) {}
+    rpc GetRequestedLikesByPost(GetRequestedLikesByPostRequest) returns (LikesReply) {}
+
+    rpc GetTotalUnseenLikesByPost(GetTotalUnseenLikesByPostRequest) returns (TotalReply) {}
+    rpc GetTotalUnseenLikesByCreator(GetTotalUnseenLikesByCreatorRequest) returns (TotalReply) {}
+    rpc SetSeenLikesByPost(SetSeenLikesByPostRequest) returns (TotalReply) {}
+    rpc EmitTotalUnseenLikesByCreator(EmitTotalUnseenLikesByCreatorRequest) returns (TotalReply) {}
+
+    rpc ExportLikes(ExportRequest) returns (ExportReply) {}
+}
+
+enum Status {
+    STATUS_REQUESTED = 0;
+    STATUS_ACCEPTED = 2;
+    STATUS_REJECTED = 3;
+}
+
+message LikeReply {
+    string like_id = 1;
+    string post_id = 2;
+    string creator_id = 3;
+    string liker_id = 4;
+    bool is_deleted = 5;
+    
+    string created_at = 10;
+    string updated_at = 11;
+    string deleted_at = 12;
+    
+    Status status = 100;
+    
+    bool is_seen = 110;
+    string seen_at = 111;
+
+    optional string text = 200;
+    optional string video_id = 300;
+}
+
+message LikesReply {
+    repeated LikeReply likes = 1;
+    string next = 2;
+}
+
+message CreateLikeRequest {
+    string post_id = 2;
+    string creator_id = 3;
+    string liker_id = 4;
+
+    optional string text = 200;
+    optional string video_id = 300;
+}
+
+message GetLikeRequest {
+    message Search {
+        string post_id = 1;
+        string liker_id = 2;
+    }
+
+    oneof Query {
+        string like_id = 1;
+        Search search = 2;
+    }
+}
+
+message UpdateLikeAsLikerRequest {
+    string like_id = 1;
+    string liker_id = 3;
+
+    optional string text = 200;
+    optional string video_id = 300;
+}
+
+message UpdateLikeAsCreatorRequest {
+    string like_id = 1;
+    string creator_id = 2;
+
+    Status status = 100;
+    optional string text = 200;
+    optional string video_id = 300;
+}
+
+message DeleteLikeRequest {
+    string like_id = 1;
+    string liker_id = 3;
+}
+
+message GetLikesRequest {
+    message Query {
+        optional string post_id = 2;
+        optional string liker_id = 3;
+    }
+    Query query = 1;
+    string cursor = 2;
+    int32 limit = 3;
+}
+
+message GetRequestedLikesByPostRequest {
+    message Query {
+        string post_id = 2;
+        string creator_id = 3;
+    }
+    Query query = 1;
+    string cursor = 2;
+    int32 limit = 3;
+}
+
+// TOTAL //
+
+message TotalReply {
+    int32 total = 1;
+}
+
+message GetTotalUnseenLikesByCreatorRequest {
+    string creator_id = 1;
+}
+
+message GetTotalUnseenLikesByPostRequest {
+    string post_id = 1;
+    string creator_id = 2;
+}
+
+message SetSeenLikesByPostRequest {
+    string post_id = 1;
+    string creator_id = 2;
+}
+
+message EmitTotalUnseenLikesByCreatorRequest {
+    string creator_id = 1;
+}

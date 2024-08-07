@@ -67,6 +67,7 @@ enum Religion {
     RELIGION_MUSLIM = 6;
     RELIGION_SPIRITUAL = 7;
     RELIGION_NON_PRACTICING = 8;
+    RELIGION_LDS = 9;
 }
 
 message Music {

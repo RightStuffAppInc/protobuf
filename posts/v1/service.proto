@@ -1,0 +1,134 @@
+syntax = "proto3";
+
+package posts;
+
+import "export/v1/message.proto";
+
+service Posts {
+    rpc CreatePost(CreatePostRequest) returns (PostReply) {}
+    rpc GetPost(GetPostRequest) returns (PostReply) {}
+    rpc UpdatePost(UpdatePostRequest) returns (PostReply) {}
+    rpc DeletePost(DeletePostRequest) returns (PostReply) {}
+
+    rpc GetPosts(GetPostsRequest) returns (PostsReply) {}
+
+    rpc ExportPosts(ExportRequest) returns (ExportReply) {}
+}
+
+enum Visibility {
+    VISIBILITY_DEFAULT = 0;
+    VISIBILITY_LIKES = 1;
+}
+
+message TextPost {
+    string text = 1;
+}
+
+message ImagePost {
+    string text = 1;
+    string image_id = 2;
+}
+
+message VideoPost {
+    string text = 1;
+    string video_id = 2;
+}
+
+message DatePost {
+    string title = 1;
+    string location = 2;
+    string description = 3;
+    string start = 4;
+}
+
+message PostReply {
+    string post_id = 1;
+    string creator_id = 2;
+    
+    bool is_deleted = 3;
+    string expires_at = 4;
+    
+    string created_at = 10;
+    string updated_at = 11;
+    string deleted_at = 12;
+
+    Visibility visibility = 20;
+
+    oneof Payload  {
+        TextPost text = 100;
+        ImagePost image = 200;
+        VideoPost video = 300;
+        DatePost date = 400;
+    }
+}
+
+message PostsReply {
+    repeated PostReply posts = 1;
+    string next = 2;
+}
+
+message CreatePostRequest {
+    string creator_id = 1;
+    Visibility visibility = 20;
+
+    oneof Payload {
+        TextPost text = 100;
+        ImagePost image = 200;
+        VideoPost video = 300;
+        DatePost date = 400;
+    }
+}
+
+message GetPostRequest {
+    string post_id = 1;
+}
+
+message UpdateTextPost {
+    optional string text = 1;
+}
+
+message UpdateImagePost {
+    optional string text = 1;
+    optional string image_id = 2;
+}
+
+message UpdateVideoPost {
+    optional string text = 1;
+    optional string video_id = 2;
+}
+
+message UpdateDatePost {
+    optional string title = 1;
+    optional string location = 2;
+    optional string description = 3;
+    optional string start = 4;
+}
+
+message UpdatePostRequest {
+    string post_id = 1;
+    string creator_id = 2;
+
+    optional Visibility visibility = 20;
+
+    oneof Payload {
+        UpdateTextPost text = 100;
+        UpdateImagePost image = 200;
+        UpdateVideoPost video = 300;
+        UpdateDatePost date = 400;
+    }
+}
+
+message DeletePostRequest {
+    string post_id = 1;
+    string creator_id = 2;
+}
+
+message GetPostsRequest {
+    message Query {
+        optional string creator_id = 1;
+        optional bool is_deleted = 2;
+    }
+    Query query = 1;
+    string cursor = 2;
+    int32 limit = 3;
+}
