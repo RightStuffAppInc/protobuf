@@ -16,6 +16,8 @@ service PostLikes {
 
     rpc CreateDislike(CreateDislikeRequest) returns (DislikeReply) {}
     rpc GetDislike(GetDislikeRequest) returns (DislikeReply) {}
+
+    rpc GetDislikes(GetDislikesRequest) returns (DislikesReply) {}
     
     rpc SetSeenLikesByPost(SetSeenLikesByPostRequest) returns (TotalReply) {}
     rpc GetTotalUnseenLikesByPost(GetTotalUnseenLikesByPostRequest) returns (TotalReply) {}
@@ -129,6 +131,11 @@ message DislikeReply {
     string created_at = 5;
 }
 
+message DislikesReply {
+    repeated DislikeReply dislikes = 1;
+    string next = 2;
+}
+
 message CreateDislikeRequest {
     string post_id = 2;
     string creator_id  = 3;
@@ -146,6 +153,17 @@ message GetDislikeRequest {
         Search search = 2;
     }
 }
+
+message GetDislikesRequest {
+    message Query {
+        optional string post_id = 2;
+        optional string disliker_id = 3;
+    }
+    Query query = 1;
+    string cursor = 2;
+    int32 limit = 3;
+}
+
 
 // TOTAL //
 
