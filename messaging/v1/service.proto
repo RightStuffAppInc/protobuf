@@ -31,6 +31,7 @@ service Messaging {
 enum Source {
     LIKES = 0;
     EVENTS = 2;
+    POSTS = 3;
 }
 
 message ChannelReply {
@@ -75,6 +76,10 @@ message MatchMessage {
     repeated string member_ids = 2;
 }
 
+message PostLikeMessage {
+    string post_like_id = 1;
+}
+
 message MessageReply {
     string message_id = 1;
     string channel_id = 2;
@@ -86,6 +91,7 @@ message MessageReply {
         EventLikeMessage event = 7;
         LikeMessage like = 8;
         MatchMessage match = 9;
+        PostLikeMessage post_like = 100;
     }
 }
 
@@ -103,6 +109,7 @@ message CreateChannelRequest {
             VideoMessage video = 12;
             EventLikeMessage event = 13;
             LikeMessage like = 14;
+            PostLikeMessage post_like = 100;
         }
     }
 
