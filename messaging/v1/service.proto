@@ -15,15 +15,19 @@ service Messaging {
     
     rpc GetChannels(GetChannelsRequest) returns (ChannelsReply) {}
 
+    rpc GetUnreads(GetUnreadsRequest) returns (UnreadsReply) {}
+    rpc GetChannelUnreads(GetChannelUnreadsRequest) returns (ChannelUnreadsReply) {}
+
     rpc CreateMessage(CreateMessageRequest) returns (MessageReply) {}
+    rpc CreatePostMessage(CreatePostMessageRequest) returns (MessageReply) {}
     rpc CreateAdminMessage(CreateAdminMessageRequest) returns (MessageReply) {}
     rpc GetMessage(GetMessageRequest) returns (MessageReply) {}
     rpc DeleteMessage(DeleteMessageRequest) returns (DeleteMessageReply) {}
     
     rpc GetMessages(GetMessagesRequest) returns (MessagesReply) {}
 
-    rpc GetUnreads(GetUnreadsRequest) returns (UnreadsReply) {}
-    rpc GetChannelUnreads(GetChannelUnreadsRequest) returns (ChannelUnreadsReply) {}
+    rpc CreateReaction(CreateReactionRequest) returns (MessageReply) {}
+    rpc DeleteReaction(DeleteReactionRequest) returns (MessageReply) {}
 
     rpc ExportChannels(ExportRequest) returns (ExportReply) {}
 }
@@ -80,6 +84,15 @@ message PostLikeMessage {
     string post_like_id = 1;
 }
 
+message PostMessage {
+    string post_id = 1;
+}
+
+message Reaction {
+    string reacter_id = 1;
+    string reaction = 2;
+}
+
 message MessageReply {
     string message_id = 1;
     string channel_id = 2;
@@ -91,8 +104,13 @@ message MessageReply {
         EventLikeMessage event = 7;
         LikeMessage like = 8;
         MatchMessage match = 9;
-        PostLikeMessage post_like = 100;
+
+        PostMessage post = 10;
+        PostLikeMessage post_like = 11;
     }
+
+    optional MessageReply reply_to = 100;
+    repeated Reaction reactions = 200;
 }
 
 message MessagesReply {
@@ -109,7 +127,9 @@ message CreateChannelRequest {
             VideoMessage video = 12;
             EventLikeMessage event = 13;
             LikeMessage like = 14;
-            PostLikeMessage post_like = 100;
+            
+            PostMessage post = 100;
+            PostLikeMessage post_like = 101;
         }
     }
 
@@ -167,6 +187,7 @@ message CreateMessageRequest {
         string image = 4;
         string video = 5;
     }
+    optional string reply_to_id = 100;
 }
 
 message CreateAdminMessageRequest {
@@ -177,6 +198,17 @@ message CreateAdminMessageRequest {
         string image = 4;
         string video = 5;
     }
+}
+
+message CreatePostMessageRequest {
+    string channel_id = 1;
+    string sender_id = 2;
+    oneof payload {
+        string text = 3;
+        string image = 4;
+        string video = 5;
+    }
+    string post_id = 100;
 }
 
 message GetMessageRequest {
@@ -215,4 +247,13 @@ message ChannelUnreadsReply {
     string user_id = 1;
     string channel_id = 2;
     int32 num = 3;
+}
+
+message CreateReactionRequest {
+    string reacter_id = 1;
+    string reaction = 2;
+}
+
+message DeleteReactionRequest {
+    string reacter_id = 1;
 }
