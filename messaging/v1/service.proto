@@ -250,10 +250,12 @@ message ChannelUnreadsReply {
 }
 
 message CreateReactionRequest {
-    string reacter_id = 1;
-    string reaction = 2;
+    string message_id = 1;
+    string reacter_id = 2;
+    string reaction = 3;
 }
 
 message DeleteReactionRequest {
-    string reacter_id = 1;
+    string message_id = 1;
+    string reacter_id = 2;
 }
