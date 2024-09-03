@@ -36,7 +36,8 @@ enum Status {
 message LikeReply {
     string like_id = 1;
     string post_id = 2;
-    string liker_id = 3;
+    string creator_id = 3;
+    string liker_id = 4;
     bool is_deleted = 5;
     
     string created_at = 10;
@@ -59,7 +60,8 @@ message LikesReply {
 
 message CreateLikeRequest {
     string post_id = 2;
-    string liker_id = 3;
+    string creator_id = 3;
+    string liker_id = 4;
 
     optional string text = 200;
     optional string video_id = 300;
@@ -125,8 +127,9 @@ message GetRequestedLikesByPostRequest {
 message DislikeReply {
     string dislike_id = 1;
     string post_id = 2;
-    string disliker_id = 3;
-    string created_at = 4;
+    string creator_id = 3;
+    string disliker_id = 4;
+    string created_at = 5;
 }
 
 message DislikesReply {
@@ -136,7 +139,8 @@ message DislikesReply {
 
 message CreateDislikeRequest {
     string post_id = 2;
-    string disliker_id = 3;
+    string creator_id = 3;
+    string disliker_id = 4;
 }
 
 message GetDislikeRequest {
