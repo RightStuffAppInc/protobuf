@@ -60,7 +60,7 @@ message LikesReply {
 
 message CreateLikeRequest {
     string post_id = 2;
-    string creator_id = 3;
+    // string creator_id = 3;
     string liker_id = 4;
 
     optional string text = 200;
@@ -127,7 +127,7 @@ message GetRequestedLikesByPostRequest {
 message DislikeReply {
     string dislike_id = 1;
     string post_id = 2;
-    string creator_id = 3;
+    // string creator_id = 3;
     string disliker_id = 4;
     string created_at = 5;
 }
