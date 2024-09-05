@@ -128,9 +128,12 @@ message CreateChannelRequest {
             EventLikeMessage event = 13;
             LikeMessage like = 14;
             
-            PostMessage post = 100;
-            PostLikeMessage post_like = 101;
+            PostMessage post = 20;
+            PostLikeMessage post_like = 21;
         }
+
+        optional string message_id = 99;
+        optional string reply_to = 100;
     }
 
     string creator_id = 10;

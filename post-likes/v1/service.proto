@@ -104,7 +104,8 @@ message DeleteLikeRequest {
 message GetLikesRequest {
     message Query {
         optional string post_id = 2;
-        optional string liker_id = 3;
+        optional string creator_id = 3;
+        optional string liker_id = 4;
         optional Status status = 100;
     }
     Query query = 1;
