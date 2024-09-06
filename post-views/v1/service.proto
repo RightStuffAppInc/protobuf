@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package posts;
+
+import "export/v1/message.proto"; 
+
+service PostViews {
+    rpc CreateView(CreateViewRequest) returns (ViewReply) {}
+    rpc GetView(GetViewRequest) returns (ViewReply) {}
+
+    rpc ExportViews(ExportRequest) returns (ExportReply) {}
+}
+
+message ViewReply {
+    string view_id = 1;
+    string post_id = 2;
+    string viewee_id = 3;
+    string created_at = 4;
+}
+
+message ViewsReply {
+    repeated ViewReply views = 1;
+    string next = 2;
+}
+
+message CreateViewRequest {
+    string post_id = 2;
+    string viewer_id = 3;
+}
+
+message GetViewRequest {
+    message Search {
+        string post_id = 2;
+        string viewer_id = 3;
+    }
+
+    oneof Query {
+        string view_id = 1;
+        Search search = 2;
+    }
+}
