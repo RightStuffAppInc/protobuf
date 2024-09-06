@@ -10,16 +10,16 @@ service PostLikes {
     rpc UpdateLikeAsLiker(UpdateLikeAsLikerRequest) returns (LikeReply) {}
     rpc UpdateLikeAsCreator(UpdateLikeAsCreatorRequest) returns (LikeReply) {}
     rpc DeleteLike(DeleteLikeRequest) returns (LikeReply) {}
-
+    
     rpc GetLikes(GetLikesRequest) returns (LikesReply) {}
     rpc GetRequestedLikesByPost(GetRequestedLikesByPostRequest) returns (LikesReply) {}
-
+    
     rpc CreateDislike(CreateDislikeRequest) returns (DislikeReply) {}
     rpc GetDislike(GetDislikeRequest) returns (DislikeReply) {}
-
+    
     rpc GetDislikes(GetDislikesRequest) returns (DislikesReply) {}
     
-    rpc SetSeenLikesByPost(SetSeenLikesByPostRequest) returns (TotalReply) {}
+    rpc SetSeenLike(SetSeenLikeRequest) returns (LikeReply) {}
     rpc GetTotalUnseenLikesByPost(GetTotalUnseenLikesByPostRequest) returns (TotalReply) {}
     rpc GetTotalUnseenLikesByCreator(GetTotalUnseenLikesByCreatorRequest) returns (TotalReply) {}
     rpc EmitTotalUnseenLikesByCreator(EmitTotalUnseenLikesByCreatorRequest) returns (TotalReply) {}
@@ -182,8 +182,8 @@ message GetTotalUnseenLikesByPostRequest {
     string creator_id = 2;
 }
 
-message SetSeenLikesByPostRequest {
-    string post_id = 1;
+message SetSeenLikeRequest {
+    string like_id = 1;
     string creator_id = 2;
 }
 
