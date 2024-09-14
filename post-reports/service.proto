@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package posts;
+
+import "export/v1/message.proto"; 
+
+service PostViews {
+    rpc CreateReport(CreateReportRequest) returns (ReportReply) {}
+    rpc GetReport(GetReportRequest) returns (ReportReply) {}
+
+    rpc ExportReports(ExportRequest) returns (ExportReply) {}
+}
+
+message ReportReply {
+    string report_id = 1;
+    string post_id = 2;
+    string creator_id = 3;
+    string reporter_id = 4;
+    string created_at = 5;
+}
+
+message CreateReportRequest {
+    string post_id = 2;
+    string reporter_id = 3;
+}
+
+message GetReportRequest {
+    message Search {
+        string post_id = 1;
+        string reporter_id = 2;
+    }
+    oneof Query {
+        string report_id = 1;
+        Search search = 2;
+    }
+}
