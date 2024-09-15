@@ -4,7 +4,7 @@ package posts;
 
 import "export/v1/message.proto"; 
 
-service PostViews {
+service PostReports {
     rpc CreateReport(CreateReportRequest) returns (ReportReply) {}
     rpc GetReport(GetReportRequest) returns (ReportReply) {}
 
