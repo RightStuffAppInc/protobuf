@@ -9,7 +9,7 @@ service PostLikes {
     rpc GetLike(GetLikeRequest) returns (LikeReply) {}
     rpc UpdateLikeAsLiker(UpdateLikeAsLikerRequest) returns (LikeReply) {}
     rpc UpdateLikeAsCreator(UpdateLikeAsCreatorRequest) returns (LikeReply) {}
-    rpc DeleteLike(DeleteLikeRequest) returns (LikeReply) {}
+    rpc DeleteLike(DeleteLikeRequest) returns (DeleteLikeReply) {}
     
     rpc GetLikes(GetLikesRequest) returns (LikesReply) {}
     rpc GetRequestedLikesByPost(GetRequestedLikesByPostRequest) returns (LikesReply) {}
@@ -99,6 +99,10 @@ message UpdateLikeAsCreatorRequest {
 message DeleteLikeRequest {
     string like_id = 1;
     string liker_id = 3;
+}
+
+message DeleteLikeReply {
+    string like_id = 1;
 }
 
 message GetLikesRequest {
