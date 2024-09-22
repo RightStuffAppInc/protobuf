@@ -46,9 +46,15 @@ message UpdateUserRequest {
     optional bool announcements = 6;
 }
 
+enum TokenType {
+    IOS = 0;
+    ANDROID = 1;
+}
+
 message AddTokenRequest {
     string user_id = 1;
     string token = 2;
+    TokenType token_type = 3;
 }
 
 message ClearTokenRequest {

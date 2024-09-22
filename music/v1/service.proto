@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package music;
+
+service Music {
+    rpc GetPlaylist(GetPlaylistRequest) returns (Songs) {}
+    rpc SearchSongs(SearchSongsRequest) returns (Songs) {}
+}
+
+message Songs {
+    repeated Song songs = 1;
+    string next = 2;
+}
+
+message Song {
+    string id = 1;
+    
+    string title = 100;
+    string artist = 101;
+    
+    string artwork = 200;
+    string preview = 201;
+}
+
+message GetPlaylistRequest {}
+
+message SearchSongsRequest {
+    string query = 1;
+    string cursor = 2;
+    int32 limit = 3;
+}

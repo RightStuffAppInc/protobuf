@@ -9,14 +9,19 @@ service PostLikes {
     rpc GetLike(GetLikeRequest) returns (LikeReply) {}
     rpc UpdateLikeAsLiker(UpdateLikeAsLikerRequest) returns (LikeReply) {}
     rpc UpdateLikeAsCreator(UpdateLikeAsCreatorRequest) returns (LikeReply) {}
-    rpc DeleteLike(DeleteLikeRequest) returns (LikeReply) {}
-
+    rpc DeleteLike(DeleteLikeRequest) returns (DeleteLikeReply) {}
+    
     rpc GetLikes(GetLikesRequest) returns (LikesReply) {}
     rpc GetRequestedLikesByPost(GetRequestedLikesByPostRequest) returns (LikesReply) {}
-
+    
+    rpc CreateDislike(CreateDislikeRequest) returns (DislikeReply) {}
+    rpc GetDislike(GetDislikeRequest) returns (DislikeReply) {}
+    
+    rpc GetDislikes(GetDislikesRequest) returns (DislikesReply) {}
+    
+    rpc SetSeenLike(SetSeenLikeRequest) returns (LikeReply) {}
     rpc GetTotalUnseenLikesByPost(GetTotalUnseenLikesByPostRequest) returns (TotalReply) {}
     rpc GetTotalUnseenLikesByCreator(GetTotalUnseenLikesByCreatorRequest) returns (TotalReply) {}
-    rpc SetSeenLikesByPost(SetSeenLikesByPostRequest) returns (TotalReply) {}
     rpc EmitTotalUnseenLikesByCreator(EmitTotalUnseenLikesByCreatorRequest) returns (TotalReply) {}
 
     rpc ExportLikes(ExportRequest) returns (ExportReply) {}
@@ -24,8 +29,8 @@ service PostLikes {
 
 enum Status {
     STATUS_REQUESTED = 0;
-    STATUS_ACCEPTED = 2;
-    STATUS_REJECTED = 3;
+    STATUS_ACCEPTED = 1;
+    STATUS_REJECTED = 2;
 }
 
 message LikeReply {
@@ -55,7 +60,7 @@ message LikesReply {
 
 message CreateLikeRequest {
     string post_id = 2;
-    string creator_id = 3;
+    // string creator_id = 3;
     string liker_id = 4;
 
     optional string text = 200;
@@ -96,10 +101,16 @@ message DeleteLikeRequest {
     string liker_id = 3;
 }
 
+message DeleteLikeReply {
+    string like_id = 1;
+}
+
 message GetLikesRequest {
     message Query {
         optional string post_id = 2;
-        optional string liker_id = 3;
+        optional string creator_id = 3;
+        optional string liker_id = 4;
+        optional Status status = 100;
     }
     Query query = 1;
     string cursor = 2;
@@ -116,6 +127,50 @@ message GetRequestedLikesByPostRequest {
     int32 limit = 3;
 }
 
+// DISLIKES //
+
+message DislikeReply {
+    string dislike_id = 1;
+    string post_id = 2;
+    // string creator_id = 3;
+    string disliker_id = 4;
+    string created_at = 5;
+}
+
+message DislikesReply {
+    repeated DislikeReply dislikes = 1;
+    string next = 2;
+}
+
+message CreateDislikeRequest {
+    string post_id = 2;
+    string creator_id = 3;
+    string disliker_id = 4;
+}
+
+message GetDislikeRequest {
+    message Search {
+        string post_id = 1;
+        string disliker_id = 2;
+    }
+
+    oneof Query {
+        string dislike_id = 1;
+        Search search = 2;
+    }
+}
+
+message GetDislikesRequest {
+    message Query {
+        optional string post_id = 2;
+        optional string disliker_id = 3;
+    }
+    Query query = 1;
+    string cursor = 2;
+    int32 limit = 3;
+}
+
+
 // TOTAL //
 
 message TotalReply {
@@ -131,8 +186,8 @@ message GetTotalUnseenLikesByPostRequest {
     string creator_id = 2;
 }
 
-message SetSeenLikesByPostRequest {
-    string post_id = 1;
+message SetSeenLikeRequest {
+    string like_id = 1;
     string creator_id = 2;
 }
 
