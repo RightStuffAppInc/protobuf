@@ -15,9 +15,10 @@ service Posts {
     rpc ExportPosts(ExportRequest) returns (ExportReply) {}
 }
 
-enum Visibility {
-    VISIBILITY_DEFAULT = 0;
-    VISIBILITY_LIKES = 1;
+message Visibility {
+    bool new = 1;
+    bool likes = 2;
+    bool matches = 3;
 }
 
 message TextPost {
