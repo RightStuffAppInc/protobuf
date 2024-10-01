@@ -7,6 +7,8 @@ service Subscription {
     rpc UpdateUser(UpdateUserRequest) returns (UserReply) {}
     
     rpc VerifyReceipt(VerifyReceiptRequest) returns (UserReply) {}
+
+    rpc PlayBilling(PlayBillingRequest) returns (PlayBillingReply) {}
 }
 
 message UserReply {
@@ -32,3 +34,8 @@ message VerifyReceiptRequest {
     string user_id = 1;
     string receipt = 2;
 }
+
+message PlayBillingRequest {
+    string data = 1;
+}
+message PlayBillingReply{}
