@@ -5,6 +5,7 @@ package subscription;
 service Subscription {
     rpc GetUser(GetUserRequest) returns (UserReply) {}
     rpc UpdateUser(UpdateUserRequest) returns (UserReply) {}
+    rpc EmitUser(EmitUserRequest) returns (UserReply) {}
     
     rpc VerifyReceipt(VerifyReceiptRequest) returns (UserReply) {}
 
@@ -29,6 +30,9 @@ message UpdateUserRequest {
     optional bool is_top = 4;
 }
 
+message EmitUserRequest {
+    string user_id = 1;
+}
 
 message VerifyReceiptRequest {
     string user_id = 1;
