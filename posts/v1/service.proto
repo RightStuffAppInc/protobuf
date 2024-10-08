@@ -55,6 +55,8 @@ message PostReply {
 
     Visibility visibility = 20;
 
+    bool is_posted_by_admin = 30;
+
     oneof Payload  {
         TextPost text = 100;
         ImagePost image = 200;
