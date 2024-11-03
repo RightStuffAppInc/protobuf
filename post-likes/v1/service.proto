@@ -13,6 +13,7 @@ service PostLikes {
     
     rpc GetLikes(GetLikesRequest) returns (LikesReply) {}
     rpc GetRequestedLikesByPost(GetRequestedLikesByPostRequest) returns (LikesReply) {}
+    rpc GetRequestedLikesTotal(GetRequestedLikesTotalRequest) returns (TotalReply) {}
     
     rpc CreateDislike(CreateDislikeRequest) returns (DislikeReply) {}
     rpc GetDislike(GetDislikeRequest) returns (DislikeReply) {}
@@ -125,6 +126,14 @@ message GetRequestedLikesByPostRequest {
     Query query = 1;
     string cursor = 2;
     int32 limit = 3;
+}
+
+message GetRequestedLikesTotalRequest {
+    message Query {
+        string post_id = 2;
+        string creator = 3;
+    }
+    Query query = 1;
 }
 
 // DISLIKES //
