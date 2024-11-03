@@ -131,7 +131,7 @@ message GetRequestedLikesByPostRequest {
 message GetRequestedLikesTotalRequest {
     message Query {
         string post_id = 2;
-        string creator = 3;
+        string creator_id = 3;
     }
     Query query = 1;
 }
