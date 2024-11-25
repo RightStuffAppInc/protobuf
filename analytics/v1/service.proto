@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package analytics;
+
+service Analytics {
+    rpc GetUser(GetUserRequest) returns (UserReply) {}
+}
+
+message UserReply {
+    string user_id = 1;
+}
+
+message GetUserRequest {
+    string user_id = 1;
+}
