@@ -12,9 +12,8 @@ service Versions {
 }
 
 enum Platform {
-    UNKNOWN = 0;
-    IOS = 1;
-    ANDROID = 2;
+    IOS = 0;
+    ANDROID = 1;
 }
 
 message UserReply {
