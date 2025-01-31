@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package versions;
+
+import "export/v1/message.proto";
+
+service Versions {
+    rpc GetUser(GetUserRequest) returns (UserReply) {}
+    rpc UpdateUser(UpdateUserRequest) returns (UserReply) {}
+
+    rpc ExportUsers(ExportRequest) returns (ExportReply) {}
+}
+
+enum Platform {
+    UNKNOWN = 0;
+    IOS = 1;
+    ANDROID = 2;
+}
+
+message UserReply {
+    string user_id = 1;
+    
+    string createdAt = 10;
+    string updatedAt = 11;
+
+    Platform platform = 100;
+    string version = 101;
+}
+
+message GetUserRequest {
+    string user_id = 1;
+}
+
+message UpdateUserRequest {
+    string user_id = 1;
+    
+    Platform platform = 100;
+    string version = 101;
+}
