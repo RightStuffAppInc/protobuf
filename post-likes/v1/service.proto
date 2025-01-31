@@ -13,6 +13,7 @@ service PostLikes {
     
     rpc GetLikes(GetLikesRequest) returns (LikesReply) {}
     rpc GetRequestedLikesByPost(GetRequestedLikesByPostRequest) returns (LikesReply) {}
+    rpc GetRequestedLikesTotal(GetRequestedLikesTotalRequest) returns (TotalReply) {}
     
     rpc CreateDislike(CreateDislikeRequest) returns (DislikeReply) {}
     rpc GetDislike(GetDislikeRequest) returns (DislikeReply) {}
@@ -23,6 +24,8 @@ service PostLikes {
     rpc GetTotalUnseenLikesByPost(GetTotalUnseenLikesByPostRequest) returns (TotalReply) {}
     rpc GetTotalUnseenLikesByCreator(GetTotalUnseenLikesByCreatorRequest) returns (TotalReply) {}
     rpc EmitTotalUnseenLikesByCreator(EmitTotalUnseenLikesByCreatorRequest) returns (TotalReply) {}
+    
+    rpc SetSeenLikes(SetSeenLikesRequest) returns (SetSeenLikesReply) {}
 
     rpc ExportLikes(ExportRequest) returns (ExportReply) {}
 }
@@ -127,6 +130,14 @@ message GetRequestedLikesByPostRequest {
     int32 limit = 3;
 }
 
+message GetRequestedLikesTotalRequest {
+    message Query {
+        string post_id = 2;
+        string creator_id = 3;
+    }
+    Query query = 1;
+}
+
 // DISLIKES //
 
 message DislikeReply {
@@ -193,4 +204,12 @@ message SetSeenLikeRequest {
 
 message EmitTotalUnseenLikesByCreatorRequest {
     string creator_id = 1;
+}
+
+// LEGACY: support for events-service
+message SetSeenLikesRequest {
+    string creator_id = 2;
+}
+message SetSeenLikesReply {
+    int32 modified = 1;
 }
