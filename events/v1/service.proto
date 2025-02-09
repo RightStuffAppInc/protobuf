@@ -143,6 +143,8 @@ message GetEventLikesRequest {
     string event_id = 1;
     string cursor = 2;
     int32 limit = 3;
+
+    string creator_id = 4;
 }
 
 message GetUserLikesRequest {
