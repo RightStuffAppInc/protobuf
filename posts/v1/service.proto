@@ -11,6 +11,7 @@ service Posts {
     rpc DeletePost(DeletePostRequest) returns (PostReply) {}
 
     rpc GetPosts(GetPostsRequest) returns (PostsReply) {}
+    rpc GetDatePosts(GetDatePostsRequest) returns (PostsReply) {}
 
     rpc EmitPost(EmitPostRequest) returns (PostReply) {}
 
@@ -136,6 +137,10 @@ message GetPostsRequest {
     Query query = 1;
     string cursor = 2;
     int32 limit = 3;
+}
+
+message GetDatePostsRequest {
+    string creator_id = 2;
 }
 
 message EmitPostRequest {
