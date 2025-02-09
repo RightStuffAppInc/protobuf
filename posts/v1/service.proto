@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package posts;
 
-import "export/v1/message.proto";
-
 service Posts {
     rpc CreatePost(CreatePostRequest) returns (PostReply) {}
     rpc GetPost(GetPostRequest) returns (PostReply) {}
@@ -145,4 +143,15 @@ message GetDatePostsRequest {
 
 message EmitPostRequest {
     string post_id = 1;
+}
+
+message ExportRequest {
+    int32 workers = 1;
+}
+
+message ExportReply {
+    int32 total = 1;
+    string start_time = 2;
+    string end_time = 3;
+    string duration = 4;
 }
