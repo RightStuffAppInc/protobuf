@@ -4,6 +4,7 @@ package files;
 
 service Files {
     rpc CreateFile(CreateFileRequest) returns (FileReply) {}
+    rpc CreateRemoteFile(CreateRemoteFileRequest) returns (FileReply) {}
     rpc GetFile(GetFileRequest) returns (FileReply) {}
 
     rpc GetFiles(GetFilesRequest) returns (FilesReply) {}
@@ -34,6 +35,12 @@ message CreateFileRequest {
 
     string content_type = 100;
     int64 content_length = 101;
+}
+
+message CreateRemoteFileRequest {
+    string owner_id = 2;
+
+    string download = 300;
 }
 
 message GetFileRequest {

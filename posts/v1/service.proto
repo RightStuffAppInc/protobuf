@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package posts;
 
-import "export/v1/message.proto";
-
 service Posts {
     rpc CreatePost(CreatePostRequest) returns (PostReply) {}
     rpc GetPost(GetPostRequest) returns (PostReply) {}
@@ -11,6 +9,9 @@ service Posts {
     rpc DeletePost(DeletePostRequest) returns (PostReply) {}
 
     rpc GetPosts(GetPostsRequest) returns (PostsReply) {}
+    rpc GetDatePosts(GetDatePostsRequest) returns (PostsReply) {}
+
+    rpc EmitPost(EmitPostRequest) returns (PostReply) {}
 
     rpc ExportPosts(ExportRequest) returns (ExportReply) {}
 }
@@ -134,4 +135,23 @@ message GetPostsRequest {
     Query query = 1;
     string cursor = 2;
     int32 limit = 3;
+}
+
+message GetDatePostsRequest {
+    string creator_id = 2;
+}
+
+message EmitPostRequest {
+    string post_id = 1;
+}
+
+message ExportRequest {
+    int32 workers = 1;
+}
+
+message ExportReply {
+    int32 total = 1;
+    string start_time = 2;
+    string end_time = 3;
+    string duration = 4;
 }
