@@ -28,6 +28,7 @@ service PostLikes {
     rpc SetSeenLikes(SetSeenLikesRequest) returns (SetSeenLikesReply) {}
 
     rpc ExportLikes(ExportRequest) returns (ExportReply) {}
+    rpc ExportDislikes(ExportRequest) returns (ExportReply) {}
 }
 
 enum Status {
