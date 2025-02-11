@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package events;
 
-import "export/v1/message.proto";
-
 service Events {
     rpc CreateEvent(CreateEventRequest) returns (EventReply) {}
     rpc GetEvent(GetEventRequest) returns (EventReply) {}
@@ -192,4 +190,15 @@ message GetCreatorLikesNumRequest {
 
 message EmitCreatorLikesNumRequest {
     string creator_id = 1;
+}
+
+message ExportRequest {
+    int32 workers = 1;
+}
+
+message ExportReply {
+    int32 total = 1;
+    string start_time = 2;
+    string end_time = 3;
+    string duration = 4;
 }
