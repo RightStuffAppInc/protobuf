@@ -18,6 +18,13 @@ service Posts {
     rpc ExportPosts(ExportRequest) returns (ExportReply) {}
 }
 
+enum PostType {
+    TEXT = 0;
+    IMAGE = 1;
+    VIDEO = 2;
+    DATE = 3;
+}
+
 message Visibility {
     bool new = 1;
     bool likes = 2;
@@ -133,6 +140,7 @@ message GetPostsRequest {
     message Query {
         optional string creator_id = 1;
         optional bool is_deleted = 2;
+        optional PostType post_type = 100;
     }
     Query query = 1;
     string cursor = 2;
