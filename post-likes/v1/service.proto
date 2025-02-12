@@ -163,7 +163,6 @@ message DislikesReply {
 
 message CreateDislikeRequest {
     string post_id = 2;
-    string creator_id = 3;
     string disliker_id = 4;
 }
 
