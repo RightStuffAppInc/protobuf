@@ -10,9 +10,12 @@ service PostLikes {
     rpc UpdateLikeAsLiker(UpdateLikeAsLikerRequest) returns (LikeReply) {}
     rpc UpdateLikeAsCreator(UpdateLikeAsCreatorRequest) returns (LikeReply) {}
     rpc DeleteLike(DeleteLikeRequest) returns (DeleteLikeReply) {}
+
+    rpc EnsureLike(EnsureLikeRequest) returns (LikeReply) {}
     
     rpc GetLikes(GetLikesRequest) returns (LikesReply) {}
     rpc GetRequestedLikesByPost(GetRequestedLikesByPostRequest) returns (LikesReply) {}
+    rpc GetRequestedLikesTotal(GetRequestedLikesTotalRequest) returns (TotalReply) {}
     
     rpc CreateDislike(CreateDislikeRequest) returns (DislikeReply) {}
     rpc GetDislike(GetDislikeRequest) returns (DislikeReply) {}
@@ -23,8 +26,11 @@ service PostLikes {
     rpc GetTotalUnseenLikesByPost(GetTotalUnseenLikesByPostRequest) returns (TotalReply) {}
     rpc GetTotalUnseenLikesByCreator(GetTotalUnseenLikesByCreatorRequest) returns (TotalReply) {}
     rpc EmitTotalUnseenLikesByCreator(EmitTotalUnseenLikesByCreatorRequest) returns (TotalReply) {}
+    
+    rpc SetSeenLikes(SetSeenLikesRequest) returns (SetSeenLikesReply) {}
 
     rpc ExportLikes(ExportRequest) returns (ExportReply) {}
+    rpc ExportDislikes(ExportRequest) returns (ExportReply) {}
 }
 
 enum Status {
@@ -36,7 +42,7 @@ enum Status {
 message LikeReply {
     string like_id = 1;
     string post_id = 2;
-    string creator_id = 3;
+    // string creator_id = 3;
     string liker_id = 4;
     bool is_deleted = 5;
     
@@ -127,6 +133,19 @@ message GetRequestedLikesByPostRequest {
     int32 limit = 3;
 }
 
+message GetRequestedLikesTotalRequest {
+    message Query {
+        string post_id = 2;
+        string creator_id = 3;
+    }
+    Query query = 1;
+}
+
+message EnsureLikeRequest {
+    string post_id = 2;
+    string liker_id = 4;
+}
+
 // DISLIKES //
 
 message DislikeReply {
@@ -144,7 +163,6 @@ message DislikesReply {
 
 message CreateDislikeRequest {
     string post_id = 2;
-    string creator_id = 3;
     string disliker_id = 4;
 }
 
@@ -193,4 +211,12 @@ message SetSeenLikeRequest {
 
 message EmitTotalUnseenLikesByCreatorRequest {
     string creator_id = 1;
+}
+
+// LEGACY: support for events-service
+message SetSeenLikesRequest {
+    string creator_id = 2;
+}
+message SetSeenLikesReply {
+    int32 modified = 1;
 }
