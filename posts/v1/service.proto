@@ -82,6 +82,7 @@ message PostsReply {
 
 message CreatePostRequest {
     string creator_id = 1;
+    optional string expires_at = 4;
     Visibility visibility = 20;
 
     oneof Payload {
@@ -120,6 +121,8 @@ message UpdateDatePost {
 message UpdatePostRequest {
     string post_id = 1;
     string creator_id = 2;
+    
+    optional string expires_at = 4;
 
     optional Visibility visibility = 20;
 
