@@ -115,6 +115,7 @@ message UserReply {
     Int age = 21;
     Int distance = 22;
     bool is_paused = 23;
+    bool is_allowed_birthday_update = 24;
     
     int32 animation = 100;
     int32 page = 101;
