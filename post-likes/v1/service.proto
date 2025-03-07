@@ -19,6 +19,7 @@ service PostLikes {
     
     rpc CreateDislike(CreateDislikeRequest) returns (DislikeReply) {}
     rpc GetDislike(GetDislikeRequest) returns (DislikeReply) {}
+    rpc DeleteDislike(DeleteDislikeRequest) returns (DislikeReply) {}
     
     rpc GetDislikes(GetDislikesRequest) returns (DislikesReply) {}
     
@@ -188,6 +189,10 @@ message GetDislikesRequest {
     int32 limit = 3;
 }
 
+message DeleteDislikeRequest {
+    string post_id = 2;
+    string disliker_id = 4;
+}
 
 // TOTAL //
 

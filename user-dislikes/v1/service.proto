@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package posts;
+package user_dislikes;
 
 import "export/v1/message.proto";
 
