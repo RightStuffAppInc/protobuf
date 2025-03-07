@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package posts;
+
+import "export/v1/message.proto";
+
+service UserDislikes {
+    rpc UpdateDislike(UpdateDislikeRequest) returns (DislikeReply) {}
+
+    rpc GetDislike(GetDislikeRequest) returns (DislikeReply) {}
+    
+    rpc GetDislikes(GetDislikesRequest) returns (DislikesReply) {}
+    
+    rpc ExportDislikes(ExportRequest) returns (ExportReply) {}
+}
+
+message DislikeReply {
+    string dislike_id = 1;
+    string disliker_id = 2;
+    string dislikee_id = 3;
+
+    string created_at = 10;
+    string updated_at = 11;
+    
+    bool is_disliked = 100;
+}
+
+message DislikesReply {
+    repeated DislikeReply dislikes = 1;
+    string next = 2;
+}
+
+message UpdateDislikeRequest {
+    string disliker_id = 2;
+    string dislikee_id = 3;
+
+    bool is_disliked = 100;
+}
+
+message GetDislikeRequest {
+    message Search {
+        string disliker_id = 2;
+        string dislikee_id = 3;
+    }
+
+    oneof Query {
+        string dislike_id = 1;
+        Search search = 2;
+    }
+}
+
+message GetDislikesRequest {
+    message Query {
+        string disliker_id = 2;
+        string dislikee_id = 3;
+    }
+    Query query = 1;
+    string cursor = 2;
+    int32 limit = 3;
+}
