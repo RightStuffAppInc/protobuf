@@ -16,6 +16,9 @@ service Prompts {
     rpc SetResponse(SetResponseRequest) returns (UserReply) {}
     rpc SwapResponses(SwapResponsesRequest) returns (UserReply) {}
     rpc DeleteResponse(DeleteResponseRequest) returns (UserReply) {}
+
+    rpc GetResponses(GetResponsesRequest) returns (ResponsesReply) {}
+    rpc GetResponsesTotal(GetResponsesTotalRequest) returns (TotalReply) {}
 }
 
 message PromptReply {
@@ -29,13 +32,24 @@ message PromptsReply {
     string next = 2;
 }
 
-message UserReply {
-    message Response {
-        string prompt_id = 1;
-        string response = 2;
-        string created_at = 3;
-    }
+message Response {
+    string prompt_id = 1;
+    string response = 2;
+    string created_at = 3;
+    string responder_id = 4;
+}
 
+message ResponsesReply  {
+    repeated Response responses = 1;
+    string next = 2;
+}
+
+message TotalReply {
+    string prompt_id = 1;
+    int32 total = 2;
+}
+
+message UserReply {
     string user_id = 1;
     repeated Response responses = 2;
 }
@@ -82,8 +96,8 @@ message SetResponseRequest {
 
 message SwapResponsesRequest {
     string user_id = 1;
-    int32 index_1 = 2;
-    int32 index_2 = 3;
+    int32 source = 2;
+    int32 destination = 3;
 }
 
 message DeleteResponseRequest {
@@ -93,4 +107,14 @@ message DeleteResponseRequest {
 message DeleteResponseReply {
     string prompt_id = 1;
     string user_id = 2;
+}
+
+message GetResponsesRequest {
+    string prompt_id = 1;
+    string cursor = 2;
+    int32 limit = 3;
+}
+
+message GetResponsesTotalRequest {
+    string prompt_id = 1;
 }

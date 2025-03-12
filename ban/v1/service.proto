@@ -2,23 +2,40 @@ syntax = "proto3";
 
 package ban;
 
+import "export/v1/message.proto";
+
 service Ban {
     rpc GetUser(GetUserRequest) returns (UserReply) {}
     rpc BanUser(BanUserRequest) returns (UserReply) {}
+    rpc LockUser(LockUserRequest) returns (UserReply) {}
+    rpc ExportBans(ExportRequest) returns (ExportReply) {}
+
+    rpc EmitUser(EmitUserRequest) returns (UserReply) {}
 }
 
 message UserReply {
-    string user_id = 1;
+    string phone = 1;
     bool is_banned = 2;
     string created_at = 3;
     string updated_at = 4;
+
+    bool is_locked = 10;
 }
 
 message GetUserRequest {
-    string user_id = 1;
+    string phone = 1;
 }
 
 message BanUserRequest {
-    string user_id = 1;
+    string phone = 1;
     bool is_banned = 2;
+}
+
+message LockUserRequest {
+    string phone = 1;
+    bool is_locked = 2;
+}
+
+message EmitUserRequest {
+    string phone = 1;
 }

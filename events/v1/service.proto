@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package events;
 
-import "export/v1/message.proto";
+import "export/v1/message.proto"; 
 
 service Events {
     rpc CreateEvent(CreateEventRequest) returns (EventReply) {}
@@ -14,17 +14,29 @@ service Events {
     rpc GetUserEvents(GetUserEventsRequest) returns (EventsReply) {}
 
     rpc CreateLike(CreateLikeRequest) returns (LikeReply) {}
+    rpc UpdateLike(UpdateLikeRequest) returns (LikeReply) {}
     rpc GetLike(GetLikeRequest) returns (LikeReply) {}
     rpc GetEventLikes(GetEventLikesRequest) returns (LikesReply) {}
     rpc GetUserLikes(GetUserLikesRequest) returns (LikesReply) {}
+
+    rpc CreateDislike(CreateDislikeRequest) returns (DislikeReply) {}
+    rpc GetDislike(GetDislikeRequest) returns (DislikeReply) {}
 
     rpc SetSeenLikes(SetSeenLikesRequest) returns (SetSeenLikesReply) {}
 
     rpc EmitEvent(EmitEventRequest) returns (EventReply) {}
     rpc ExportEvents(ExportRequest) returns (ExportReply) {}
+    rpc ExportLikes(ExportRequest) returns (ExportReply) {}
+    rpc ExportDislikes(ExportRequest) returns (ExportReply) {}
 
     rpc GetCreatorLikesNum(GetCreatorLikesNumRequest) returns (CreatorLikesNumReply) {}
     rpc EmitCreatorLikesNum(EmitCreatorLikesNumRequest) returns (CreatorLikesNumReply) {}
+}
+
+enum Status {
+    STATUS_REQUESTED = 0;
+    STATUS_ACCPETED = 1;
+    STATUS_REJECTED = 2;
 }
 
 enum Visibility {
@@ -42,7 +54,7 @@ message EventReply {
     string description = 7;
     string start = 8;
     Visibility visibility = 9;
-    bool is_finished = 10;
+    bool is_deleted = 10;
 }
 
 message EventsReply {
@@ -54,12 +66,20 @@ message LikeReply {
     string event_id = 1;
     string liker_id = 2;
     string created_at = 3;
-    string message = 4;
+    optional string message = 4;
+    optional string video = 5;
+    Status status = 6;
+    string channel_id = 7;
 }
 
 message LikesReply {
     repeated LikeReply likes = 1;
     string next = 2;
+}
+
+message DislikeReply {
+    string event_id = 1;
+    string disliker_id = 2;
 }
 
 message CreatorLikesNumReply {
@@ -88,7 +108,6 @@ message UpdateEventRequest {
     optional string description = 5;
     optional string start = 6;
     optional Visibility visibility = 7;
-    optional bool is_finished = 8;
 }
 
 message DeleteEventRequest {
@@ -102,7 +121,17 @@ message DeleteEventReply {
 message CreateLikeRequest {
     string event_id = 1;
     string liker_id = 2;
-    string message = 3;
+    optional string message = 3;
+    optional string video = 4;
+}
+
+message UpdateLikeRequest {
+    string event_id = 1;
+    string creator_id = 2;
+    string liker_id = 3;
+    Status status = 4;
+    optional string message = 5;
+    optional string video = 6;
 }
 
 message GetLikeRequest {
@@ -114,12 +143,24 @@ message GetEventLikesRequest {
     string event_id = 1;
     string cursor = 2;
     int32 limit = 3;
+
+    string creator_id = 4;
 }
 
 message GetUserLikesRequest {
     string liker_id = 1;
     string cursor = 2;
     int32 limit = 3;
+}
+
+message CreateDislikeRequest {
+    string event_id = 1;
+    string disliker_id = 2;
+}
+
+message GetDislikeRequest {
+    string event_id = 1;
+    string disliker_id = 2;
 }
 
 message GetEventsRequest {
@@ -134,7 +175,7 @@ message GetUserEventsRequest {
 }
 
 message SetSeenLikesRequest {
-    string event_id = 1;
+    string creator_id = 1;
 }
 message SetSeenLikesReply {
     string event_id = 1;

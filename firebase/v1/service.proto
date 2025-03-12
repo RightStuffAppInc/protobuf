@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package firebase;
+
+service Firebase {
+   rpc GetCustomToken(GetCustomTokenRequest) returns (TokenReply) {}
+}
+
+message TokenReply {
+    string id = 1;
+    string token = 2;
+}
+
+message GetCustomTokenRequest {
+    string id = 1;
+}

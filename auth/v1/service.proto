@@ -17,6 +17,8 @@ service Auth {
     rpc CreateAuthWithID(CreateAuthWithIDRequest) returns (AuthReply) {}
     rpc GetAuth(GetAuthRequest) returns (AuthReply) {}
     rpc DeleteAuth(DeleteAuthRequest) returns (DeleteAuthReply) {}
+
+    rpc DeleteUser(DeleteUserRequest) returns (DeleteUserReply) {}
     
     rpc GetPhone(GetPhoneRequest) returns (PhoneReply) {}
     rpc GetEmail(GetEmailRequest) returns (EmailReply) {}
@@ -107,6 +109,7 @@ message AuthsReply {
 
 message GetPhoneRequest {
     string user_id = 1;
+    bool allow_deleted = 2;
 }
 message PhoneReply {
     string user_id = 1;
@@ -116,6 +119,7 @@ message PhoneReply {
 
 message GetEmailRequest {
     string user_id = 1;
+    bool allow_deleted = 2;
 }
 message EmailReply {
     string user_id = 1;
@@ -175,3 +179,10 @@ message DeleteAuthRequest {
     }
 }
 message DeleteAuthReply {}
+
+message DeleteUserRequest {
+    string user_id = 1;
+}
+message DeleteUserReply {
+    string user_id = 1;
+}

@@ -9,19 +9,16 @@ service Discovery {
 
     rpc GetUsers(GetUsersRequest) returns (UsersReply) {}
     rpc GetEvents(GetEventsRequest) returns (EventsReply) {}
+    rpc GetPosts(GetPostsRequest) returns (PostsReply) {}
+    rpc GetCreatorPosts(GetCreatorPostsRequest) returns (PostsReply) {}
 
-    rpc SetSeen(SetSeenRequest) returns (SeenReply) {}
+    rpc AddView(AddViewRequest) returns (SeenReply) {}
     rpc ResetSeen(ResetSeenRequest) returns (SeenReply) {}
 }
 
 message Int {
-    int32 max = 1;
-    int32 min = 2;
-}
-message Coordinates {
-    double longitude = 1;
-    double latitude = 2;
-    string name = 3;
+    int32 min = 1;
+    int32 max = 2;
 }
 
 message GetUserRequest {
@@ -30,18 +27,18 @@ message GetUserRequest {
 
 message UpdateUserRequest {
     string user_id = 1;
-    optional Int age = 2;
-    optional Int distance = 3;
-    optional Coordinates location = 4;
-    optional bool is_hidden = 5;
+    optional bool is_hidden = 2;
+
+    optional Int age = 10;
+    optional Int distance = 11;
 }
 
 message UserReply {
     string user_id = 1;
-    Int age = 2;
-    Int distance = 3;
-    Coordinates location = 4;
-    bool is_hidden = 5;
+    bool is_hidden = 2;
+
+    Int age = 3;
+    Int distance = 4;
 }
 
 message GetUsersRequest {
@@ -57,6 +54,8 @@ message UsersReply {
 
 message GetEventsRequest {
     string user_id = 1;
+    string cursor = 2;
+    int32 limit = 3;
 }
 
 message EventsReply {
@@ -64,11 +63,29 @@ message EventsReply {
     string next = 2;
 }
 
+message GetPostsRequest {
+    string user_id = 1;
+    string cursor = 2;
+    int32 limit = 3;
+}
+
+message PostsReply {
+    repeated string post_ids = 1;
+    string next = 2;
+}
+
+message GetCreatorPostsRequest {
+    string user_id = 1;
+    string creator_id = 2;
+    string cursor = 3;
+    int32 limit = 4;
+}
+
 message SeenReply {}
 
-message SetSeenRequest {
-    string user_id = 1;
-    string other_id = 2;
+message AddViewRequest {
+    string viewer_id = 1;
+    string viewee_id = 2;
 }
 
 message ResetSeenRequest {
