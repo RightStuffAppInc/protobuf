@@ -25,6 +25,7 @@ message FAQReply {
 message FAQsReply {
     repeated FAQReply faqs = 1;
     string next = 2;
+    int32 total = 3;
 }
 
 message ReorderFAQRequest {
