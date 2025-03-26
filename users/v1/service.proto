@@ -40,6 +40,8 @@ message Metadata {
     string timestamp = 3;
     string created_at = 4;
     string updated_at = 5;
+    bool is_deleted = 6;
+    string deleted_at = 7;
 }
 
 enum Range {
@@ -113,6 +115,7 @@ message UserReply {
     Int age = 21;
     Int distance = 22;
     bool is_paused = 23;
+    bool is_allowed_birthday_update = 24;
     
     int32 animation = 100;
     int32 page = 101;
@@ -133,6 +136,7 @@ message CreateUserRequest {
 
 message GetUserRequest {
     string user_id = 1;
+    bool allow_deleted = 2;
 }
 
 message UpdateUserRequest {

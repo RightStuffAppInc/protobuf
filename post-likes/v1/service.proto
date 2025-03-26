@@ -10,6 +10,8 @@ service PostLikes {
     rpc UpdateLikeAsLiker(UpdateLikeAsLikerRequest) returns (LikeReply) {}
     rpc UpdateLikeAsCreator(UpdateLikeAsCreatorRequest) returns (LikeReply) {}
     rpc DeleteLike(DeleteLikeRequest) returns (DeleteLikeReply) {}
+
+    rpc EnsureLike(EnsureLikeRequest) returns (LikeReply) {}
     
     rpc GetLikes(GetLikesRequest) returns (LikesReply) {}
     rpc GetRequestedLikesByPost(GetRequestedLikesByPostRequest) returns (LikesReply) {}
@@ -17,6 +19,7 @@ service PostLikes {
     
     rpc CreateDislike(CreateDislikeRequest) returns (DislikeReply) {}
     rpc GetDislike(GetDislikeRequest) returns (DislikeReply) {}
+    rpc DeleteDislike(DeleteDislikeRequest) returns (DislikeReply) {}
     
     rpc GetDislikes(GetDislikesRequest) returns (DislikesReply) {}
     
@@ -28,6 +31,7 @@ service PostLikes {
     rpc SetSeenLikes(SetSeenLikesRequest) returns (SetSeenLikesReply) {}
 
     rpc ExportLikes(ExportRequest) returns (ExportReply) {}
+    rpc ExportDislikes(ExportRequest) returns (ExportReply) {}
 }
 
 enum Status {
@@ -138,6 +142,11 @@ message GetRequestedLikesTotalRequest {
     Query query = 1;
 }
 
+message EnsureLikeRequest {
+    string post_id = 2;
+    string liker_id = 4;
+}
+
 // DISLIKES //
 
 message DislikeReply {
@@ -146,6 +155,9 @@ message DislikeReply {
     // string creator_id = 3;
     string disliker_id = 4;
     string created_at = 5;
+    string updated_at = 6;
+
+    bool is_disliked = 100;
 }
 
 message DislikesReply {
@@ -155,7 +167,6 @@ message DislikesReply {
 
 message CreateDislikeRequest {
     string post_id = 2;
-    string creator_id = 3;
     string disliker_id = 4;
 }
 
@@ -181,6 +192,10 @@ message GetDislikesRequest {
     int32 limit = 3;
 }
 
+message DeleteDislikeRequest {
+    string post_id = 2;
+    string disliker_id = 4;
+}
 
 // TOTAL //
 

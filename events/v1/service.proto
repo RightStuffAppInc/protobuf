@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package events;
 
-import "export/v1/message.proto";
+import "export/v1/message.proto"; 
 
 service Events {
     rpc CreateEvent(CreateEventRequest) returns (EventReply) {}

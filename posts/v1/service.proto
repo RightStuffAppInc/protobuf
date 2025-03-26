@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package posts;
 
-import "export/v1/message.proto";
+import "export/v1/message.proto"; 
 
 service Posts {
     rpc CreatePost(CreatePostRequest) returns (PostReply) {}
@@ -11,10 +11,18 @@ service Posts {
     rpc DeletePost(DeletePostRequest) returns (PostReply) {}
 
     rpc GetPosts(GetPostsRequest) returns (PostsReply) {}
+    rpc GetDatePosts(GetDatePostsRequest) returns (PostsReply) {}
 
     rpc EmitPost(EmitPostRequest) returns (PostReply) {}
 
     rpc ExportPosts(ExportRequest) returns (ExportReply) {}
+}
+
+enum PostType {
+    TEXT = 0;
+    IMAGE = 1;
+    VIDEO = 2;
+    DATE = 3;
 }
 
 message Visibility {
@@ -44,6 +52,11 @@ message DatePost {
     string start = 4;
 }
 
+message Location {
+    double longitude = 1;
+    double latitude = 2;
+}
+
 message PostReply {
     string post_id = 1;
     string creator_id = 2;
@@ -56,6 +69,10 @@ message PostReply {
     string deleted_at = 12;
 
     Visibility visibility = 20;
+    optional int32 max_age = 21;
+    optional int32 min_age = 22;
+    optional int32 max_distance = 23;
+    optional Location location = 24;
 
     bool is_posted_by_admin = 30;
 
@@ -74,7 +91,12 @@ message PostsReply {
 
 message CreatePostRequest {
     string creator_id = 1;
+    optional string expires_at = 4;
     Visibility visibility = 20;
+    optional int32 max_age = 21;
+    optional int32 min_age = 22;
+    optional int32 max_distance = 23;
+    optional Location location = 24;
 
     oneof Payload {
         TextPost text = 100;
@@ -112,8 +134,14 @@ message UpdateDatePost {
 message UpdatePostRequest {
     string post_id = 1;
     string creator_id = 2;
+    
+    optional string expires_at = 4;
 
     optional Visibility visibility = 20;
+    optional int32 max_age = 21;
+    optional int32 min_age = 22;
+    optional int32 max_distance = 23;
+    optional Location location = 24;
 
     oneof Payload {
         UpdateTextPost text = 100;
@@ -132,10 +160,15 @@ message GetPostsRequest {
     message Query {
         optional string creator_id = 1;
         optional bool is_deleted = 2;
+        optional PostType post_type = 100;
     }
     Query query = 1;
     string cursor = 2;
     int32 limit = 3;
+}
+
+message GetDatePostsRequest {
+    string creator_id = 2;
 }
 
 message EmitPostRequest {
