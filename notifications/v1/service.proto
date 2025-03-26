@@ -11,6 +11,8 @@ service Notifications {
 
     rpc SendBadge(SendBadgeRequest) returns (BadgeReply) {}
 
+    rpc SendPush(SendPushRequest) returns (PushReply) {}
+
     rpc AnnouncementCreate(AnnouncementCreateRequest) returns (AnnouncementReply) {}
     rpc AnnouncementGet(AnnoucementGetRequest) returns (AnnouncementReply) {}
     rpc AnnouncementUpdate(AnnoucementUpdateRequest) returns (AnnouncementReply) {}
@@ -123,4 +125,58 @@ message NotificationReply {
 
 message NotificationGetRequest {
     string notification_id = 1;
+}
+
+// enum Category {
+//     LIKES = 0;
+//     MATCHES = 1;
+//     MESSAGES = 2;
+//     PROMOTIONS = 3;
+//     ANNOUNCEMENTS = 4;
+// }
+
+message DiscoveryLink {}
+
+message MatchLink {
+    string channel_id = 1;
+    string other_id = 2;
+}
+
+message MessageLink {
+    string channel_id = 1;
+}
+
+message PostLikeLink {
+    string post_id = 1;
+    string post_like_id = 2;
+    string liker_id = 3;
+    string path = 4;
+}
+
+message UserLikeLink {
+    string like_id = 1;
+}
+
+message SendPushRequest {
+    string user_id = 1;
+    string body = 2;
+
+    oneof link {
+        DiscoveryLink discovery = 100;
+        MatchLink match = 101;
+        MessageLink message = 102;
+        UserLikeLink user_like = 103;
+        PostLikeLink post_like = 104;
+    }
+}
+
+message PushReply {
+    string notification_id = 1;
+    string recipient_id = 2;
+    
+    string created_at = 10;
+    string updated_at = 11;
+    
+    string title = 100;
+    string body = 101;
 }
