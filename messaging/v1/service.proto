@@ -6,6 +6,7 @@ import "export/v1/message.proto";
 
 service Messaging {
     rpc CreateChannel(CreateChannelRequest) returns (ChannelReply) {}
+    rpc GetAdminChannel(GetAdminChannelRequest) returns (ChannelReply) {}
     rpc GetChannel(GetChannelRequest) returns (ChannelReply) {}
     rpc GetChannelByMemberIDs(GetChannelByMemberIDsRequest) returns (ChannelReply) {}
     rpc SetHiddenChannel(SetHiddenChannelRequest) returns (ChannelReply) {}
@@ -141,6 +142,10 @@ message CreateChannelRequest {
     repeated string member_ids = 1;
     Source source = 2;
     repeated Message messages = 3;
+}
+
+message GetAdminChannelRequest {
+    string user_id = 1;
 }
 
 message GetChannelRequest {
