@@ -10,6 +10,7 @@ service Discovery {
     rpc GetUsers(GetUsersRequest) returns (UsersReply) {}
     rpc GetEvents(GetEventsRequest) returns (EventsReply) {}
     rpc GetPosts(GetPostsRequest) returns (PostsReply) {}
+    rpc GetDates(GetDatesRequest) returns (PostsReply) {}
     rpc GetCreatorPosts(GetCreatorPostsRequest) returns (PostsReply) {}
 
     rpc AddView(AddViewRequest) returns (SeenReply) {}
@@ -72,6 +73,12 @@ message GetPostsRequest {
 message PostsReply {
     repeated string post_ids = 1;
     string next = 2;
+}
+
+message GetDatesRequest {
+    string user_id = 1;
+    string cursor = 2;
+    int32 limit = 3;
 }
 
 message GetCreatorPostsRequest {
