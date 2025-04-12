@@ -40,7 +40,8 @@ message CreateCredentialsReply {
     string access_key_id = 100;
     string secret_access_key = 101;
     string session_token = 102;
-    string expires_at = 103;
+    string client_request_token = 103;
+    string expires_at = 104;
 }
 
 message CreateSessionRequest {
