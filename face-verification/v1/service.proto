@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package face_verification;
+
+import "export/v1/message.proto";
+
+service FaceVerification {
+    rpc GetUser(GetUserRequest) returns (UserReply) {}
+    rpc UpdateUser(UpdateUserRequest) returns (UserReply) {}
+
+    rpc CreateCredentials(CreateCredentialsRequest) returns (CreateCredentialsReply) {}
+    rpc CreateSession(CreateSessionRequest) returns (CreateSessionReply) {}
+    rpc VerifySession(VerifySessionRequest) returns (VerifySessionReply) {}
+
+    rpc ExportUsers(ExportRequest) returns (ExportReply) {}
+}
+
+message UserReply {
+    string user_id = 1;
+    bool is_verified = 2;
+}
+
+message GetUserRequest {
+    string user_id = 1;
+}
+
+message UpdateUserRequest {
+    string user_id = 1;
+    bool is_verified = 2;
+}
+
+message CreateCredentialsRequest {
+    string user_id = 1;
+}
+
+message CreateCredentialsReply {
+    string credentials_id = 1;
+    string user_id = 2;
+
+    string access_key_id = 100;
+    string secret_access_key = 101;
+    string session_token = 102;
+    string expires_at = 103;
+}
+
+message CreateSessionRequest {
+    string user_id = 1;
+}
+
+message CreateSessionReply {
+    string session_id = 1;
+    string user_id = 2;
+}
+
+message VerifySessionRequest {
+    string session_id = 1;
+}
+
+message VerifySessionReply {
+    string session_id = 1;
+    string user_id = 2;
+}
