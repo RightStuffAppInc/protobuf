@@ -30,12 +30,14 @@ message UpdateUserRequest {
 }
 
 message CreateCredentialsRequest {
-    string user_id = 1;
+    string user_id = 2;
+    string session_id = 3;
 }
 
 message CreateCredentialsReply {
     string credentials_id = 1;
     string user_id = 2;
+    string session_id = 3;
 
     string access_key_id = 100;
     string secret_access_key = 101;
@@ -45,14 +47,12 @@ message CreateCredentialsReply {
 
 message CreateSessionRequest {
     string user_id = 2;
-    string credentials_id = 3;
 }
 
 message CreateSessionReply {
     string session_id = 1;
     string user_id = 2;
-    string credentials_id = 3;
-    string region = 4;
+    string region = 3;
 }
 
 message VerifySessionRequest {
