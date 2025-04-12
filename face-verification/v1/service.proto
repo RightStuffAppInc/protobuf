@@ -52,6 +52,7 @@ message CreateSessionReply {
     string session_id = 1;
     string user_id = 2;
     string credentials_id = 3;
+    string region = 4;
 }
 
 message VerifySessionRequest {
