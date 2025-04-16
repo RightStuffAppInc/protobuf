@@ -1,0 +1,173 @@
+syntax = "proto3";
+
+package referral;
+
+service Referral {
+    // User promo code operations
+    rpc GetUserPromoCode(GetUserPromoCodeRequest) returns (PromoCodeReply) {}
+    
+    // Referral program operations
+    rpc CreateReferralProgram(CreateReferralProgramRequest) returns (ReferralProgramReply) {}
+    rpc GetReferralProgram(GetReferralProgramRequest) returns (ReferralProgramReply) {}
+    // rpc ListActiveReferralPrograms(ListReferralProgramsRequest) returns (ReferralProgramsReply) {}
+    // rpc ListCompletedReferralPrograms(ListReferralProgramsRequest) returns (ReferralProgramsReply) {}
+    
+    // Referral operations
+    rpc RegisterReferral(RegisterReferralRequest) returns (ReferralReply) {}
+    // rpc GetUserReferrals(GetUserReferralsRequest) returns (UserReferralsReply) {}
+    
+    // Reward operations
+    rpc ClaimReward(ClaimRewardRequest) returns (ClaimRewardReply) {}
+    rpc GetUserRewards(GetUserRewardsRequest) returns (UserRewardsReply) {}
+    rpc GetReferralProgramProgress(GetReferralProgramProgressRequest) returns (ReferralProgramProgressReply) {}
+}
+
+// User promo code messages
+message GetUserPromoCodeRequest {
+    string user_id = 1;
+}
+
+message PromoCodeReply {
+    string user_id = 1;
+    string promo_code = 2;
+    string created_at = 3;
+    int32 total_referrals = 4;
+}
+
+// Referral program messages
+message CreateReferralProgramRequest {
+    string name = 1;
+    string description = 2;
+    int32 required_referrals = 3;  
+    RewardConfig reward_config = 4; 
+}
+
+message GetReferralProgramRequest {
+    string program_id = 1;
+}
+
+message ListReferralProgramsRequest {
+    string cursor = 1;
+    int32 limit = 2;
+}
+
+message ReferralProgramReply {
+    string program_id = 1;
+    string name = 2;
+    string description = 3;
+    int32 required_referrals = 4;  
+    RewardConfig reward_config = 5; 
+    string created_at = 6;         
+    string updated_at = 7;         
+    string status = 8;             
+}
+
+message ReferralProgramsReply {
+    repeated ReferralProgramReply programs = 1;
+    string next_cursor = 2;
+}
+
+message RewardConfig {
+    string reward_type = 1; 
+    string reward_value = 2; 
+    string currency = 3;     
+}
+
+// Referral operations messages
+message RegisterReferralRequest {
+    string referrer_id = 1;
+    string referee_id = 2;
+    string promo_code = 3;
+}
+
+message GetUserReferralsRequest {
+    string user_id = 1;
+    string cursor = 2;
+    int32 limit = 3;
+}
+
+message ReferralReply {
+    string referral_id = 1;
+    string referrer_id = 2;
+    string referee_id = 3;
+    string promo_code = 4;
+    string created_at = 5;
+    string program_id = 6; // ID of the program this referral counted towards, if any
+    string status = 7;     // PENDING, COMPLETED, INVALID
+}
+
+message UserReferralsReply {
+    repeated ReferralReply referrals = 1;
+    string next_cursor = 2;
+}
+
+// Reward operations messages
+message ClaimRewardRequest {
+    string user_id = 1;
+    string program_id = 2;
+}
+
+message GetUserRewardsRequest {
+    string user_id = 1;
+    string cursor = 2;
+    int32 limit = 3;
+}
+
+message GetActiveReferralProgramRequest {
+    // Empty request - user ID will be extracted from context
+}
+
+message GetReferralProgramProgressRequest {
+    string user_id = 1;
+}
+
+message ClaimRewardReply {
+    string reward_id = 1;
+    string user_id = 2;
+    string program_id = 3;
+    string reward_type = 4;
+    string reward_value = 5;
+    string card_code = 6;     // For gift cards
+    bool success = 7;
+    string message = 8;
+    string claimed_at = 9;
+}
+
+message UserRewardsReply {
+    repeated RewardHistory rewards = 1;
+    string next_cursor = 2;
+}
+
+message RewardHistory {
+    string reward_id = 1;
+    string user_id = 2;
+    string program_id = 3;
+    string program_name = 4;
+    string reward_type = 5;
+    string reward_value = 6;
+    string card_code = 7;
+    string claimed_at = 8;
+    repeated ReferralReply contributing_referrals = 9; // Referrals that contributed to this reward
+}
+
+message ReferralProgramProgressReply {
+    string program_id = 1;
+    string user_id = 2;
+    string program_name = 3;
+    int32 required_referrals = 4;
+    int32 current_referrals = 5;
+    bool eligible_for_reward = 6;
+    bool reward_claimed = 7;
+    repeated ReferralReply contributing_referrals = 8; // Referrals counting toward this program
+}
+message Reward {
+    string reward_id = 1;
+    string card_code = 2;
+    string claimed_at = 3;
+    repeated Invitee invitees = 4;
+}
+
+message Invitee {
+    string phone = 1;
+    string status = 3;
+}
