@@ -9,8 +9,6 @@ service Referral {
     // Referral program operations
     rpc CreateReferralProgram(CreateReferralProgramRequest) returns (ReferralProgramReply) {}
     rpc GetReferralProgram(GetReferralProgramRequest) returns (ReferralProgramReply) {}
-    // rpc ListActiveReferralPrograms(ListReferralProgramsRequest) returns (ReferralProgramsReply) {}
-    // rpc ListCompletedReferralPrograms(ListReferralProgramsRequest) returns (ReferralProgramsReply) {}
     
     // Referral operations
     rpc RegisterReferral(RegisterReferralRequest) returns (ReferralReply) {}
@@ -46,11 +44,6 @@ message GetReferralProgramRequest {
     string program_id = 1;
 }
 
-message ListReferralProgramsRequest {
-    string cursor = 1;
-    int32 limit = 2;
-}
-
 message ReferralProgramReply {
     string program_id = 1;
     string name = 2;
@@ -60,11 +53,6 @@ message ReferralProgramReply {
     string created_at = 6;         
     string updated_at = 7;         
     string status = 8;             
-}
-
-message ReferralProgramsReply {
-    repeated ReferralProgramReply programs = 1;
-    string next_cursor = 2;
 }
 
 message RewardConfig {
@@ -111,10 +99,6 @@ message GetUserRewardsRequest {
     string user_id = 1;
     string cursor = 2;
     int32 limit = 3;
-}
-
-message GetActiveReferralProgramRequest {
-    // Empty request - user ID will be extracted from context
 }
 
 message GetReferralProgramProgressRequest {
