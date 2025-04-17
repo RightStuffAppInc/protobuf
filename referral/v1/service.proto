@@ -18,6 +18,9 @@ service Referral {
     rpc ClaimReward(ClaimRewardRequest) returns (ClaimRewardReply) {}
     rpc GetUserRewards(GetUserRewardsRequest) returns (UserRewardsReply) {}
     rpc GetReferralProgramProgress(GetReferralProgramProgressRequest) returns (ReferralProgramProgressReply) {}
+    
+    // Banner display control
+    rpc ShouldShowReferralBanner(ShouldShowReferralBannerRequest) returns (ShouldShowReferralBannerResponse) {}
 }
 
 // User promo code messages
@@ -144,6 +147,15 @@ message ReferralProgramProgressReply {
     bool reward_claimed = 7;
     repeated ReferralReply contributing_referrals = 8; // Referrals counting toward this program
 }
+
+message ShouldShowReferralBannerRequest {
+    string user_id = 1;
+}
+
+message ShouldShowReferralBannerResponse {
+    bool should_show = 1;
+}
+
 message Reward {
     string reward_id = 1;
     string card_code = 2;
