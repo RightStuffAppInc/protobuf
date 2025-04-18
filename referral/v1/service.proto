@@ -81,10 +81,12 @@ message ReferralReply {
     string referral_id = 1;
     string referrer_id = 2;
     string referee_id = 3;
-    string promo_code = 4;
-    string created_at = 5;
-    string program_id = 6; // ID of the program this referral counted towards, if any
-    string status = 7;     // PENDING, COMPLETED, INVALID
+    string referee_first_name = 4;
+    string referee_last_name = 5;
+    string promo_code = 6;
+    string created_at = 7;
+    string program_id = 8;
+    string status = 9;
 }
 
 message UserReferralsReply {
